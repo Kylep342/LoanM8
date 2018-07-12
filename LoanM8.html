@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LoanM8</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Interactive, visual loan payment tool.">
+  <meta name="author" content="Kyle Pekosh">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Cairo" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="assets/js/Loan.js"></script>
+  <script type="text/javascript" src="assets/js/payLoan.js"></script>
+  <script type="text/javascript" src="assets/js/app.js"></script>
+</head>
+
+<body>
+  <div class="page-header">
+    <h1>LoanM8</h1>
+    <a href="http://www.github.com/Kylep342/LoanM8" target="_blank"><i class="fab fa-github" href="http://www.github.com/Kylep342"></i></a>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6" id="inputForm">
+        <form>
+          <div>
+            <label for="amount">Loan amount:</label>
+            <input type="number" id="amount" name="loanAmount">
+          </div>
+          <div>
+            <label for="rate">Interest rate:</label>
+            <input type="number" step="0.01" id="rate" name="interestRate">
+          </div>
+          <div>
+            <label for="firstDisbDate">First disbursement date:</label>
+            <input type="date" id="firstDisbDate" name="firstDisbursementDate">
+          </div>
+          <div>
+            <label for="secondDisbDate">Second disbursement date:</label>
+            <input type="date" id="secondDisbDate" name="secondDisbursementDate">
+          </div>
+          <div>
+            <label for="subsidized">Is the loan subsidized?</label>
+            <input type="checkbox" id="subsidized" name="subsidizedStatus" value=true>
+          </div>
+          <div>
+            <label for="gradDate">Graduation date:</label>
+            <input type="date" id="gradDate" name="graduationDate">
+          </div>
+          <div>
+            <label for="minpmt">Minimum payment:</label>
+            <input type="number" step="0.01" id="minpmt" name="minimumPayment">
+          </div>
+          <div>
+            <label for="autopay">Will you use autopay?</label>
+            <input type="checkbox" id="autopay" name="autopayStatus" value=true>
+          </div>
+          <div class="button">
+            <button class="btn btn-primary" type="button" onclick="plotPayments()">Plot your payments</button>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-6" id="paymentForm">
+        <form>
+          <div id="payments">
+            <div class="addInput">
+              <button class="btn btn-primary" type="button" onclick="addInputField()">Add payment amount</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div id="loanPaymentsGraph"></div>
+  <div id="loanLifetimeTotalsGraph"></div>
+  <div class="templates">
+    <div class="paymentInputTemplate">
+      <label>Payment amount:</label>
+      <input class="payAmt" type="number">
+    </div>
+  </div>
+</body>
+</html>

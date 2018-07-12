@@ -1,0 +1,16 @@
+body {
+  background-color: #ffffff;
+  font-family: 'Cairo', sans-serif;
+}
+.page-header {
+  font-size: 20px;
+  text-align: center;
+}
+
+a:link, a:visited, a:hover, a:active {
+  color: black;
+}
+
+.templates {
+  visibility: hidden;
+}
