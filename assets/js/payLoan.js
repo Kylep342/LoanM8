@@ -11,7 +11,7 @@ function pay(loanObj, pmtAmount) {
     loanObj.lifetimeInterestPaid += loanObj.interest;
     loanObj.interest = 0;
     if (pmtAmountToPrincipal > loanObj.principal) {
-      loanObj.lifetimePrincipalPaid += pmtAmountToPrincipal;
+      loanObj.lifetimePrincipalPaid += loanObj.principal;
       loanObj.principal = 0;
     } else {
       loanObj.principal -= pmtAmountToPrincipal;
