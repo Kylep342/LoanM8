@@ -25,6 +25,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6" id="inputForm">
+        <h3>Put your loan information here</h3>
         <form>
           <div>
             <label for="amount">Loan amount:</label>
@@ -64,8 +65,13 @@
         </form>
       </div>
       <div class="col-md-6" id="paymentForm">
+        <h3>Experiment with monthly payment values here</h3>
         <form>
           <div id="payments">
+            <div class="paymentInput">
+              <label>Payment amount:</label>
+              <input class="payAmt" type="number">
+            </div>
             <div class="addInput">
               <button class="btn btn-primary" type="button" onclick="addInputField()">Add payment amount</button>
             </div>
