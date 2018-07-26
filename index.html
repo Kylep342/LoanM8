@@ -14,6 +14,7 @@
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script type="text/javascript" src="assets/js/Loan.js"></script>
   <script type="text/javascript" src="assets/js/payLoan.js"></script>
+  <script type="text/javascript" src="assets/js/graphColor.js"></script>
   <script type="text/javascript" src="assets/js/app.js"></script>
 </head>
 
@@ -59,7 +60,7 @@
             <label for="autopay">Will you use autopay?</label>
             <input type="checkbox" id="autopay" name="autopayStatus" value=true>
           </div>
-          <div class="button">
+          <div id="plotPayments" class="button">
             <button class="btn btn-primary" type="button" onclick="plotPayments()">Plot your payments</button>
           </div>
         </form>
@@ -72,7 +73,7 @@
               <label>Payment amount:</label>
               <input class="payAmt" type="number">
             </div>
-            <div class="addInput">
+            <div id="addPayment" class="addInput">
               <button class="btn btn-primary" type="button" onclick="addInputField()">Add payment amount</button>
             </div>
           </div>
