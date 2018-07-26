@@ -1,7 +1,6 @@
 // set of functions to generate payment data of a loan to be graphed
 
 
-
 function pay(loanObj, pmtAmount) {
   if (pmtAmount < loanObj.interest) {
     loanObj.interest -= pmtAmount;
@@ -20,14 +19,17 @@ function pay(loanObj, pmtAmount) {
   };
 };
 
+
 function accrueInterest(loanObj) {
   loanObj.interest += parseFloat((loanObj.principal * loanObj.paymentDailyRate).toFixed(2));
 };
+
 
 function capitalizeInterest(loanObj) {
   loanObj.principal += loanObj.interest;
   loanObj.interest = 0;
 };
+
 
 function paymentSchedule(loanObj, pmtAmount) {
 

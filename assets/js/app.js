@@ -1,6 +1,16 @@
 // functions to extract form data from the DOM and graph a loan
 
 
+function addInputField() {
+  var $field = $(".paymentInputTemplate").clone();
+  $field.removeClass("paymentInputTemplate");
+  $field.addClass("paymentInput");
+
+  var $addInput = $(".addInput");
+  $addInput.before($field);
+};
+
+
 function createLoan(form) {
   /**
   */
@@ -28,7 +38,8 @@ function createLoan(form) {
   return loanObj;
 };
 
-function preparePlots(loanObj, pmt, plotlyPaymentsData, plotlyLifetimeTotalsData) {
+
+function preparePlots(loanObj, pmt, plotlyPaymentsData, plotlyLifetimeTotalsData, index) {
   /**
   */
   var paymentData = paymentSchedule(loanObj, pmt);
@@ -41,25 +52,22 @@ function preparePlots(loanObj, pmt, plotlyPaymentsData, plotlyLifetimeTotalsData
     x: paymentPlan.dates,
     y: paymentPlan.balance,
     name: graphLabel,
-    type: 'scatter'
+    type: 'scatter',
+    marker: {
+      color: graphColor(index)
+    }
   };
 
   plotlyPaymentsData.push(paymentPlot);
 
   plotlyLifetimeTotalsData[0].x.push(graphLabel);
   plotlyLifetimeTotalsData[0].y.push(lifetimeTotals.lifetimePrincipalPaid);
+  plotlyLifetimeTotalsData[0].marker.color.push(graphColor(index))
   plotlyLifetimeTotalsData[1].x.push(graphLabel);
   plotlyLifetimeTotalsData[1].y.push(lifetimeTotals.lifetimeInterestPaid);
+  plotlyLifetimeTotalsData[1].marker.color.push(graphColor(index))
 };
 
-function addInputField() {
-  var $field = $(".paymentInputTemplate").clone();
-  $field.removeClass("paymentInputTemplate");
-  $field.addClass("paymentInput");
-
-  var $addInput = $(".addInput");
-  $addInput.before($field);
-};
 
 function plotPayments() {
   /**
@@ -70,19 +78,26 @@ function plotPayments() {
       x: [],
       y: [],
       name: 'Principal',
-      type: 'bar'
+      type: 'bar',
+      marker: {
+        color: []
+      }
     },
     interests = {
       x: [],
       y: [],
       name: 'Interest',
-      type: 'bar'
+      type: 'bar',
+      marker: {
+        color: [],
+        opacity: 0.7
+      }
     }
   ];
 
   var paymentInputs = $("#payments").find(".payAmt");
   paymentInputs.each(function(index) {
-    preparePlots(createLoan($("#inputForm")), paymentInputs[index].value, plotlyPaymentsData, plotlyLifetimeTotalsData);
+    preparePlots(createLoan($("#inputForm")), paymentInputs[index].value, plotlyPaymentsData, plotlyLifetimeTotalsData, index);
   });
 
   var layout = {title: 'Loan Balances Over Time'};
@@ -91,7 +106,8 @@ function plotPayments() {
 
   var layout2 = {
     title: 'Total Amounts Paid Per Payment',
-    barmode: 'stack'
+    barmode: 'stack',
+    showlegend: false
   };
 
   Plotly.react('loanLifetimeTotalsGraph', plotlyLifetimeTotalsData, layout2);
