@@ -2,6 +2,12 @@
 
 
 function pay(loanObj, pmtAmount) {
+  /**
+  *
+  * This function handles logic for making loan payments
+  *
+  */
+
   if (pmtAmount < loanObj.interest) {
     loanObj.interest -= pmtAmount;
     loanObj.lifetimeInterestPaid += pmtAmount;
@@ -21,6 +27,16 @@ function pay(loanObj, pmtAmount) {
 
 
 function accrueInterest(loanObj) {
+  /**
+  *
+  * This function computes one day's accrual of interest for a loan
+  * It modifies the interest property of the loanObj
+  * Within the scope of this app, this function is only used during the repayment
+  * of a loan, due to the nuances that automatic electronic payments introduce
+  * to interest rates
+  *
+  */
+
   loanObj.interest += parseFloat((loanObj.principal * loanObj.paymentDailyRate).toFixed(2));
 };
 

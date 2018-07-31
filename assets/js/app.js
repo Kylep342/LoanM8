@@ -6,13 +6,16 @@ function addInputField() {
   $field.removeClass("paymentInputTemplate");
   $field.addClass("paymentInput");
 
-  var $addInput = $(".addInput");
-  $addInput.before($field);
+  var $firstInput = $("#firstInput");
+  $firstInput.after($field);
 };
 
 
 function createLoan(form) {
   /**
+  *
+  * This function parses the passed form and creates a loan object
+  *
   */
 
   const loanAmt = parseInt(form.find("#amount").val());
@@ -41,7 +44,11 @@ function createLoan(form) {
 
 function preparePlots(loanObj, pmt, plotlyPaymentsData, plotlyLifetimeTotalsData, index) {
   /**
+  *
+  * This function generates plotting data for Plotly to consume to render graphs
+  *
   */
+
   var paymentData = paymentSchedule(loanObj, pmt);
   var paymentPlan = paymentData.dailyBalanceData;
   var lifetimeTotals = paymentData.lifetimeData;
@@ -68,10 +75,17 @@ function preparePlots(loanObj, pmt, plotlyPaymentsData, plotlyLifetimeTotalsData
   plotlyLifetimeTotalsData[1].marker.color.push(graphColor(index))
 };
 
-
+// This is the main() or app() function
 function plotPayments() {
   /**
+  *
+  *
+  *
   */
+
+  const userLoan = createLoan($("#inputForm"));
+
+  // The plotly.*Data variables are arrays due to Plotly needing arrays for data
   var plotlyPaymentsData = [];
   var plotlyLifetimeTotalsData = [
     principals = {
@@ -95,20 +109,31 @@ function plotPayments() {
     }
   ];
 
+  // Process each payment input amount provided by user and insert data into containers
   var paymentInputs = $("#payments").find(".payAmt");
   paymentInputs.each(function(index) {
-    preparePlots(createLoan($("#inputForm")), paymentInputs[index].value, plotlyPaymentsData, plotlyLifetimeTotalsData, index);
+    preparePlots(userLoan, paymentInputs[index].value, plotlyPaymentsData, plotlyLifetimeTotalsData, index);
   });
 
-  var layout = {title: 'Loan Balances Over Time'};
+  // for the Payments plot: Prepare the layout object and then plot
+  var paymentsLayout = {
+    title: 'Loan Balances Over Time',
+    yaxis: {
+      tickprefix: '$',
+      showtickprefix: 'first'
+    }
+  };
+  Plotly.react('loanPaymentsGraph', plotlyPaymentsData, paymentsLayout);
 
-  Plotly.react('loanPaymentsGraph', plotlyPaymentsData, layout);
 
-  var layout2 = {
+  var lifetimeLayout = {
     title: 'Total Amounts Paid Per Payment',
     barmode: 'stack',
-    showlegend: false
+    showlegend: false,
+    yaxis: {
+      tickprefix: '$',
+      showtickprefix: 'first'
+    }
   };
-
-  Plotly.react('loanLifetimeTotalsGraph', plotlyLifetimeTotalsData, layout2);
+  Plotly.react('loanLifetimeTotalsGraph', plotlyLifetimeTotalsData, lifetimeLayout);
 };
