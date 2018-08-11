@@ -1,16 +1,6 @@
 // functions to extract form data from the DOM and graph a loan
 
 
-function addInputField() {
-  var $field = $(".paymentInputTemplate").clone();
-  $field.removeClass("paymentInputTemplate");
-  $field.addClass("paymentInput");
-
-  var $firstInput = $("#firstInput");
-  $firstInput.after($field);
-};
-
-
 function createLoan(form) {
   /**
   *
