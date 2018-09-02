@@ -12,7 +12,7 @@ function pay(loanObj, pmtAmount) {
     loanObj.interest -= pmtAmount;
     loanObj.lifetimeInterestPaid += pmtAmount;
   } else {
-    var pmtAmountToPrincipal = pmtAmount - loanObj.interest;
+    const pmtAmountToPrincipal = pmtAmount - loanObj.interest;
     loanObj.lifetimeInterestPaid += loanObj.interest;
     loanObj.interest = 0;
     if (pmtAmountToPrincipal > loanObj.principal) {
@@ -37,7 +37,7 @@ function accrueInterest(loanObj) {
   *
   */
 
-  loanObj.interest += parseFloat((loanObj.principal * loanObj.paymentDailyRate).toFixed(2));
+  loanObj.interest += parseFloat((loanObj.principal * loanObj.dailyRate).toFixed(2));
 };
 
 
@@ -68,9 +68,7 @@ function paymentSchedule(loanObj, pmtAmount) {
     }
   };
 
-  dummyLoan.interest = dummyLoan.interestAtBeginRepayment;
   capitalizeInterest(dummyLoan);
-  var days = Math.round((dummyLoan.endRepaymentDate - dummyLoan.beginRepaymentDate) / 86400000);
 
   var startDate = new Date(dummyLoan.beginRepaymentDate.valueOf() - (1 * 86400000));
   var startDateStr = startDate.toISOString();
@@ -79,8 +77,8 @@ function paymentSchedule(loanObj, pmtAmount) {
   loanPaymentData.dailyBalanceData.principal.push(dummyLoan.principal);
   loanPaymentData.dailyBalanceData.balance.push(dummyLoan.interest + dummyLoan.principal);
 
-  var day;
-  for (day = 0; day < days; day++) {
+  var day = 0;
+  while (true) {
     var date = new Date(dummyLoan.beginRepaymentDate.valueOf() + (day * 86400000));
     var dateStr = date.toISOString();
     accrueInterest(dummyLoan);
@@ -95,6 +93,7 @@ function paymentSchedule(loanObj, pmtAmount) {
       loanPaymentData.finalPaymentDate = date;
       break;
     };
+  day++;
   };
   loanPaymentData.lifetimeData.lifetimeInterestPaid = Math.round(dummyLoan.lifetimeInterestPaid, 2);
   loanPaymentData.lifetimeData.lifetimePrincipalPaid = Math.round(dummyLoan.lifetimePrincipalPaid, 2);
