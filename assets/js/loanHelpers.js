@@ -47,6 +47,90 @@ function capitalizeInterest(loanObj) {
 };
 
 
+function determineBeginRepaymentDate(gradDate) {
+  if (gradDate.getMonth() < 6) {
+    beginRepaymentDate = new Date(
+      gradDate.getFullYear(),
+      gradDate.getMonth() + 6,
+      gradDate.getDate()
+    );
+  } else {
+    beginRepaymentDate = new Date(
+      gradDate.getFullYear() + 1,
+      gradDate.getMonth() - 6,
+      gradDate.getDate()
+    );
+  };
+  return beginRepaymentDate;
+};
+
+
+function calculateBalanceAtBeginRepayment(
+  subsidized,
+  beginRepaymentDate,
+  firstDisbursementDate,
+  secondDisbursementDate,
+  borrowAmt,
+  borrowDailyRate
+) {
+  if (subsidized) {
+    return borrowAmt
+  } else {
+    firstDisbursementDays = Math.round((beginRepaymentDate - firstDisbursementDate) / 86400000);
+    secondDisbursementDays = Math.round((beginRepaymentDate - secondDisbursementDate) / 86400000);
+    interest = parseFloat((((1 / 2) * borrowAmt * borrowDailyRate * firstDisbursementDays) + ((1 / 2) * borrowAmt * borrowDailyRate * secondDisbursementDays)).toFixed(2));
+    return (borrowAmt + interest);
+  };
+};
+
+
+function fastForwardLoan(form) {
+  /**
+   *
+   * This function is used to transform borrowing data for loans that have
+   * yet to enter repayment.
+   *
+   * Arguments:
+   * form [HTML form object]: A form object containing all necessary loan data
+   *
+   * Returns:
+   * loan [Loan]: a Loan.js Loan object.
+   *
+   */
+
+  const borrowAmt = parseFloat(form.find("#amount").val());
+  const borrowRate = parseFloat(form.find("#rate").val());
+  const borrowMathRate = borrowRate / 100;
+  const borrowDailyRate = borrowMathRate / 365.25;
+  const firstDisbDate = new Date(form.find("#firstDisbDate").val());
+  const secondDisbDate = new Date(form.find("#secondDisbDate").val());
+  const subsidized = form.find("#subsidized").prop('checked');
+  const gradDate = new Date(form.find("#gradDate").val());
+  const autopay = form.find("#autopay").prop('checked');
+  // const minpmt = parseFloat(form.find("#minpmt").val());
+  const beginRepaymentDate = determineBeginRepaymentDate(gradDate);
+
+  console.log(borrowAmt, borrowRate, firstDisbDate, secondDisbDate, subsidized, gradDate, autopay, beginRepaymentDate);
+
+
+  if (subsidized) {
+    const paymentRate = (autopay) ? borrowRate - .25 : borrowRate;
+    return new Loan(borrowAmt, paymentRate, null, beginRepaymentDate);
+  } else {
+    const balanceAtRepayment = calculateBalanceAtBeginRepayment(
+      subsidized,
+      beginRepaymentDate,
+      firstDisbDate,
+      secondDisbDate,
+      borrowAmt,
+      borrowDailyRate
+    );
+  const paymentRate = (autopay) ? borrowRate - .25 : borrowRate;
+  return new Loan(balanceAtRepayment, paymentRate, null, beginRepaymentDate);
+  };
+};
+
+
 function paymentSchedule(loanObj, pmtAmount) {
 
   // create a copy of the passed loanObj, as some values are changed
@@ -78,7 +162,7 @@ function paymentSchedule(loanObj, pmtAmount) {
   loanPaymentData.dailyBalanceData.balance.push(dummyLoan.interest + dummyLoan.principal);
 
   var day = 0;
-  while (true) {
+  while (dummyLoan.interest != 0 && dummyLoan.principal != 0) {
     var date = new Date(dummyLoan.beginRepaymentDate.valueOf() + (day * 86400000));
     var dateStr = date.toISOString();
     accrueInterest(dummyLoan);
@@ -89,9 +173,6 @@ function paymentSchedule(loanObj, pmtAmount) {
     loanPaymentData.dailyBalanceData.interest.push(dummyLoan.interest);
     loanPaymentData.dailyBalanceData.principal.push(dummyLoan.principal);
     loanPaymentData.dailyBalanceData.balance.push(dummyLoan.interest + dummyLoan.principal);
-    if (dummyLoan.interest === 0 && dummyLoan.principal === 0) {
-      loanPaymentData.finalPaymentDate = date;
-      break;
     };
   day++;
   };

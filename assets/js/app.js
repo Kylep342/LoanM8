@@ -1,35 +1,35 @@
 // functions to extract form data from the DOM and graph a loan
 
 
-function createLoan(form) {
-  /**
-  *
-  * This function parses the passed form and creates a loan object
-  *
-  */
-
-  const loanAmt = parseInt(form.find("#amount").val());
-  const loanRate = parseFloat(form.find("#rate").val());
-  const firstDate = form.find("#firstDisbDate").val();
-  const secondDate = form.find("#secondDisbDate").val();
-  const subsidized = form.find("#subsidized").prop('checked');
-  const gradDate = form.find("#gradDate").val();
-  const autopay = form.find("#autopay").prop('checked');
-  const minpmt = parseFloat(form.find("#minpmt").val());
-
-  var loanObj = new Loan(
-    loanAmt,
-    loanRate,
-    firstDate,
-    secondDate,
-    subsidized,
-    gradDate,
-    autopay,
-    minpmt
-  );
-
-  return loanObj;
-};
+// function createLoan(form) {
+//   /**
+//   *
+//   * This function parses the passed form and creates a loan object
+//   *
+//   */
+//
+//   const loanAmt = parseInt(form.find("#amount").val());
+//   const loanRate = parseFloat(form.find("#rate").val());
+//   const firstDate = form.find("#firstDisbDate").val();
+//   const secondDate = form.find("#secondDisbDate").val();
+//   const subsidized = form.find("#subsidized").prop('checked');
+//   const gradDate = form.find("#gradDate").val();
+//   const autopay = form.find("#autopay").prop('checked');
+//   const minpmt = parseFloat(form.find("#minpmt").val());
+//
+//   var loanObj = new Loan(
+//     loanAmt,
+//     loanRate,
+//     firstDate,
+//     secondDate,
+//     subsidized,
+//     gradDate,
+//     autopay,
+//     minpmt
+//   );
+//
+//   return loanObj;
+// };
 
 
 function preparePlots(loanObj, pmt, plotlyPaymentsData, plotlyLifetimeTotalsData, index) {
@@ -73,7 +73,7 @@ function plotPayments() {
   *
   */
 
-  const userLoan = createLoan($("#inputForm"));
+  const userLoan = fastForwardLoan($("#inputForm"));
 
   // The plotly.*Data variables are arrays due to Plotly needing arrays for data
   var plotlyPaymentsData = [];

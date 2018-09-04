@@ -15,6 +15,7 @@ class Loan {
   ) {
     this.balance = balance;
     this.interest = 0;
+    this.previousPayDate = previousPayDate;
     this.beginRepaymentDate = (beginRepaymentDate === null) ? new Date() : beginRepaymentDate;
     this.rate = rate / 100;
     this.dailyRate = this.rate / 365.25;
@@ -27,7 +28,7 @@ class Loan {
   determinePrincipal() {
     const today = new Date();
     if (this.previousPayDate === null) {
-      return this.balance
+      return this.balance;
     } else {
       return (this.balance / (1 + (this.dailyRate * Math.abs(today.getDate() - this.previousPayDate.getDate()))));
     };
@@ -70,7 +71,7 @@ class Loan {
 //                  this.lifetimeInterestPaid = 0;
 //                  this.lifetimePrincipalPaid = 0;
 //   };
-// 
+//
 //   determineBeginRepaymentDate() {
 //     var repaymentDate;
 //     if (this.graduationDate.getMonth() < 6) {
@@ -88,7 +89,7 @@ class Loan {
 //     };
 //   return repaymentDate;
 //   };
-// 
+//
 //   calculateInterestAtBeginRepayment() {
 //     var firstDisbursementDays;
 //     var secondDisbursementDays;
@@ -104,4 +105,4 @@ class Loan {
 //     };
 //   };
 // };
-// 
+//
