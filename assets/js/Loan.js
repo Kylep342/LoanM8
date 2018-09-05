@@ -17,6 +17,7 @@ class Loan {
     this.interest = 0;
     this.previousPayDate = previousPayDate;
     this.beginRepaymentDate = (beginRepaymentDate === null) ? new Date() : beginRepaymentDate;
+    this.dueOn = this.beginRepaymentDate.getDate();
     this.rate = rate / 100;
     this.dailyRate = this.rate / 365.25;
     this.principal = this.determinePrincipal();
