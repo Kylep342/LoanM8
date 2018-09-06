@@ -136,8 +136,6 @@ function paymentSchedule(loanObj, pmtAmount) {
   // on the base object to compute loan payment data
   dummyLoan = Object.assign(Object.create(Object.getPrototypeOf(loanObj)), loanObj);
 
-  console.log(dummyLoan);
-
   // core data structure to contain graph points and lifetime payment totals
   loanPaymentData = {
     dailyBalanceData : {
