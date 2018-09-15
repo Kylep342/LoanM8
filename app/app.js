@@ -8,13 +8,13 @@ function preparePlots(loanObj, pmt, plotlyPaymentsData, plotlyLifetimeTotalsData
   *
   */
 
-  var paymentData = paymentSchedule(loanObj, pmt);
-  var paymentPlan = paymentData.dailyBalanceData;
-  var lifetimeTotals = paymentData.lifetimeData;
+  const paymentData = paymentSchedule(loanObj, pmt);
+  const paymentPlan = paymentData.dailyBalanceData;
+  const lifetimeTotals = paymentData.lifetimeData;
 
-  var graphLabel = '$' + String(pmt) + '/month';
+  const graphLabel = '$' + String(pmt) + '/month';
 
-  var paymentPlot = {
+  const paymentPlot = {
     x: paymentPlan.dates,
     y: paymentPlan.balance,
     name: graphLabel,
@@ -42,11 +42,11 @@ function plotPayments() {
   *
   */
 
-  const userLoan = fastForwardLoan($("#inputForm"));
+  const userLoan = $("#inBorrowingInputForm").length ? fastForwardLoan($("#inBorrowingInputForm")) : formToLoan($("#inPaymentInputForm"));
 
   // The plotly.*Data variables are arrays due to Plotly needing arrays for data
-  var plotlyPaymentsData = [];
-  var plotlyLifetimeTotalsData = [
+  let plotlyPaymentsData = [];
+  let plotlyLifetimeTotalsData = [
     principals = {
       x: [],
       y: [],
@@ -69,13 +69,13 @@ function plotPayments() {
   ];
 
   // Process each payment input amount provided by user and insert data into containers
-  var paymentInputs = $("#payments").find(".payAmt");
+  const paymentInputs = $("#payments").find(".payAmt");
   paymentInputs.each(function(index) {
-    preparePlots(userLoan, paymentInputs[index].value, plotlyPaymentsData, plotlyLifetimeTotalsData, index);
+    preparePlots(userLoan, parseFloat(paymentInputs[index].value), plotlyPaymentsData, plotlyLifetimeTotalsData, index);
   });
 
   // for the Payments plot: Prepare the layout object and then plot
-  var paymentsLayout = {
+  const paymentsLayout = {
     title: 'Loan Balances Over Time',
     yaxis: {
       tickprefix: '$',
@@ -85,7 +85,7 @@ function plotPayments() {
   Plotly.react('loanPaymentsGraph', plotlyPaymentsData, paymentsLayout);
 
 
-  var lifetimeLayout = {
+  const lifetimeLayout = {
     title: 'Total Amounts Paid Per Payment',
     barmode: 'stack',
     showlegend: false,
