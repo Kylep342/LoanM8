@@ -9,7 +9,6 @@ function preparePlots(loanObj, pmt, plotlyPaymentsData, plotlyLifetimeTotalsData
   */
 
   const paymentData = paymentSchedule(loanObj, pmt);
-  window.state = paymentData;
   const paymentPlan = paymentData.dailyBalanceData;
   const lifetimeTotals = paymentData.lifetimeData;
 
