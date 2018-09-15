@@ -1,5 +1,5 @@
 function graphColor(index) {
-  var digit = index % 4;
+  const digit = index % 4;
 
   switch (digit) {
       case 0:

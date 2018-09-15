@@ -22,11 +22,37 @@ div.graph {
   justify-content: center;
 }
 
+.left {
+  display: flex;
+  justify-content: flex-start;
+}
+
 .page-header {
   font-size: 20px;
   text-align: center;
 }
 
+.right {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .templates {
   visibility: hidden;
+}
+
+.no-padding {
+  padding: 0;
+}
+
+.float-left {
+  float: left;
+}
+
+.padding-left {
+  padding-left: 15px;
+}
+
+.thicc {
+  height: 250px;
 }

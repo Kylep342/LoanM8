@@ -1,37 +1,34 @@
-// Implementation of a Loan object in JavaScript
-// Currently, the loan object is implemented only for loans yet to enter repayment
-// Work is being done to generalize the object as an 'in payment' loan
-// add a fast forwarding function to catch up yet to enter repayment loans
-// and functionality to change the UI based upon a borrower's situation
-
+/**
+*
+* Implementation of a Loan object in JavaScript
+*
+* Notes - 2018/09/14
+*
+* Loan is a slim data container that supports multiple flows
+* to model repayment schedules. This is imperative to make the
+* UX easy for loan customers in the different phases of borrowing
+* and repayment.
+*
+*/
 
 
 class Loan {
   constructor (
-    balance,
+    principal,
+    interest,
     rate,
-    previousPayDate,
+    dueOn,
     beginRepaymentDate,
   ) {
-    this.balance = balance;
-    this.interest = 0;
-    this.previousPayDate = previousPayDate;
-    this.beginRepaymentDate = (beginRepaymentDate === null) ? new Date() : beginRepaymentDate;
-    this.dueOn = this.beginRepaymentDate.getDate();
-    this.rate = rate / 100;
-    this.dailyRate = this.rate / 365.25;
-    this.principal = this.determinePrincipal();
-    this.interest = this.balance - this.principal;
+    this.principal = principal
+    this.interest = interest
+    this.balance = this.principal + this.interest;
+    this.beginRepaymentDate = beginRepaymentDate;
+    this.dueOn = dueOn;
+    this.decimalRate = rate / 100;
+    this.dailyRate = this.decimalRate / 365.25;
+    // Values to track lifetime stats for bar chart
     this.lifetimePrincipalPaid = 0;
     this.lifetimeInterestPaid = 0;
-  };
-
-  determinePrincipal() {
-    const today = new Date();
-    if (this.previousPayDate === null) {
-      return this.balance;
-    } else {
-      return (this.balance / (1 + (this.dailyRate * Math.abs(today.getDate() - this.previousPayDate.getDate()))));
-    };
   };
 };
