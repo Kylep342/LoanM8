@@ -110,7 +110,6 @@ function calculateBalanceAtBeginRepayment(
 
 function determinePrincipal(balance, dailyRate, previousPayDate) {
   let today = new Date();
-  today.setHours(0, 0, 0, 0);
   return parseFloat((balance / (1 + (dailyRate * Math.round((today.valueOf() - previousPayDate.valueOf())/86400000)))).toFixed(2));
 };
 
@@ -207,28 +206,26 @@ function paymentSchedule(loanObj, pmtAmount) {
 
   capitalizeInterest(dummyLoan);
 
-  const startDate = new Date(dummyLoan.beginRepaymentDate.valueOf() - (1 * 86400000));
-  const startDateStr = startDate.toISOString();
+  let dateOfRepayment = new Date(dummyLoan.beginRepaymentDate.valueOf() - (1 * 86400000));
+  const startDateStr = dateOfRepayment.toISOString();
   loanPaymentData.dailyBalanceData.dates.push(startDateStr);
   loanPaymentData.dailyBalanceData.interest.push(dummyLoan.interest);
   loanPaymentData.dailyBalanceData.principal.push(dummyLoan.principal);
   loanPaymentData.dailyBalanceData.balance.push(dummyLoan.interest + dummyLoan.principal);
 
-  let day_of_repayment = 0;
   // TODO: determine if the || dummyLoan.interest != 0 can be dropped
   while (dummyLoan.principal != 0 || dummyLoan.interest != 0) {
-    const date = new Date(dummyLoan.beginRepaymentDate.valueOf() + (day_of_repayment * 86400000));
-    const dateStr = date.toISOString();
+    const dateStr = dateOfRepayment.toISOString();
     accrueInterest(dummyLoan);
     // if (day_of_repayment === 912) debugger;
-    if (date.getDate() === dummyLoan.dueOn) {
+    if (dateOfRepayment.getDate() === dummyLoan.dueOn) {
       pay(dummyLoan, pmtAmount);
     };
     loanPaymentData.dailyBalanceData.dates.push(dateStr);
     loanPaymentData.dailyBalanceData.interest.push(dummyLoan.interest);
     loanPaymentData.dailyBalanceData.principal.push(dummyLoan.principal);
     loanPaymentData.dailyBalanceData.balance.push(dummyLoan.interest + dummyLoan.principal);
-    day_of_repayment++;
+    dateOfRepayment.setDate(dateOfRepayment.getDate() + 1);
     };
   loanPaymentData.lifetimeData.lifetimeInterestPaid = parseFloat((dummyLoan.lifetimeInterestPaid).toFixed(2));
   loanPaymentData.lifetimeData.lifetimePrincipalPaid = parseFloat((dummyLoan.lifetimePrincipalPaid).toFixed(2));
