@@ -42,12 +42,6 @@ function accrueInterest(loanObj) {
 };
 
 
-function capitalizeInterest(loanObj) {
-  loanObj.principal += loanObj.interest;
-  loanObj.interest = 0;
-};
-
-
 function determineBeginRepaymentDate(gradDate) {
   /**
   *
@@ -204,8 +198,6 @@ function paymentSchedule(loanObj, pmtAmount) {
     }
   };
 
-  capitalizeInterest(dummyLoan);
-
   let dateOfRepayment = new Date(dummyLoan.beginRepaymentDate.valueOf() - (1 * 86400000));
   const startDateStr = dateOfRepayment.toISOString();
   loanPaymentData.dailyBalanceData.dates.push(startDateStr);
@@ -214,7 +206,7 @@ function paymentSchedule(loanObj, pmtAmount) {
   loanPaymentData.dailyBalanceData.balance.push(dummyLoan.interest + dummyLoan.principal);
 
   // TODO: determine if the || dummyLoan.interest != 0 can be dropped
-  while (dummyLoan.principal != 0 || dummyLoan.interest != 0) {
+  while (dummyLoan.principal != 0) {
     const dateStr = dateOfRepayment.toISOString();
     accrueInterest(dummyLoan);
     // if (day_of_repayment === 912) debugger;
