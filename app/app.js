@@ -50,6 +50,7 @@ function plotPayments() {
     principals = {
       x: [],
       y: [],
+      width: .4,
       name: 'Principal',
       type: 'bar',
       marker: {
@@ -59,6 +60,7 @@ function plotPayments() {
     interests = {
       x: [],
       y: [],
+      width: .4,
       name: 'Interest',
       type: 'bar',
       marker: {
