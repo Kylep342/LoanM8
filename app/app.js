@@ -1,5 +1,9 @@
 // functions to extract form data from the DOM and graph a loan
 
+// Global namespace variable
+// Used to hold data for output to csv
+var LoanM8 = {}
+LoanM8.schedules = {}
 
 function preparePlots(loanObj, pmt, plotlyPaymentsData, plotlyLifetimeTotalsData, index) {
   /**
@@ -12,15 +16,22 @@ function preparePlots(loanObj, pmt, plotlyPaymentsData, plotlyLifetimeTotalsData
   const paymentPlan = paymentData.dailyBalanceData;
   const lifetimeTotals = paymentData.lifetimeData;
 
+  // Store daily payment data for download to csv
+  LoanM8.schedules[pmt] = {
+    'dates':      paymentPlan.dates,
+    'principal':  paymentPlan.princpal,
+    'interest':   paymentPlan.interest
+  }
+
   const graphLabel = '$' + String(pmt) + '/month';
 
   const paymentPlot = {
-    x: paymentPlan.dates,
-    y: paymentPlan.balance,
-    name: graphLabel,
-    type: 'scatter',
+    x:        paymentPlan.dates,
+    y:        paymentPlan.balance,
+    name:     graphLabel,
+    type:     'scatter',
     marker: {
-      color: graphColor(index)
+      color:  graphColor(index)
     }
   };
 
@@ -48,24 +59,24 @@ function plotPayments() {
   let plotlyPaymentsData = [];
   let plotlyLifetimeTotalsData = [
     principals = {
-      x: [],
-      y: [],
-      width: .4,
-      name: 'Principal',
-      type: 'bar',
+      x:        [],
+      y:        [],
+      width:    .4,
+      name:     'Principal',
+      type:     'bar',
       marker: {
-        color: []
+        color:  []
       }
     },
     interests = {
-      x: [],
-      y: [],
-      width: .4,
-      name: 'Interest',
-      type: 'bar',
+      x:          [],
+      y:          [],
+      width:      .4,
+      name:       'Interest',
+      type:       'bar',
       marker: {
-        color: [],
-        opacity: 0.7
+        color:    [],
+        opacity:  0.7
       }
     }
   ];
@@ -73,14 +84,14 @@ function plotPayments() {
   // Process each payment input amount provided by user and insert data into containers
   const paymentInputs = $("#payments").find(".payAmt");
   paymentInputs.each(function(index) {
-    preparePlots(userLoan, parseFloat(paymentInputs[index].value), plotlyPaymentsData, plotlyLifetimeTotalsData, index);
+    paymentInputs[index].value === "" ? void(0) : preparePlots(userLoan, parseFloat(paymentInputs[index].value), plotlyPaymentsData, plotlyLifetimeTotalsData, index);
   });
 
   // for the Payments plot: Prepare the layout object and then plot
   const paymentsLayout = {
-    title: 'Loan Balances Over Time',
+    title:            'Loan Balances Over Time',
     yaxis: {
-      tickprefix: '$',
+      tickprefix:     '$',
       showtickprefix: 'first'
     }
   };
@@ -88,11 +99,11 @@ function plotPayments() {
 
 
   const lifetimeLayout = {
-    title: 'Total Amounts Paid Per Payment',
-    barmode: 'stack',
-    showlegend: false,
+    title:            'Total Amounts Paid Per Payment',
+    barmode:          'stack',
+    showlegend:       false,
     yaxis: {
-      tickprefix: '$',
+      tickprefix:     '$',
       showtickprefix: 'first'
     }
   };

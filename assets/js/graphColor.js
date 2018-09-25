@@ -3,16 +3,16 @@ function graphColor(index) {
 
   switch (digit) {
       case 0:
-        color = '#2847d3';
+        color = '#4B966E';
         break;
       case 1:
-        color = '#2ff2aa';
+        color = '#477187';
         break;
       case 2:
-        color = '#f21f49';
+        color = '#D4A46A';
         break;
       case 3:
-        color = '#a229ce';
+        color = '#D4826A';
         break;
   };
   return color;
