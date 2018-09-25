@@ -1,4 +1,4 @@
-//
+// Collection of functions that modify the UI
 
 
 function addInputField() {
@@ -47,11 +47,11 @@ function generateBorrowForm() {
     <form id="inBorrowingInputForm">
       <div>
         <label for="amount">Loan amount:</label>
-        <input type="number" step="0.01" min="0" id="amount" name="loanAmount" placeholder="e.g. 5500">
+        <input type="number" step="0.01" min="0" oninput="this.value = Math.abs(this.value)" id="amount" name="loanAmount" placeholder="e.g. 5500">
       </div>
       <div>
         <label for="rate">Interest rate:</label>
-        <input type="number" step="0.01" min="0" id="rate" name="interestRate" placeholder="e.g. 5.25">
+        <input type="number" step="0.01" min="0" oninput="this.value = Math.abs(this.value)" id="rate" name="interestRate" placeholder="e.g. 5.25">
       </div>
       <div>
         <label for="firstDisbDate">First disbursement date::</label>
@@ -84,11 +84,11 @@ function generatePaymentForm() {
     <form id="inPaymentInputForm">
       <div>
         <label for="balance">Current balance:</label>
-        <input type="number" step="0.01" min="0" id="balance" name="loanBalance" placeholder="e.g. 7429.41">
+        <input type="number" step="0.01" min="0" oninput="this.value = Math.abs(this.value)" id="balance" name="loanBalance" placeholder="e.g. 7429.41">
       </div>
       <div>
         <label for="rate">Interest rate:</label>
-        <input type="number" step="0.01" min="0" id="rate" name="interestRate" placeholder="e.g. 5.25">
+        <input type="number" step="0.01" min="0" oninput="this.value = Math.abs(this.value)" id="rate" name="interestRate" placeholder="e.g. 5.25">
       </div>
       <div>
         <label for="previousPayDate">Last paid on:</label>
