@@ -1,6 +1,11 @@
 // Collection of functions that modify the UI
 
 
+function displayInputInterface() {
+  let $inputInterface = $(".input-interface");
+  $inputInterface.css('display', 'flex');
+}
+
 function addInputField() {
   let $field = $(".paymentInputTemplate").clone();
   $field.removeClass("paymentInputTemplate");
@@ -23,6 +28,7 @@ function toggleBorrowForm() {
     $("#inPaymentInputForm").remove();
     $("#formContainer").append(generateBorrowForm());
   } else if (!($("#inPaymentInputForm").length) && !($("#inBorrowingInputForm").length)) {
+    displayInputInterface();
     $("#formContainer").append(generateBorrowForm());
   } else {
     return;
@@ -35,6 +41,7 @@ function togglePaymentForm() {
     $("#inBorrowingInputForm").remove();
     $("#formContainer").append(generatePaymentForm());
   } else if (!($("#inPaymentInputForm").length) && !($("#inBorrowingInputForm").length)) {
+    displayInputInterface();
     $("#formContainer").append(generatePaymentForm());
   } else {
     return;
