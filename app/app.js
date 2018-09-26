@@ -19,7 +19,7 @@ function preparePlots(loanObj, pmt, plotlyPaymentsData, plotlyLifetimeTotalsData
   // Store daily payment data for download to csv
   LoanM8.schedules[pmt] = {
     'dates':      paymentPlan.dates,
-    'principal':  paymentPlan.princpal,
+    'principal':  paymentPlan.principal,
     'interest':   paymentPlan.interest
   }
 
@@ -54,6 +54,8 @@ function plotPayments() {
   */
 
   const userLoan = $("#inBorrowingInputForm").length ? fastForwardLoan($("#inBorrowingInputForm")) : formToLoan($("#inPaymentInputForm"));
+
+  LoanM8.loan = userLoan;
 
   // The plotly.*Data variables are arrays due to Plotly needing arrays for data
   let plotlyPaymentsData = [];
