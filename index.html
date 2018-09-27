@@ -34,11 +34,10 @@
 	      <button class="btn btn-primary" type="button" onclick="togglePaymentForm()">Repayment</button>
       </div>
     </div>
-  <div class="container input-interface">
-    <div class="row thicc" id="formDivContainer">
+    <div class="row thicc input-interface" id="formDivContainer">
       <div id="inputForm" class="col-md-6">
         <h3>Put your loan information here</h3>
-	      <div id="formContainer"></div>
+	       <div id="formContainer"></div>
       </div>
       <div id="paymentForm" class="col-md-6">
         <h3>Experiment with monthly payment amounts here</h3>
@@ -54,20 +53,21 @@
         </div>
         <div class="payments-form-modifiers-div">
           <div class="row padding-left">
-              <div id="addPayment" class="addInput float-left">
-                <button class="btn btn-primary" type="button" onclick="addInputField()">+</button>
-              </div>
-              <div id="rmPayment" class="rmInput">
-                <button class="btn btn-primary" type="button" onclick="rmInputField()">-</button>
-              </div>
+            <div id="addPayment" class="addInput float-left">
+              <button class="btn btn-primary" type="button" onclick="addInputField()">+</button>
+            </div>
+            <div id="rmPayment" class="rmInput">
+              <button class="btn btn-primary" type="button" onclick="rmInputField()">-</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div id="plotPayments" class="button center">
-      <button class="btn btn-lg btn-primary" type="button" onclick="plotPayments()">Plot your payments</button>
+    <div class="row">
+      <div id="plotPayments" class="button center input-interface">
+        <button class="btn btn-lg btn-primary" type="button" onclick="plotPayments()">Plot your payments</button>
+      </div>
     </div>
-  </div>
   </div>
   <div id="loanPaymentsGraph" class="graph"></div>
   <div id="loanLifetimeTotalsGraph" class="graph"></div>
