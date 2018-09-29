@@ -17,6 +17,10 @@ div.graph {
   margin-bottom: 10px;
 }
 
+.btn-width {
+  width: 50px;
+}
+
 .center {
   display: flex;
   justify-content: center;
@@ -42,7 +46,7 @@ div.graph {
 }
 
 .templates {
-  visibility: hidden;
+  display: none;
 }
 
 .no-padding {
