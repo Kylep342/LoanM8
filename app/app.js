@@ -199,6 +199,6 @@ function app() {
   LoanM8.lifetimeTotals = {};
   LoanM8.paymentValues = [];
   LoanM8.loan = null;
-  plotPaymets();
+  plotPayments();
   tabulateLifetimeTotals();
 }
