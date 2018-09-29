@@ -114,8 +114,8 @@ function formToLoan(form) {
   * Function to parse the paymentForm and return a new Loan
   *
   */
-  const balance = parseFloat(form.find("#balance").val());
-  const rate = parseFloat(form.find("#rate").val());
+  const balance = Math.abs(parseFloat(form.find("#balance").val()));
+  const rate = Math.abs(parseFloat(form.find("#rate").val()));
   const dailyRate = rate / (36525);
   const previousPayDate = new Date(form.find("#previousPayDate").val());
   const dueOn = previousPayDate.getDate();
@@ -140,8 +140,8 @@ function fastForwardLoan(form) {
    * loan [Loan]: a Loan.js Loan object.
    *
    */
-  const borrowAmt = parseFloat(form.find("#amount").val());
-  const borrowRate = parseFloat(form.find("#rate").val());
+  const borrowAmt = Math.abs(parseFloat(form.find("#amount").val()));
+  const borrowRate = Math.abs(parseFloat(form.find("#rate").val()));
   const borrowDecimalRate = borrowRate / 100;
   const borrowDailyRate = borrowDecimalRate / 365.25;
   const firstDisbDate = new Date(form.find("#firstDisbDate").val());
@@ -153,22 +153,16 @@ function fastForwardLoan(form) {
   const beginRepaymentDate = determineBeginRepaymentDate(gradDate);
   const dueOn = beginRepaymentDate.getDate();
 
-
-  if (subsidized) {
-    const paymentRate = (autopay) ? borrowRate - .25 : borrowRate;
-    return new Loan(borrowAmt, 0, paymentRate, dueOn, beginRepaymentDate);
-  } else {
-    const balanceAtRepayment = calculateBalanceAtBeginRepayment(
-      subsidized,
-      beginRepaymentDate,
-      firstDisbDate,
-      secondDisbDate,
-      borrowAmt,
-      borrowDailyRate
-    );
   const paymentRate = (autopay) ? borrowRate - .25 : borrowRate;
+  const balanceAtRepayment = calculateBalanceAtBeginRepayment(
+    subsidized,
+    beginRepaymentDate,
+    firstDisbDate,
+    secondDisbDate,
+    borrowAmt,
+    borrowDailyRate
+  );
   return new Loan(balanceAtRepayment, 0, paymentRate, dueOn, beginRepaymentDate);
-  };
 };
 
 
@@ -184,17 +178,17 @@ function paymentSchedule(loanObj, pmtAmount) {
   dummyLoan = Object.assign(Object.create(Object.getPrototypeOf(loanObj)), loanObj);
 
   // core data structure to contain graph points and lifetime payment totals
-  loanPaymentData = {
-    dailyBalanceData : {
-      dates : [],
-      interest : [],
-      principal : [],
-      balance : []
+  let loanPaymentData = {
+    dailyBalanceData: {
+      dates:     [],
+      interest:  [],
+      principal: [],
+      balance:   []
     },
-    lifetimeData : {
-      lifetimeInterestPaid : 0,
-      lifetimePrincipalPaid : 0,
-      finalPaymentDate : null
+    lifetimeData: {
+      lifetimeInterestPaid:  0,
+      lifetimePrincipalPaid: 0,
+      finalPaymentDate:      null
     }
   };
 
@@ -205,11 +199,9 @@ function paymentSchedule(loanObj, pmtAmount) {
   loanPaymentData.dailyBalanceData.principal.push(dummyLoan.principal);
   loanPaymentData.dailyBalanceData.balance.push(dummyLoan.interest + dummyLoan.principal);
 
-  // TODO: determine if the || dummyLoan.interest != 0 can be dropped
-  while (dummyLoan.principal != 0) {
+  while (true) {
     const dateStr = dateOfRepayment.toISOString();
     accrueInterest(dummyLoan);
-    // if (day_of_repayment === 912) debugger;
     if (dateOfRepayment.getDate() === dummyLoan.dueOn) {
       pay(dummyLoan, pmtAmount);
     };
@@ -217,6 +209,10 @@ function paymentSchedule(loanObj, pmtAmount) {
     loanPaymentData.dailyBalanceData.interest.push(dummyLoan.interest);
     loanPaymentData.dailyBalanceData.principal.push(dummyLoan.principal);
     loanPaymentData.dailyBalanceData.balance.push(dummyLoan.interest + dummyLoan.principal);
+    if (dummyLoan.principal === 0) {
+      loanPaymentData.lifetimeData.finalPaymentDate = dateOfRepayment;
+      break;
+    };
     dateOfRepayment.setDate(dateOfRepayment.getDate() + 1);
     };
   loanPaymentData.lifetimeData.lifetimeInterestPaid = parseFloat((dummyLoan.lifetimeInterestPaid).toFixed(2));
