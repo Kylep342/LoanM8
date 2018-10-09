@@ -26,6 +26,10 @@ div.graph {
   justify-content: center;
 }
 
+.float-left {
+  float: left;
+}
+
 .input-interface {
   display: none;
 }
@@ -33,6 +37,14 @@ div.graph {
 .left {
   display: flex;
   justify-content: flex-start;
+}
+
+.no-padding {
+  padding: 0;
+}
+
+.padding-left {
+  padding-left: 15px;
 }
 
 .page-header {
@@ -47,20 +59,4 @@ div.graph {
 
 .templates {
   display: none;
-}
-
-.no-padding {
-  padding: 0;
-}
-
-.float-left {
-  float: left;
-}
-
-.padding-left {
-  padding-left: 15px;
-}
-
-.thicc {
-  height: 250px;
 }
