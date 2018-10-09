@@ -163,7 +163,7 @@ function tabulateLifetimeTotals() {
         let descriptor = (monthsDiff < 0) ? 'later' : 'sooner';
         let lifetimeTimeDiff = (
           `${Math.floor(Math.abs(monthsDiff) / 12)} years, ` +
-          `${Math.floor(Math.abs(monthsDiff) % 12)} months ${descriptor}`
+          `${Math.abs(monthsDiff) % 12} months ${descriptor}`
         );
 
         row.push(`<td>$${lifetimeAmtDiff}, ${lifetimeTimeDiff}`);
