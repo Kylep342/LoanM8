@@ -46,7 +46,7 @@ function togglePaymentForm() {
 };
 
 function generateBorrowForm() {
-  const formHTML = `
+  return `
     <form id="inBorrowingInputForm">
       <div>
         <label for="amount">Loan amount:</label>
@@ -78,12 +78,11 @@ function generateBorrowForm() {
       </div>
     </form>
   `;
-  return formHTML
 };
 
 
 function generatePaymentForm() {
-  const formHTML = `
+  return `
     <form id="inPaymentInputForm">
       <div>
         <label for="balance">Current balance:</label>
@@ -99,5 +98,4 @@ function generatePaymentForm() {
       </div>
     </form>
   `;
-  return formHTML
 };

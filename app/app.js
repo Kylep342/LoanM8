@@ -163,7 +163,7 @@ function tabulateLifetimeTotals() {
         let descriptor = (monthsDiff < 0) ? 'later' : 'sooner';
         let lifetimeTimeDiff = (
           `${Math.floor(Math.abs(monthsDiff) / 12)} years, ` +
-          `${Math.floor(Math.abs(monthsDiff) % 12)} months ${descriptor}`
+          `${Math.abs(monthsDiff) % 12} months ${descriptor}`
         );
 
         row.push(`<td>$${lifetimeAmtDiff}, ${lifetimeTimeDiff}`);
@@ -178,8 +178,13 @@ function tabulateLifetimeTotals() {
         Total Money and Time Comparison
       </h4>
     </div>
+    <div class="row center">
+      <p>
+        Compare payment amounts in the leftmost column with those across the top row.
+      </p>
+    </div>
     <div class="row">
-      <table class="table">
+      <table class="table table-bordered table-hover">
         <thead>
           <tr>${tableHeaders.join('')}</tr>
         </thead>
