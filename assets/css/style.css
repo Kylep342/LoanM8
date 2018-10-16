@@ -57,6 +57,10 @@ div.graph {
   justify-content: flex-end;
 }
 
+.table td, th {
+  text-align: center;
+}
+
 .templates {
   display: none;
 }

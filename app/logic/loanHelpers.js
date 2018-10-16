@@ -1,7 +1,7 @@
 // set of functions to generate payment data of a loan to be graphed
 
 
-function pay(loanObj, pmtAmount) {
+function pay(Loan, pmtAmount) {
   /**
   *
   * This function handles logic for making loan payments
@@ -9,36 +9,36 @@ function pay(loanObj, pmtAmount) {
   * primarily, when a payment is smaller than a loan's interest
   *
   */
-  if (pmtAmount <= loanObj.interest) {
-    loanObj.interest -= pmtAmount;
-    loanObj.lifetimeInterestPaid += pmtAmount;
+  if (pmtAmount <= Loan.interest) {
+    Loan.interest -= pmtAmount;
+    Loan.lifetimeInterestPaid += pmtAmount;
   } else {
-    const pmtAmountToPrincipal = pmtAmount - loanObj.interest;
-    loanObj.lifetimeInterestPaid += loanObj.interest;
-    loanObj.interest = 0;
-    if (pmtAmountToPrincipal >= loanObj.principal) {
-      loanObj.lifetimePrincipalPaid += loanObj.principal;
-      loanObj.principal = 0;
+    const pmtAmountToPrincipal = pmtAmount - Loan.interest;
+    Loan.lifetimeInterestPaid += Loan.interest;
+    Loan.interest = 0;
+    if (pmtAmountToPrincipal >= Loan.principal) {
+      Loan.lifetimePrincipalPaid += Loan.principal;
+      Loan.principal = 0;
     } else {
-      loanObj.lifetimePrincipalPaid += pmtAmountToPrincipal;
-      loanObj.principal -= pmtAmountToPrincipal;
+      Loan.lifetimePrincipalPaid += pmtAmountToPrincipal;
+      Loan.principal -= pmtAmountToPrincipal;
     };
   };
-  loanObj.balance = loanObj.principal + loanObj.interest;
+  Loan.balance = Loan.principal + Loan.interest;
 };
 
 
-function accrueInterest(loanObj) {
+function accrueInterest(Loan) {
   /**
   *
   * This function computes one day's accrual of interest for a loan
-  * It modifies the interest property of the loanObj
+  * It modifies the interest property of the Loan
   * Within the scope of this app, this function is only used during the repayment
   * of a loan, due to the nuances that automatic electronic payments introduce
   * to interest rates
   *
   */
-  loanObj.interest += parseFloat((loanObj.principal * loanObj.dailyRate).toFixed(2));
+  Loan.interest += parseFloat((Loan.principal * Loan.dailyRate).toFixed(2));
 };
 
 
@@ -166,16 +166,16 @@ function fastForwardLoan(form) {
 };
 
 
-function paymentSchedule(loanObj, pmtAmount) {
+function paymentSchedule(Loan, pmtAmount) {
   /**
   *
   * Function to generate graphing data
   *
   */
 
-  // create a copy of the passed loanObj, as some values are changed
+  // create a copy of the passed Loan, as some values are changed
   // on the base object to compute loan payment data
-  dummyLoan = Object.assign(Object.create(Object.getPrototypeOf(loanObj)), loanObj);
+  dummyLoan = Object.assign(Object.create(Object.getPrototypeOf(Loan)), Loan);
 
   // core data structure to contain graph points and lifetime payment totals
   let loanPaymentData = {
