@@ -7,12 +7,16 @@ function displayInputInterface() {
 }
 
 function addInputField() {
-  let $field = $(".paymentInputTemplate").clone();
-  $field.removeClass("paymentInputTemplate");
-  $field.addClass("paymentInput");
+  let input = (
+    `
+    <div class="paymentInput">
+      <label>Payment amount:</label>
+      <input class="payAmt" type="number" step="0.01" min="0">
+    </div>
+    `
+  );
 
-  const $lastInput = $(".paymentInput").last();
-  $lastInput.after($field);
+  $(".paymentInput").last().after($field);
 };
 
 function rmInputField() {
