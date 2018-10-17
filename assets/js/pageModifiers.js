@@ -16,7 +16,7 @@ function addInputField() {
     `
   );
 
-  $(".paymentInput").last().after($field);
+  $(".paymentInput").last().after(input);
 };
 
 function rmInputField() {
