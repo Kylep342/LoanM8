@@ -34,9 +34,19 @@ function pay(Loan, payment) {
       Loan.principal -= paymentToPrincipal;
     };
   };
+  Loan.lifetimeInterestPaid = parseFloat(Loan.lifetimeInterestPaid.toFixed(2));
+  Loan.lifetimePrincipalPaid = parseFloat(Loan.lifetimePrincipalPaid.toFixed(2));
   Loan.balance = Loan.principal + Loan.interest;
 };
 
+function recordLoanState(Loan, dateInSchedule, paymentsArray) {
+  paymentsArray.push([
+    dateInSchedule.toLocaleDateString(),
+    Loan.balance,
+    Loan.lifetimePrincipalPaid + Loan.lifetimeInterestPaid,
+    Loan.lifetimeInterestPaid
+  ]);
+}
 
 function accrueInterest(Loan) {
   /**
@@ -83,12 +93,23 @@ function paymentSchedule(Loan, payment) {
   loanPaymentData.dailyBalanceData.interest.push(dummyLoan.interest);
   loanPaymentData.dailyBalanceData.principal.push(dummyLoan.principal);
   loanPaymentData.dailyBalanceData.balance.push(dummyLoan.interest + dummyLoan.principal);
+  LoanM8.paymentsTables[payment] = []
+  recordLoanState(
+    dummyLoan,
+    dateOfRepayment,
+    LoanM8.paymentsTables[payment]
+  );
 
   while (true) {
     const dateStr = dateOfRepayment.toISOString();
     accrueInterest(dummyLoan);
     if (dateOfRepayment.getDate() === dummyLoan.dueOn) {
       pay(dummyLoan, payment);
+      recordLoanState(
+        dummyLoan,
+        dateOfRepayment,
+        LoanM8.paymentsTables[payment]
+      );
     };
     loanPaymentData.dailyBalanceData.dates.push(dateStr);
     loanPaymentData.dailyBalanceData.interest.push(dummyLoan.interest);

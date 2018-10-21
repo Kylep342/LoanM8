@@ -5,14 +5,16 @@
 var LoanM8 = {
   paymentValues:  [],
   schedules:      {},
-  lifetimeTotals: {}
+  lifetimeTotals: {},
+  paymentsTables: {}
 };
 
 function app() {
   // reset app state from previous run
+  LoanM8.paymentValues = [];
   LoanM8.schedules = {};
   LoanM8.lifetimeTotals = {};
-  LoanM8.paymentValues = [];
+  LoanM8.paymentsTables = {};
   LoanM8.loan = null;
   plotPayments();
   tabulateLifetimeTotals();
