@@ -15,6 +15,10 @@
   <script type="text/javascript" src="app/models/Loan.js"></script>
   <script type="text/javascript" src="app/logic/loanHelpers.js"></script>
   <script type="text/javascript" src="assets/js/graphColor.js"></script>
+  <script type="text/javascript" src="app/components/borrowingLoanDataInput.js"></script>
+  <script type="text/javascript" src="app/components/payingLoanDataInput.js"></script>
+  <script type="text/javascript" src="app/components/paymentInputInterface.js"></script>
+  <script type="text/javascript" src="app/components/appButton.js"></script>
   <script type="text/javascript" src="assets/js/pageModifiers.js"></script>
   <script type="text/javascript" src="app/components/graph.js"></script>
   <script type="text/javascript" src="app/components/tabulate.js"></script>
@@ -35,40 +39,8 @@
         <button class="btn btn-primary btn-width" type="button" onclick="toggleBorrowForm()">No</button>
       </div>
     </div>
-    <div class="row input-interface" id="formDivContainer">
-      <div id="inputForm" class="col-md-6">
-        <h3>Put your loan information here</h3>
-	       <div id="formContainer"></div>
-      </div>
-      <div id="paymentForm" class="col-md-6">
-        <h3>Experiment with monthly payment amounts here</h3>
-        <div class="payments-form-div">
-          <form>
-            <div id="payments">
-              <div id="firstInput" class="paymentInput">
-                <label>Payment amount:</label>
-                <input class="payAmt" type="number" step="0.01" min="0">
-              </div>
-            </div>
-          </form>
-        </div>
-        <div class="payments-form-modifiers-div">
-          <div class="row padding-left">
-            <div id="addPayment" class="addInput float-left">
-              <button class="btn btn-primary" type="button" onclick="addInputField()">+</button>
-            </div>
-            <div id="rmPayment" class="rmInput">
-              <button class="btn btn-primary" type="button" onclick="rmInputField()">-</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div id="plotPayments" class="button center input-interface">
-        <button class="btn btn-lg btn-primary" type="button" onclick="app()">Plot your payments</button>
-      </div>
-    </div>
+    <div class="row input-interface" id="formDivContainer"></div>
+    <div class="row plot-app-buttion" id="appButton"></div>
   </div>
   <div id="loanPaymentsGraph" class="graph"></div>
   <div id="loanLifetimeTotalsGraph" class="graph"></div>
