@@ -9,6 +9,36 @@ var LoanM8 = {
   paymentsTables: {}
 };
 
+function loadApp() {
+  if ($("body").length === 1) {
+    $("body").append(
+      `
+      <div class="page-header">
+        <h1>LoanM8</h1>
+        <a href="http://www.github.com/Kylep342/LoanM8" target="_blank"><i class="fab fa-github" href="http://www.github.com/Kylep342"></i></a>
+      </div>
+      <div class="container">
+        <div class="row" id="choose_form_interface">
+          <h3 class="center">Have you graduated school and begun paying your loans?</h3>
+          <div class="col-md-6 no-padding right">
+            <button class="btn btn-primary btn-width" type="button" onclick="togglePaymentForm()">Yes</button>
+          </div>
+          <div class="col-md-6 no-padding left">
+            <button class="btn btn-primary btn-width" type="button" onclick="toggleBorrowForm()">No</button>
+          </div>
+        </div>
+        <div class="row input-interface" id="formDivContainer"></div>
+        <div class="row plot-app-buttion" id="appButton"></div>
+      </div>
+      <div id="loanPaymentsGraph" class="graph"></div>
+      <div id="loanLifetimeTotalsGraph" class="graph"></div>
+      <div id="loanLifetimeTotalsTable" class="container"></div>
+      `
+    );
+  };
+  $(".appLoader").remove();
+}
+
 function app() {
   // reset app state from previous run
   LoanM8.paymentValues = [];
