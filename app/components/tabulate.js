@@ -24,7 +24,7 @@ function tabulateLifetimeTotals() {
         const lifetimeAmtDiff = (
           LoanM8.lifetimeTotals[pmtAmt].interest -
           LoanM8.lifetimeTotals[otherPmtAmt].interest
-        ).toFixed(2);
+        );
         const amtPrefix = lifetimeAmtDiff < 0 ? '-' : '';
 
         const payOff = LoanM8.lifetimeTotals[pmtAmt].finalPaymentDate;
@@ -43,7 +43,7 @@ function tabulateLifetimeTotals() {
           + `${descriptor}`
         );
 
-        row.push(`<td>${amtPrefix}$${Math.abs(lifetimeAmtDiff)}, ${lifetimeTimeDiff}`);
+        row.push(`<td>${amtPrefix}$${Math.abs(lifetimeAmtDiff).toFixed(2)}, ${lifetimeTimeDiff}`);
       }
     });
     tableRows.push(`<tr>${row.join('')}</tr>`);

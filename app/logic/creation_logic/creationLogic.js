@@ -1,47 +1,3 @@
-// set of functions to generate payment data of a loan to be graphed
-
-
-function pay(Loan, pmtAmount) {
-  /**
-  *
-  * This function handles logic for making loan payments
-  * Logic has been implemented to handle senseless use cases,
-  * primarily, when a payment is smaller than a loan's interest
-  *
-  */
-  if (pmtAmount <= Loan.interest) {
-    Loan.interest -= pmtAmount;
-    Loan.lifetimeInterestPaid += pmtAmount;
-  } else {
-    const pmtAmountToPrincipal = pmtAmount - Loan.interest;
-    Loan.lifetimeInterestPaid += Loan.interest;
-    Loan.interest = 0;
-    if (pmtAmountToPrincipal >= Loan.principal) {
-      Loan.lifetimePrincipalPaid += Loan.principal;
-      Loan.principal = 0;
-    } else {
-      Loan.lifetimePrincipalPaid += pmtAmountToPrincipal;
-      Loan.principal -= pmtAmountToPrincipal;
-    };
-  };
-  Loan.balance = Loan.principal + Loan.interest;
-};
-
-
-function accrueInterest(Loan) {
-  /**
-  *
-  * This function computes one day's accrual of interest for a loan
-  * It modifies the interest property of the Loan
-  * Within the scope of this app, this function is only used during the repayment
-  * of a loan, due to the nuances that automatic electronic payments introduce
-  * to interest rates
-  *
-  */
-  Loan.interest += parseFloat((Loan.principal * Loan.dailyRate).toFixed(2));
-};
-
-
 function determineBeginRepaymentDate(gradDate) {
   /**
   *
@@ -103,6 +59,18 @@ function calculateBalanceAtBeginRepayment(
 };
 
 function determinePrincipal(balance, dailyRate, previousPayDate) {
+  /**
+  *
+  * Function to determine how much of an in-payment Loan's balance is principal
+  *
+  * Params:
+  *   balance         [Float]:  The balance of the loan
+  *   dailyRate       [Float]:  The rate at which interest is calculated daily
+  *   previousPayDate [Date]:   The date the Loan was last paid
+  *
+  * Returns:
+  *   principal       [Float]:  The amount of the Loan's balance that is principal
+  */
   let today = new Date();
   return parseFloat((balance / (1 + (dailyRate * Math.round((today.valueOf() - previousPayDate.valueOf())/86400000)))).toFixed(2));
 };
@@ -163,59 +131,4 @@ function fastForwardLoan(form) {
     borrowDailyRate
   );
   return new Loan(balanceAtRepayment, 0, paymentRate, dueOn, beginRepaymentDate);
-};
-
-
-function paymentSchedule(Loan, pmtAmount) {
-  /**
-  *
-  * Function to generate graphing data
-  *
-  */
-
-  // create a copy of the passed Loan, as some values are changed
-  // on the base object to compute loan payment data
-  dummyLoan = Object.assign(Object.create(Object.getPrototypeOf(Loan)), Loan);
-
-  // core data structure to contain graph points and lifetime payment totals
-  let loanPaymentData = {
-    dailyBalanceData: {
-      dates:     [],
-      interest:  [],
-      principal: [],
-      balance:   []
-    },
-    lifetimeData: {
-      lifetimeInterestPaid:  0,
-      lifetimePrincipalPaid: 0,
-      finalPaymentDate:      null
-    }
-  };
-
-  let dateOfRepayment = new Date(dummyLoan.beginRepaymentDate.valueOf() - (1 * 86400000));
-  const startDateStr = dateOfRepayment.toISOString();
-  loanPaymentData.dailyBalanceData.dates.push(startDateStr);
-  loanPaymentData.dailyBalanceData.interest.push(dummyLoan.interest);
-  loanPaymentData.dailyBalanceData.principal.push(dummyLoan.principal);
-  loanPaymentData.dailyBalanceData.balance.push(dummyLoan.interest + dummyLoan.principal);
-
-  while (true) {
-    const dateStr = dateOfRepayment.toISOString();
-    accrueInterest(dummyLoan);
-    if (dateOfRepayment.getDate() === dummyLoan.dueOn) {
-      pay(dummyLoan, pmtAmount);
-    };
-    loanPaymentData.dailyBalanceData.dates.push(dateStr);
-    loanPaymentData.dailyBalanceData.interest.push(dummyLoan.interest);
-    loanPaymentData.dailyBalanceData.principal.push(dummyLoan.principal);
-    loanPaymentData.dailyBalanceData.balance.push(dummyLoan.interest + dummyLoan.principal);
-    if (dummyLoan.principal === 0) {
-      loanPaymentData.lifetimeData.finalPaymentDate = dateOfRepayment;
-      break;
-    };
-    dateOfRepayment.setDate(dateOfRepayment.getDate() + 1);
-    };
-  loanPaymentData.lifetimeData.lifetimeInterestPaid = parseFloat((dummyLoan.lifetimeInterestPaid).toFixed(2));
-  loanPaymentData.lifetimeData.lifetimePrincipalPaid = parseFloat((dummyLoan.lifetimePrincipalPaid).toFixed(2));
-  return loanPaymentData;
 };
