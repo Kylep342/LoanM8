@@ -45,6 +45,10 @@ function togglePaymentForm() {
   };
 };
 
+function closeModal() {
+  $(".modal").remove();
+}
+
 function insertPaymentInputsInterface() {
   $("#formDivContainer").append(generatePaymentInputsInterface());
 }

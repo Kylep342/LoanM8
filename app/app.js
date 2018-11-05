@@ -10,8 +10,7 @@ var LoanM8 = {
 };
 
 function loadApp() {
-  if ($("body").length === 1) {
-    $("body").append(
+  $("body").html(
       `
       <div class="page-header">
         <h1>LoanM8</h1>
@@ -34,9 +33,7 @@ function loadApp() {
       <div id="loanLifetimeTotalsGraph" class="graph"></div>
       <div id="loanLifetimeTotalsTable" class="container"></div>
       `
-    );
-  };
-  $(".appLoader").remove();
+  );
 }
 
 function app() {
