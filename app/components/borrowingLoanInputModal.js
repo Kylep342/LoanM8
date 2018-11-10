@@ -1,9 +1,14 @@
 function generateBorrowingFormModal() {
-  return `
+  document.body.innerHTML += `
     <div id="borrowingLoanInputModal" class="modal">
-      <div class="modal-content">
+      <div class="container modal-content">
+        <span class="section-label">Add a loan to borrow</span>
         <span class="close" onclick="closeModal()">&times;</span>
-        <form id="inBorrowingInputForm">
+        <form id="inBorrowingInputForm" class="modal-form">
+          <div>
+            <label for="name">Name:</label>
+            <input type="string" id="name" name="loanName">
+          </div>
           <div>
             <label for="amount">Loan amount:</label>
             <input type="number" step="0.01" min="0" id="amount" name="loanAmount" placeholder="e.g. 5500">
@@ -34,7 +39,7 @@ function generateBorrowingFormModal() {
           </div>
         </form>
         <div>
-          <button class="button"
+          <button class="btn btn-primary" onclick="addLoan(); closeModal();">Create</button>
         </div>
       </div>
     </div>

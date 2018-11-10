@@ -45,6 +45,10 @@ function togglePaymentForm() {
   };
 };
 
+function addLoan() {
+  console.log("Loan added!");
+}
+
 function closeModal() {
   $(".modal").remove();
 }

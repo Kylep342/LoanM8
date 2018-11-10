@@ -11,28 +11,60 @@ var LoanM8 = {
 
 function loadApp() {
   $("body").html(
-      `
+    `
+    <div class="appContainer">
       <div class="page-header">
         <h1>LoanM8</h1>
         <a href="http://www.github.com/Kylep342/LoanM8" target="_blank"><i class="fab fa-github" href="http://www.github.com/Kylep342"></i></a>
       </div>
       <div class="container">
-        <div class="row" id="choose_form_interface">
-          <h3 class="center">Have you graduated school and begun paying your loans?</h3>
-          <div class="col-md-6 no-padding right">
-            <button class="btn btn-primary btn-width" type="button" onclick="togglePaymentForm()">Yes</button>
+        <div class="row center">
+          <span class="section-label">Enter information about your loans and payments below</span>
+        </div>
+        <div class="row input-interface" id="formDivContainer">
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-3 padding-none">
+                <span class="section-label">Your loans</span>
+              </div>
+              <div class="col-md-3 padding-none">
+                <button class="btn btn-primary" onclick="generatePayingFormModal()">+</button>
+              </div>
+            </div>
+            <div id="loansList" class="row loansList"></div>
           </div>
-          <div class="col-md-6 no-padding left">
-            <button class="btn btn-primary btn-width" type="button" onclick="toggleBorrowForm()">No</button>
+          <div id="paymentForm" class="col-md-6">
+            <span class="section-label">Experiment with monthly payment amounts here</span>
+            <div class="payments-form-div">
+              <form>
+                <div id="payments">
+                  <div id="firstInput" class="paymentInput">
+                    <label>Payment amount:</label>
+                    <input class="payAmt" type="number" step="0.01" min="0">
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="payments-form-modifiers-div">
+              <div class="row padding-left">
+                <div id="addPayment" class="addInput float-left">
+                  <button class="btn btn-primary" type="button" onclick="addInputField()">+</button>
+                </div>
+                <div id="rmPayment" class="rmInput">
+                  <button class="btn btn-primary" type="button" onclick="rmInputField()">-</button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="row input-interface" id="formDivContainer"></div>
+
         <div class="row plot-app-buttion" id="appButton"></div>
       </div>
       <div id="loanPaymentsGraph" class="graph"></div>
       <div id="loanLifetimeTotalsGraph" class="graph"></div>
       <div id="loanLifetimeTotalsTable" class="container"></div>
-      `
+    </div>
+    `
   );
 }
 
