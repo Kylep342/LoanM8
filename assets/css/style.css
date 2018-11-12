@@ -34,6 +34,10 @@ div.graph {
   justify-content: center;
 }
 
+.center-child-text {
+  text-align: center;
+}
+
 .close {
     color: #aaa;
     float: right;

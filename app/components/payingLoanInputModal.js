@@ -1,8 +1,11 @@
-function generatePayingFormModal() {
+function renderPayingLoanFormModal() {
+  // close any other open modals
+  closeModal();
+  
   document.body.innerHTML += `
     <div id="payingLoanInputModal" class="modal">
       <div class="modal-content">
-        <span class="section-label">Add a loan in repayment</span>
+        <span class="section-label">Add a loan being repayed</span>
         <span class="close" onclick="closeModal()">&times;</span>
         <form id="inPaymentInputForm" class="modal-form">
           <div>

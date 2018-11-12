@@ -1,8 +1,11 @@
-function generateBorrowingFormModal() {
+function renderBorrowingLoanFormModal() {
+  // close any other modals
+  closeModal();
+  
   document.body.innerHTML += `
     <div id="borrowingLoanInputModal" class="modal">
       <div class="container modal-content">
-        <span class="section-label">Add a loan to borrow</span>
+        <span class="section-label">Add a loan being borrowed</span>
         <span class="close" onclick="closeModal()">&times;</span>
         <form id="inBorrowingInputForm" class="modal-form">
           <div>

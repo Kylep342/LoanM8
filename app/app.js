@@ -10,8 +10,7 @@ var LoanM8 = {
 };
 
 function loadApp() {
-  $("body").html(
-    `
+  document.body.innerHTML = `
     <div class="appContainer">
       <div class="page-header">
         <h1>LoanM8</h1>
@@ -24,17 +23,19 @@ function loadApp() {
         <div class="row input-interface" id="formDivContainer">
           <div class="col-md-6">
             <div class="row">
-              <div class="col-md-3 padding-none">
+              <div class="col-md-3 center-child-text padding-none">
                 <span class="section-label">Your loans</span>
               </div>
               <div class="col-md-3 padding-none">
-                <button class="btn btn-primary" onclick="generatePayingFormModal()">+</button>
+                <button class="btn btn-primary" onclick="renderLoanTypeChoiceModal()">+</button>
               </div>
             </div>
             <div id="loansList" class="row loansList"></div>
           </div>
           <div id="paymentForm" class="col-md-6">
-            <span class="section-label">Experiment with monthly payment amounts here</span>
+            <div>
+              <span class="section-label">Experiment with monthly payment amounts here</span>
+            </div>
             <div class="payments-form-div">
               <form>
                 <div id="payments">
@@ -57,15 +58,15 @@ function loadApp() {
             </div>
           </div>
         </div>
-
-        <div class="row plot-app-buttion" id="appButton"></div>
+        <div class="row plot-app-buttion center" id="appButton">
+          <button class="btn btn-primary" type="button">Project your loans</button>
+        </div>
       </div>
       <div id="loanPaymentsGraph" class="graph"></div>
       <div id="loanLifetimeTotalsGraph" class="graph"></div>
       <div id="loanLifetimeTotalsTable" class="container"></div>
     </div>
-    `
-  );
+    `;
 }
 
 function app() {
