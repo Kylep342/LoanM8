@@ -63,9 +63,11 @@ function plotPayments() {
   *
   */
 
-  const userLoan = $("#inBorrowingInputForm").length ? fastForwardLoan($("#inBorrowingInputForm")) : formToLoan($("#inPaymentInputForm"));
+  // const userLoan = $("#inBorrowingInputForm").length ? fastForwardLoan($("#inBorrowingInputForm")) : formToLoan($("#inPaymentInputForm"));
 
-  LoanM8.loan = userLoan;
+  // LoanM8.loan = userLoan;
+
+  userLoan = LoanM8.loan;
 
   // The plotly.*Data variables are arrays due to Plotly needing arrays for data
   let plotlyPaymentsData = [];

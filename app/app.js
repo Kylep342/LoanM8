@@ -59,7 +59,7 @@ function loadApp() {
           </div>
         </div>
         <div class="row plot-app-buttion center" id="appButton">
-          <button class="btn btn-primary" type="button">Project your loans</button>
+          <button class="btn btn-primary" type="button" onclick="app()">Project your loans</button>
         </div>
       </div>
       <div id="loanPaymentsGraph" class="graph"></div>
@@ -75,7 +75,7 @@ function app() {
   LoanM8.schedules = {};
   LoanM8.lifetimeTotals = {};
   LoanM8.paymentsTables = {};
-  LoanM8.loan = null;
+  // LoanM8.loan = null;
   plotPayments();
   tabulateLifetimeTotals();
 }

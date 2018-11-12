@@ -1,7 +1,7 @@
 function renderBorrowingLoanFormModal() {
   // close any other modals
   closeModal();
-  
+
   document.body.innerHTML += `
     <div id="borrowingLoanInputModal" class="modal">
       <div class="container modal-content">
@@ -42,7 +42,7 @@ function renderBorrowingLoanFormModal() {
           </div>
         </form>
         <div>
-          <button class="btn btn-primary" onclick="addLoan(); closeModal();">Create</button>
+          <button class="btn btn-primary" onclick="fastForwardLoan(); closeModal();">Create</button>
         </div>
       </div>
     </div>

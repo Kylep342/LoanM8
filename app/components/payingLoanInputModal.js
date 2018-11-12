@@ -1,7 +1,7 @@
 function renderPayingLoanFormModal() {
   // close any other open modals
   closeModal();
-  
+
   document.body.innerHTML += `
     <div id="payingLoanInputModal" class="modal">
       <div class="modal-content">
@@ -26,7 +26,7 @@ function renderPayingLoanFormModal() {
           </div>
         </form>
         <div>
-          <button class="btn btn-primary" onclick="addLoan(); closeModal();">Create</button>
+          <button class="btn btn-primary" onclick="formToLoan(); closeModal();">Create</button>
         </div>
       </div>
     </div>

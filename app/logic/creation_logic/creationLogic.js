@@ -76,12 +76,15 @@ function determinePrincipal(balance, dailyRate, previousPayDate) {
 };
 
 
-function formToLoan(form) {
+function formToLoan() {
   /**
   *
   * Function to parse the paymentForm and return a new Loan
   *
   */
+
+  const form = $("#payingLoanInputModal")
+
   const balance = Math.abs(parseFloat(form.find("#balance").val()));
   const rate = Math.abs(parseFloat(form.find("#rate").val()));
   const dailyRate = rate / (36525);
@@ -91,11 +94,12 @@ function formToLoan(form) {
   const interest = balance - principal;
   const beginRepaymentDate = new Date(new Date().setHours(0, 0, 0, 0));
 
-  return new Loan(principal, interest, rate, dueOn, beginRepaymentDate);
+  // return new Loan(principal, interest, rate, dueOn, beginRepaymentDate);
+  LoanM8.loan = new Loan(principal, interest, rate, dueOn, beginRepaymentDate);
 };
 
 
-function fastForwardLoan(form) {
+function fastForwardLoan() {
   /**
    *
    * This function is used to transform borrowing data for loans that have
@@ -108,6 +112,9 @@ function fastForwardLoan(form) {
    * loan [Loan]: a Loan.js Loan object.
    *
    */
+
+  const form = $("#borrowingLoanInputModal")
+
   const borrowAmt = Math.abs(parseFloat(form.find("#amount").val()));
   const borrowRate = Math.abs(parseFloat(form.find("#rate").val()));
   const borrowDecimalRate = borrowRate / 100;
@@ -130,5 +137,6 @@ function fastForwardLoan(form) {
     borrowAmt,
     borrowDailyRate
   );
-  return new Loan(balanceAtRepayment, 0, paymentRate, dueOn, beginRepaymentDate);
+  // return new Loan(balanceAtRepayment, 0, paymentRate, dueOn, beginRepaymentDate);
+  LoanM8.loan = new Loan(principal, interest, rate, dueOn, beginRepaymentDate)
 };
