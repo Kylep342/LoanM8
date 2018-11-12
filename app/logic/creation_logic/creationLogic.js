@@ -138,5 +138,5 @@ function fastForwardLoan() {
     borrowDailyRate
   );
   // return new Loan(balanceAtRepayment, 0, paymentRate, dueOn, beginRepaymentDate);
-  LoanM8.loan = new Loan(principal, interest, rate, dueOn, beginRepaymentDate)
+  LoanM8.loan = new Loan(balanceAtRepayment, 0, paymentRate, dueOn, beginRepaymentDate)
 };
