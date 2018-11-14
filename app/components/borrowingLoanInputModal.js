@@ -7,7 +7,7 @@ function renderBorrowingLoanFormModal() {
       <div class="container modal-content">
         <span class="section-label">Add a loan being borrowed</span>
         <span class="close" onclick="closeModal()">&times;</span>
-        <form id="inBorrowingInputForm" class="modal-form">
+        <form id="inBorrowingInputForm" class="margins">
           <div>
             <label for="name">Name:</label>
             <input type="string" id="name" name="loanName">
@@ -42,7 +42,9 @@ function renderBorrowingLoanFormModal() {
           </div>
         </form>
         <div>
-          <button class="btn btn-primary" onclick="fastForwardLoan(); closeModal();">Create</button>
+          <div>
+            <button class="btn btn-primary" onclick="fastForwardLoan(); closeModal();">Create</button>
+          </div>
         </div>
       </div>
     </div>

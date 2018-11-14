@@ -81,7 +81,7 @@ div.graph {
     width: 60%; /* Could be more or less, depending on screen size */
 }
 
-.modal-form {
+.margins {
   margin-top: 10px;
   margin-bottom: 10px;
 }

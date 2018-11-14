@@ -7,7 +7,7 @@ function renderPayingLoanFormModal() {
       <div class="modal-content">
         <span class="section-label">Add a loan being repayed</span>
         <span class="close" onclick="closeModal()">&times;</span>
-        <form id="inPaymentInputForm" class="modal-form">
+        <form id="inPaymentInputForm" class="margins">
           <div>
             <label for="name">Name:</label>
             <input type="string" id="name" name="loanName">
