@@ -12,11 +12,6 @@ div.graph {
   max-width: 1440px;
 }
 
-#addPayment, #rmPayment, #plotPaymets {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
 .btn-vert {
   vertical-align: middle;
 }

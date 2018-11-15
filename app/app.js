@@ -48,10 +48,10 @@ function loadApp() {
             </div>
             <div class="payments-form-modifiers-div">
               <div class="row padding-left">
-                <div id="addPayment" class="addInput float-left">
+                <div id="addPayment" class="addInput float-left margins">
                   <button class="btn btn-primary" type="button" onclick="addInputField()">+</button>
                 </div>
-                <div id="rmPayment" class="rmInput">
+                <div id="rmPayment" class="rmInput margins">
                   <button class="btn btn-primary" type="button" onclick="rmInputField()">-</button>
                 </div>
               </div>
