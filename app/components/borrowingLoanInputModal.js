@@ -42,8 +42,11 @@ function renderBorrowingLoanFormModal() {
           </div>
         </form>
         <div>
-          <div>
+          <div class="float-left">
             <button class="btn btn-primary" onclick="fastForwardLoan(); closeModal();">Create</button>
+          </div>
+          <div>
+            <button class="btn btn-primary" onclick="backModal(renderLoanTypeChoiceModal);">Back</button>
           </div>
         </div>
       </div>

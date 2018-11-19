@@ -25,8 +25,11 @@ function renderPayingLoanFormModal() {
             <input type="date" id="previousPayDate" name="previousPayDate">
           </div>
         </form>
-        <div>
+        <div class="float-left">
           <button class="btn btn-primary" onclick="formToLoan(); closeModal();">Create</button>
+        </div>
+        <div>
+          <button class="btn btn-primary" onclick="backModal(renderLoanTypeChoiceModal);">Back</button>
         </div>
       </div>
     </div>

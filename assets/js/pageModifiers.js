@@ -53,6 +53,11 @@ function closeModal() {
   $(".modal").remove();
 }
 
+function backModal(modalFunction) {
+  closeModal();
+  modalFunction();
+}
+
 function insertPaymentInputsInterface() {
   $("#formDivContainer").append(generatePaymentInputsInterface());
 }
