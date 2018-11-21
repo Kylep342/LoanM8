@@ -12,6 +12,10 @@ div.graph {
   max-width: 1440px;
 }
 
+.bold {
+  font-weight: bold;
+}
+
 .btn-vert {
   vertical-align: middle;
 }
@@ -48,6 +52,10 @@ div.graph {
 
 .float-left {
   float: left;
+}
+
+.hidden {
+  display: none;
 }
 
 .left {

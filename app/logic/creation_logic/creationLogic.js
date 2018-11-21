@@ -85,6 +85,7 @@ function formToLoan() {
 
   const form = $("#payingLoanInputModal")
 
+  const name = form.find("#name").val()
   const balance = Math.abs(parseFloat(form.find("#balance").val()));
   const rate = Math.abs(parseFloat(form.find("#rate").val()));
   const dailyRate = rate / (36525);
@@ -95,6 +96,20 @@ function formToLoan() {
   const beginRepaymentDate = new Date(new Date().setHours(0, 0, 0, 0));
 
   // return new Loan(principal, interest, rate, dueOn, beginRepaymentDate);
+
+  const loanElement = `
+  <div class="loan">
+    <span class="show bold">${name}</span>
+    <span class="show">$${balance} at ${rate}%</span>
+    <span class="hidden principal">${principal}</span>
+    <span class="hidden interest">${interest}</span>
+    <span class="hidden paymentRate">${rate}</span>
+    <span class="hidden dueOn">${dueOn}</span>
+    <span class="hidden principal">${beginRepaymentDate}</span>
+  </div>
+  `
+
+  $("#loansList").append(loanElement)
   LoanM8.loan = new Loan(principal, interest, rate, dueOn, beginRepaymentDate);
 };
 
@@ -115,6 +130,7 @@ function fastForwardLoan() {
 
   const form = $("#borrowingLoanInputModal")
 
+  const name = form.find("#name").val()
   const borrowAmt = Math.abs(parseFloat(form.find("#amount").val()));
   const borrowRate = Math.abs(parseFloat(form.find("#rate").val()));
   const borrowDecimalRate = borrowRate / 100;
@@ -138,5 +154,19 @@ function fastForwardLoan() {
     borrowDailyRate
   );
   // return new Loan(balanceAtRepayment, 0, paymentRate, dueOn, beginRepaymentDate);
+
+  const loanElement = `
+  <div class="loan">
+    <span class="show">${name}</span>
+    <span class="show">$${balanceAtRepayment} at ${paymentRate}%</span>
+    <span class="hidden principal">${balanceAtRepayment}</span>
+    <span class="hidden interest">0</span>
+    <span class="hidden paymentRate">${paymentRate}</span>
+    <span class="hidden dueOn">${dueOn}</span>
+    <span class="hidden principal">${beginRepaymentDate}</span>
+  </div>
+  `
+
+  $("#loansList").append(loanElement)
   LoanM8.loan = new Loan(balanceAtRepayment, 0, paymentRate, dueOn, beginRepaymentDate)
 };
