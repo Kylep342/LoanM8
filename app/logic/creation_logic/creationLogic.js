@@ -95,22 +95,21 @@ function formToLoan() {
   const interest = balance - principal;
   const beginRepaymentDate = new Date(new Date().setHours(0, 0, 0, 0));
 
-  // return new Loan(principal, interest, rate, dueOn, beginRepaymentDate);
-
   const loanElement = `
-  <div class="loan">
+  <div class="loanDisplay">
     <span class="show bold">${name}</span>
     <span class="show">$${balance} at ${rate}%</span>
-    <span class="hidden principal">${principal}</span>
-    <span class="hidden interest">${interest}</span>
-    <span class="hidden paymentRate">${rate}</span>
-    <span class="hidden dueOn">${dueOn}</span>
-    <span class="hidden principal">${beginRepaymentDate}</span>
+    <ul class="loan">
+      <li class="principal hidden">${principal}</li>
+      <li class="interest hidden">${interest}</li>
+      <li class="rate hidden">${rate}</li>
+      <li class="dueOn hidden">${dueOn}</li>
+      <li class="beginRepaymentDate hidden">${beginRepaymentDate}</li>
+    </ul>
   </div>
   `
 
   $("#loansList").append(loanElement)
-  LoanM8.loan = new Loan(principal, interest, rate, dueOn, beginRepaymentDate);
 };
 
 
@@ -121,10 +120,10 @@ function fastForwardLoan() {
    * yet to enter repayment.
    *
    * Arguments:
-   * form [HTML form object]: A form object containing all necessary loan data
+   * none
    *
    * Returns:
-   * loan [Loan]: a Loan.js Loan object.
+   * none (adds html element with data to page)
    *
    */
 
@@ -140,7 +139,6 @@ function fastForwardLoan() {
   const subsidized = form.find("#subsidized").prop('checked');
   const gradDate = new Date(form.find("#gradDate").val());
   const autopay = form.find("#autopay").prop('checked');
-  // const minpmt = parseFloat(form.find("#minpmt").val());
   const beginRepaymentDate = determineBeginRepaymentDate(gradDate);
   const dueOn = beginRepaymentDate.getDate();
 
@@ -153,20 +151,36 @@ function fastForwardLoan() {
     borrowAmt,
     borrowDailyRate
   );
-  // return new Loan(balanceAtRepayment, 0, paymentRate, dueOn, beginRepaymentDate);
 
   const loanElement = `
-  <div class="loan">
-    <span class="show">${name}</span>
+  <div class="loanDisplay">
+    <span class="show bold">${name}</span>
     <span class="show">$${balanceAtRepayment} at ${paymentRate}%</span>
-    <span class="hidden principal">${balanceAtRepayment}</span>
-    <span class="hidden interest">0</span>
-    <span class="hidden paymentRate">${paymentRate}</span>
-    <span class="hidden dueOn">${dueOn}</span>
-    <span class="hidden principal">${beginRepaymentDate}</span>
+    <ul class="loan">
+      <li class="principal hidden">${balanceAtRepayment}</li>
+      <li class="interest hidden">0</li>
+      <li class="rate hidden">${paymentRate}</li>
+      <li class="dueOn hidden">${dueOn}</li>
+      <li class="beginRepaymentDate hidden">${beginRepaymentDate}</li>
+    </ul>
   </div>
   `
 
   $("#loansList").append(loanElement)
-  LoanM8.loan = new Loan(balanceAtRepayment, 0, paymentRate, dueOn, beginRepaymentDate)
 };
+
+function createLoans() {
+  let loans = [];
+  const loanInputs = $('.loan');
+  loanInputs.each(function(index) {
+    principal = parseFloat(loanInputs[index].getElementsByClassName('principal')[0].innerText);
+    interest = parseFloat(loanInputs[index].getElementsByClassName('interest')[0].innerText);
+    rate = parseFloat(loanInputs[index].getElementsByClassName('rate')[0].innerText);
+    dueOn = parseInt(loanInputs[index].getElementsByClassName('dueOn')[0].innerText);
+    beginRepaymentDate = new Date(loanInputs[index].getElementsByClassName('beginRepaymentDate')[0].innerText);
+
+    loans.push(new Loan(principal, interest, rate, dueOn, beginRepaymentDate));
+  });
+
+  return loans;
+}
