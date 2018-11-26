@@ -14,12 +14,14 @@
 
 class Loan {
   constructor (
+    name,
     principal,
     interest,
     rate,
     dueOn,
     beginRepaymentDate,
   ) {
+    this.name = name
     this.principal = principal
     this.interest = interest
     this.balance = this.principal + this.interest;

@@ -40,12 +40,12 @@ function calculateBalanceAtBeginRepayment(
   * the day it is disbursed and the day it enters repayment
   * All parameters are attributes of a Loan object
   * Params:
-  *   subsizided [bool]: Flag denoting the loan's subsizied status
-  *   beginRepaymentDate [date]: The date when the loan enters repayment
-  *   firstDisbursementDate [date]: The date when the first half of the loan is disbursed to the school
-  *   secondDisbursementDate [date]: The date when the second half of hte loan is disbursed to the school
-  *   borrowAmt [float]: The amount of money loaned
-  *   borrowDailyRate [float]: The daily rate with which interest is calculated
+  *   subsizided              [bool]:   Flag denoting the loan's subsizied status
+  *   beginRepaymentDate      [date]:   The date when the loan enters repayment
+  *   firstDisbursementDate   [date]:   The date when the first half of the loan is disbursed to the school
+  *   secondDisbursementDate  [date]:   The date when the second half of hte loan is disbursed to the school
+  *   borrowAmt               [float]:  The amount of money loaned
+  *   borrowDailyRate         [float]:  The daily rate with which interest is calculated
   *
   */
   if (subsidized) {
@@ -157,6 +157,7 @@ function fastForwardLoan() {
     <span class="show bold">${name}</span>
     <span class="show">$${balanceAtRepayment} at ${paymentRate}%</span>
     <ul class="loan">
+      <li class="name hidden">${name}</li>
       <li class="principal hidden">${balanceAtRepayment}</li>
       <li class="interest hidden">0</li>
       <li class="rate hidden">${paymentRate}</li>
@@ -170,16 +171,28 @@ function fastForwardLoan() {
 };
 
 function createLoans() {
+  /**
+  *
+  * This function creates Loan objects in memory from loans created by the user
+  *
+  * Arguments:
+  *   none
+  *
+  * Returns:
+  *   none
+  *
+  */
   let loans = [];
   const loanInputs = $('.loan');
   loanInputs.each(function(index) {
+    name = loanInputs[index].getElementsByClassName('name')[0].innerText;
     principal = parseFloat(loanInputs[index].getElementsByClassName('principal')[0].innerText);
     interest = parseFloat(loanInputs[index].getElementsByClassName('interest')[0].innerText);
     rate = parseFloat(loanInputs[index].getElementsByClassName('rate')[0].innerText);
     dueOn = parseInt(loanInputs[index].getElementsByClassName('dueOn')[0].innerText);
     beginRepaymentDate = new Date(loanInputs[index].getElementsByClassName('beginRepaymentDate')[0].innerText);
 
-    loans.push(new Loan(principal, interest, rate, dueOn, beginRepaymentDate));
+    loans.push(new Loan(name, principal, interest, rate, dueOn, beginRepaymentDate));
   });
 
   return loans;

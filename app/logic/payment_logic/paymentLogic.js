@@ -61,16 +61,19 @@ function accrueInterest(Loan) {
   Loan.interest += parseFloat((Loan.principal * Loan.dailyRate).toFixed(2));
 };
 
-function paymentSchedule(Loan, payment) {
+function paymentSchedules(payment) {
   /**
   *
-  * Function to generate graphing data
+  * Function to generate payment data for loans
+  *
+  * Arguments:
+  *   payment [Int]:
   *
   */
 
-  // create a copy of the passed Loan, as some values are changed
-  // on the base object to compute loan payment data
-  dummyLoan = Object.assign(Object.create(Object.getPrototypeOf(Loan)), Loan);
+  // create an Array of Loans from those added by the user
+  // creation is done in this function to handle current need for mutability
+  loans = createLoans();
 
   // core data structure to contain graph points and lifetime payment totals
   let loanPaymentData = {
