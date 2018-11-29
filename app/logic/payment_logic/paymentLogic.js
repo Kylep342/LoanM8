@@ -40,6 +40,11 @@ function pay(Loan, payment) {
 };
 
 function recordLoanState(Loan, dateInSchedule, paymentsArray) {
+  /**
+  *
+  *
+  *
+  */
   paymentsArray.push([
     dateInSchedule.toLocaleDateString(),
     Loan.balance,
@@ -61,34 +66,40 @@ function accrueInterest(Loan) {
   Loan.interest += parseFloat((Loan.principal * Loan.dailyRate).toFixed(2));
 };
 
-function paymentSchedules(payment) {
+function paymentSchedules(loansArray, payment) {
   /**
   *
   * Function to generate payment data for loans
   *
   * Arguments:
-  *   payment [Int]:
+  *   loansArray  [Array]{Loan}:  Arr
+  *   payment     [Float]:        Pa
   *
   */
 
-  // create an Array of Loans from those added by the user
-  // creation is done in this function to handle current need for mutability
-  loans = createLoans();
+  // clone an Array of Loans from those added by the user
+  // this is done to handle current need for mutability
+  loans = loansArray.slice(0);
 
   // core data structure to contain graph points and lifetime payment totals
-  let loanPaymentData = {
-    dailyBalanceData: {
-      dates:     [],
-      interest:  [],
-      principal: [],
-      balance:   []
-    },
-    lifetimeData: {
-      lifetimeInterestPaid:  0,
-      lifetimePrincipalPaid: 0,
-      finalPaymentDate:      null
+  let loansPaymentData = {};
+
+  loans.forEach(function(loan) {
+    loansPaymentData[loan.name] = {
+      dailyBalanceData: {
+        dates:     [],
+        interest:  [],
+        principal: [],
+        balance:   []
+      },
+      lifetimeData: {
+        lifetimeInterestPaid:  0,
+        lifetimePrincipalPaid: 0,
+        finalPaymentDate:      null
+      },
+      paymentTables: {}
     }
-  };
+  });
 
   let dateOfRepayment = new Date(dummyLoan.beginRepaymentDate.valueOf() - (1 * 86400000));
   const startDateStr = dateOfRepayment.toISOString();

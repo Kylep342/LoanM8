@@ -170,7 +170,7 @@ function fastForwardLoan() {
   $("#loansList").append(loanElement)
 };
 
-function createLoans() {
+function createLoans(sort=true) {
   /**
   *
   * This function creates Loan objects in memory from loans created by the user
@@ -194,6 +194,19 @@ function createLoans() {
 
     loans.push(new Loan(name, principal, interest, rate, dueOn, beginRepaymentDate));
   });
+
+  // sort will be implemented to indicate whether the repayment method is
+  // snowball (false) or avalanche (true)
+  // It will indicate how to sort the array of loans in a convenient manner
+  if (sort) {
+    loans.sort(function(loan1, loan2) {
+      return loan2.rate - loan1.rate;
+    });
+  } else {
+    loans.sort(function(loan1, loan2) {
+      return loan1.balance - loan2.balance;
+    });
+  }
 
   return loans;
 }
