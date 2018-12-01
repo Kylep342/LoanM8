@@ -93,7 +93,11 @@ function formToLoan() {
   const dueOn = previousPayDate.getDate();
   const principal = determinePrincipal(balance, dailyRate, previousPayDate);
   const interest = balance - principal;
-  const beginRepaymentDate = new Date(new Date().setHours(0, 0, 0, 0));
+  const beginRepaymentDate = new Date(
+    previousPayDate.getFullYear(),
+    previousPayDate.getMonth() + 1,
+    previousPayDate.getDate()
+  );
 
   const loanElement = `
   <div class="loanDisplay">

@@ -84,6 +84,10 @@ function paymentSchedules(loansArray, payment) {
   // core data structure to contain graph points and lifetime payment totals
   let loansPaymentData = {};
 
+  let dateOfRepayment = new Date(loans[0].beginRepaymentDate.valueOf());
+  const startDateStr = dateOfRepayment.toISOString();
+
+  // Set up data container for payment info and initialize
   loans.forEach(function(loan) {
     loansPaymentData[loan.name] = {
       dailyBalanceData: {
@@ -97,22 +101,19 @@ function paymentSchedules(loansArray, payment) {
         lifetimePrincipalPaid: 0,
         finalPaymentDate:      null
       },
-      paymentTables: {}
+      paymentsTable: []
     }
-  });
-
-  let dateOfRepayment = new Date(dummyLoan.beginRepaymentDate.valueOf() - (1 * 86400000));
-  const startDateStr = dateOfRepayment.toISOString();
-  loanPaymentData.dailyBalanceData.dates.push(startDateStr);
-  loanPaymentData.dailyBalanceData.interest.push(dummyLoan.interest);
-  loanPaymentData.dailyBalanceData.principal.push(dummyLoan.principal);
-  loanPaymentData.dailyBalanceData.balance.push(dummyLoan.interest + dummyLoan.principal);
-  LoanM8.paymentsTables[payment] = []
-  recordLoanState(
-    dummyLoan,
-    dateOfRepayment,
-    LoanM8.paymentsTables[payment]
-  );
+    loansPaymentData[loan.name].dailyBalanceData.dates.push(startDateStr);
+    loansPaymentData[loan.name].dailyBalanceData.interest.push(loan.interest);
+    loansPaymentData[loan.name].dailyBalanceData.principal.push(loan.principal);
+    loansPaymentData[loan.name].dailyBalanceData.balance.push(loan.interest + loan.principal);
+    recordLoanState(
+      loan,
+      dateOfRepayment,
+      loansPaymentData[loan.name].paymentsTable
+    );
+  }
+);
 
   while (true) {
     const dateStr = dateOfRepayment.toISOString();
