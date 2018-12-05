@@ -66,6 +66,34 @@ function accrueInterest(Loan) {
   Loan.interest += parseFloat((Loan.principal * Loan.dailyRate).toFixed(2));
 };
 
+function allocatePayments(loansArray, payment) {
+  /**
+  *
+  * This function determines how much each loan should receive in payment
+  *
+  * Arguments:
+  *   loansArray  [Array]{Loan}:  Array of Loan objects
+  *   payment     [float]:        Total payment contribution for a month
+  *
+  */
+  let payments = [];
+  loansArray.forEach(function(loan) {
+    let amt = Math.min(loan.minPmt, loan.balance);
+    payments.push(amt);
+    payment -= amt;
+  });
+  /**
+  * after meeting minimum payment obilgations for each loan
+  * add any remaming available payment to the first loan's payment
+  * as long as it makes sense
+  * (while there is one loan with a balance greater than the minimum payment)
+  */
+  if (payments[0] < loans[0].balance) {
+      payments[0] += payment;
+  }
+  return payments;
+}
+
 function paymentSchedules(loansArray, payment) {
   /**
   *
@@ -85,6 +113,7 @@ function paymentSchedules(loansArray, payment) {
   let loansPaymentData = {};
 
   let dateOfRepayment = new Date(loans[0].beginRepaymentDate.valueOf());
+  const dueDay = loans[0].dueOn;
   const startDateStr = dateOfRepayment.toISOString();
 
   // Set up data container for payment info and initialize
@@ -112,31 +141,35 @@ function paymentSchedules(loansArray, payment) {
       dateOfRepayment,
       loansPaymentData[loan.name].paymentsTable
     );
-  }
-);
+  });
 
-  while (true) {
+  while (loans.length) {
     const dateStr = dateOfRepayment.toISOString();
-    accrueInterest(dummyLoan);
-    if (dateOfRepayment.getDate() === dummyLoan.dueOn) {
-      pay(dummyLoan, payment);
-      recordLoanState(
-        dummyLoan,
-        dateOfRepayment,
-        LoanM8.paymentsTables[payment]
-      );
-    };
-    loanPaymentData.dailyBalanceData.dates.push(dateStr);
-    loanPaymentData.dailyBalanceData.interest.push(dummyLoan.interest);
-    loanPaymentData.dailyBalanceData.principal.push(dummyLoan.principal);
-    loanPaymentData.dailyBalanceData.balance.push(dummyLoan.interest + dummyLoan.principal);
-    if (dummyLoan.principal === 0) {
-      loanPaymentData.lifetimeData.finalPaymentDate = dateOfRepayment;
-      break;
+    loans.forEach(function(loan) {
+      accrueInterest(loan);
+    }
+    if (dateOfRepayment.getDate() === dueDay) {
+      payments = allocatePayments(loans, payment);
+      loans.forEach(function(loan, index) {
+        pay(loan, payments[index]);
+        recordLoanState(
+          loan,
+          dateOfRepayment,
+          loansPaymentData[loan.name].paymentsTable
+        );
+        loanPaymentData[loan.name].dailyBalanceData.dates.push(dateStr);
+        loanPaymentData[loan.name].dailyBalanceData.interest.push(loan.interest);
+        loanPaymentData[loan.name].dailyBalanceData.principal.push(loan.principal);
+        loanPaymentData[loan.name].dailyBalanceData.balance.push(loan.interest + loan.principal);
+        if (loan.principal === 0) {
+          loanPaymentData[loan.name].lifetimeData.finalPaymentDate = dateOfRepayment;
+          loanPaymentData[loan.name].lifetimeData.lifetimeInterestPaid = loan.lifetimeInterestPaid;
+          loanPaymentData[loan.name].lifetimeData.lifetimePrincipalPaid = loan.lifetimePrincipalPaid;
+          loans.splice(index, 1);
+        };
+      });
     };
     dateOfRepayment.setDate(dateOfRepayment.getDate() + 1);
-    };
-  loanPaymentData.lifetimeData.lifetimeInterestPaid = parseFloat((dummyLoan.lifetimeInterestPaid).toFixed(2));
-  loanPaymentData.lifetimeData.lifetimePrincipalPaid = parseFloat((dummyLoan.lifetimePrincipalPaid).toFixed(2));
-  return loanPaymentData;
+  }
+  return loansPaymentData;
 };
