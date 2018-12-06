@@ -157,14 +157,14 @@ function paymentSchedules(loansArray, payment) {
           dateOfRepayment,
           loansPaymentData[loan.name].paymentsTable
         );
-        loanPaymentData[loan.name].dailyBalanceData.dates.push(dateStr);
-        loanPaymentData[loan.name].dailyBalanceData.interest.push(loan.interest);
-        loanPaymentData[loan.name].dailyBalanceData.principal.push(loan.principal);
-        loanPaymentData[loan.name].dailyBalanceData.balance.push(loan.interest + loan.principal);
+        loansPaymentData[loan.name].dailyBalanceData.dates.push(dateStr);
+        loansPaymentData[loan.name].dailyBalanceData.interest.push(loan.interest);
+        loansPaymentData[loan.name].dailyBalanceData.principal.push(loan.principal);
+        loansPaymentData[loan.name].dailyBalanceData.balance.push(loan.interest + loan.principal);
         if (loan.principal === 0) {
-          loanPaymentData[loan.name].lifetimeData.finalPaymentDate = dateOfRepayment;
-          loanPaymentData[loan.name].lifetimeData.lifetimeInterestPaid = loan.lifetimeInterestPaid;
-          loanPaymentData[loan.name].lifetimeData.lifetimePrincipalPaid = loan.lifetimePrincipalPaid;
+          loansPaymentData[loan.name].lifetimeData.finalPaymentDate = dateOfRepayment;
+          loansPaymentData[loan.name].lifetimeData.lifetimeInterestPaid = loan.lifetimeInterestPaid;
+          loansPaymentData[loan.name].lifetimeData.lifetimePrincipalPaid = loan.lifetimePrincipalPaid;
           loans.splice(index, 1);
         };
       });
