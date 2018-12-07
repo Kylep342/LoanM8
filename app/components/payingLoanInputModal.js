@@ -21,6 +21,10 @@ function renderPayingLoanFormModal() {
             <input type="number" step="0.01" min="0" id="rate" name="interestRate" placeholder="e.g. 5.25">
           </div>
           <div>
+            <label for="minPmt">Minimum payment:</label>
+            <input type="number" step="0.01" min="0" id="minPmt" name="minimumPayment" placeholder="e.g. 54.46">
+          </div>
+          <div>
             <label for="previousPayDate">Last paid on:</label>
             <input type="date" id="previousPayDate" name="previousPayDate">
           </div>

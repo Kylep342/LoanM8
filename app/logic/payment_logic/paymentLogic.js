@@ -147,6 +147,10 @@ function paymentSchedules(loansArray, payment) {
     const dateStr = dateOfRepayment.toISOString();
     loans.forEach(function(loan) {
       accrueInterest(loan);
+      loansPaymentData[loan.name].dailyBalanceData.dates.push(dateStr);
+      loansPaymentData[loan.name].dailyBalanceData.interest.push(loan.interest);
+      loansPaymentData[loan.name].dailyBalanceData.principal.push(loan.principal);
+      loansPaymentData[loan.name].dailyBalanceData.balance.push(loan.interest + loan.principal);
     }
     if (dateOfRepayment.getDate() === dueDay) {
       payments = allocatePayments(loans, payment);
@@ -157,10 +161,6 @@ function paymentSchedules(loansArray, payment) {
           dateOfRepayment,
           loansPaymentData[loan.name].paymentsTable
         );
-        loansPaymentData[loan.name].dailyBalanceData.dates.push(dateStr);
-        loansPaymentData[loan.name].dailyBalanceData.interest.push(loan.interest);
-        loansPaymentData[loan.name].dailyBalanceData.principal.push(loan.principal);
-        loansPaymentData[loan.name].dailyBalanceData.balance.push(loan.interest + loan.principal);
         if (loan.principal === 0) {
           loansPaymentData[loan.name].lifetimeData.finalPaymentDate = dateOfRepayment;
           loansPaymentData[loan.name].lifetimeData.lifetimeInterestPaid = loan.lifetimeInterestPaid;

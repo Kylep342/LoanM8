@@ -17,6 +17,7 @@ class Loan {
     name,
     principal,
     interest,
+    minPmt,
     rate,
     dueOn,
     beginRepaymentDate,
@@ -26,6 +27,7 @@ class Loan {
     this.principal = principal
     this.interest = interest
     this.balance = this.principal + this.interest;
+    this.minPmt = minPmt;
     this.beginRepaymentDate = beginRepaymentDate;
     this.dueOn = dueOn;
     this.rate = rate;

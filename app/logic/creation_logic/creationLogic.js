@@ -89,7 +89,8 @@ function formToLoan() {
   const balance = Math.abs(parseFloat(form.find("#balance").val()));
   const rate = Math.abs(parseFloat(form.find("#rate").val()));
   const dailyRate = rate / (36525);
-  const previousPayDate = new Date(form.find("#previousPayDate").val());
+  const minPmt = Math.abs(parseFloat(form.find("#minPmt").val()));
+  const previousPayDate = new Date(sanitizeDate(form.find("#previousPayDate").val()));
   const dueOn = previousPayDate.getDate();
   const principal = determinePrincipal(balance, dailyRate, previousPayDate);
   const interest = balance - principal;
@@ -104,8 +105,10 @@ function formToLoan() {
     <span class="show bold">${name}</span>
     <span class="show">$${balance} at ${rate}%</span>
     <ul class="loan">
+      <li class="name hidden">${name}</li>
       <li class="principal hidden">${principal}</li>
       <li class="interest hidden">${interest}</li>
+      <li class="minPmt hidden">${minPmt}</li>
       <li class="rate hidden">${rate}</li>
       <li class="dueOn hidden">${dueOn}</li>
       <li class="beginRepaymentDate hidden">${beginRepaymentDate}</li>
@@ -138,10 +141,10 @@ function fastForwardLoan() {
   const borrowRate = Math.abs(parseFloat(form.find("#rate").val()));
   const borrowDecimalRate = borrowRate / 100;
   const borrowDailyRate = borrowDecimalRate / 365.25;
-  const firstDisbDate = new Date(form.find("#firstDisbDate").val());
-  const secondDisbDate = new Date(form.find("#secondDisbDate").val());
+  const firstDisbDate = new Date(sanitizeDate(form.find("#firstDisbDate").val()));
+  const secondDisbDate = new Date(sanitizeDate(form.find("#secondDisbDate").val()));
   const subsidized = form.find("#subsidized").prop('checked');
-  const gradDate = new Date(form.find("#gradDate").val());
+  const gradDate = new Date(sanitizeDate(form.find("#gradDate").val()));
   const autopay = form.find("#autopay").prop('checked');
   const beginRepaymentDate = determineBeginRepaymentDate(gradDate);
   const dueOn = beginRepaymentDate.getDate();
@@ -155,6 +158,8 @@ function fastForwardLoan() {
     borrowAmt,
     borrowDailyRate
   );
+
+  const minPmt = calculateMinPmt();
 
   const loanElement = `
   <div class="loanDisplay">
@@ -192,11 +197,12 @@ function createLoans(sort=true) {
     name = loanInputs[index].getElementsByClassName('name')[0].innerText;
     principal = parseFloat(loanInputs[index].getElementsByClassName('principal')[0].innerText);
     interest = parseFloat(loanInputs[index].getElementsByClassName('interest')[0].innerText);
+    minPmt = parseFloat(loanInputs[index].getElementsByClassName('minPmt')[0].innerText);
     rate = parseFloat(loanInputs[index].getElementsByClassName('rate')[0].innerText);
     dueOn = parseInt(loanInputs[index].getElementsByClassName('dueOn')[0].innerText);
     beginRepaymentDate = new Date(loanInputs[index].getElementsByClassName('beginRepaymentDate')[0].innerText);
 
-    loans.push(new Loan(name, principal, interest, rate, dueOn, beginRepaymentDate));
+    loans.push(new Loan(name, principal, interest, minPmt, rate, dueOn, beginRepaymentDate));
   });
 
   // sort will be implemented to indicate whether the repayment method is
