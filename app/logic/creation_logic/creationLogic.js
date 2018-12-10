@@ -75,6 +75,9 @@ function determinePrincipal(balance, dailyRate, previousPayDate) {
   return parseFloat((balance / (1 + (dailyRate * Math.round((today.valueOf() - previousPayDate.valueOf())/86400000)))).toFixed(2));
 };
 
+function interestTillNextPayment(principal, dailyRate, previousPayDate, nextPayDate) {
+  return principal * Math.floor((nextPayDate - previousPayDate) / 86400000) * dailyRate
+}
 
 function formToLoan() {
   /**
@@ -92,13 +95,23 @@ function formToLoan() {
   const minPmt = Math.abs(parseFloat(form.find("#minPmt").val()));
   const previousPayDate = new Date(sanitizeDate(form.find("#previousPayDate").val()));
   const dueOn = previousPayDate.getDate();
-  const principal = determinePrincipal(balance, dailyRate, previousPayDate);
-  const interest = balance - principal;
   const beginRepaymentDate = new Date(
     previousPayDate.getFullYear(),
     previousPayDate.getMonth() + 1,
     previousPayDate.getDate()
   );
+  const principal = determinePrincipal(
+    balance,
+    dailyRate,
+    previousPayDate
+  );
+  const interest = interestTillNextPayment(
+    principal,
+    dailyRate,
+    previousPayDate,
+    beginRepaymentDate
+  );
+
 
   const loanElement = `
   <div class="loanDisplay">
