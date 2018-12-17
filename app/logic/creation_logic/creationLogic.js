@@ -172,7 +172,7 @@ function fastForwardLoan() {
     borrowDailyRate
   );
 
-  const minPmt = calculateMinPmt();
+  // const minPmt = calculateMinPmt();
 
   const loanElement = `
   <div class="loanDisplay">
@@ -182,6 +182,7 @@ function fastForwardLoan() {
       <li class="name hidden">${name}</li>
       <li class="principal hidden">${balanceAtRepayment}</li>
       <li class="interest hidden">0</li>
+      <li class="minPmt hidden">0</li>
       <li class="rate hidden">${paymentRate}</li>
       <li class="dueOn hidden">${dueOn}</li>
       <li class="beginRepaymentDate hidden">${beginRepaymentDate}</li>

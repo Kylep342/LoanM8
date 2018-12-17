@@ -20,8 +20,7 @@ class Loan {
     minPmt,
     rate,
     dueOn,
-    beginRepaymentDate,
-    minPmt
+    beginRepaymentDate
   ) {
     this.name = name
     this.principal = principal
@@ -32,7 +31,6 @@ class Loan {
     this.dueOn = dueOn;
     this.rate = rate;
     this.dailyRate = this.rate / 36525;
-    this.minPmt = minPmt;
     // Values to track lifetime stats for bar chart
     this.lifetimePrincipalPaid = 0;
     this.lifetimeInterestPaid = 0;

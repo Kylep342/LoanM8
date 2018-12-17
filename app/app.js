@@ -1,14 +1,5 @@
 // functions to extract form data from the DOM and graph a loan
 
-// Global namespace variable
-// Used to hold data for output to csv
-var LoanM8 = {
-  paymentValues:  [],
-  schedules:      {},
-  lifetimeTotals: {},
-  paymentsTables: {}
-};
-
 function loadApp() {
   document.body.innerHTML = `
     <div class="appContainer">
@@ -17,9 +8,6 @@ function loadApp() {
         <a href="http://www.github.com/Kylep342/LoanM8" target="_blank"><i class="fab fa-github" href="http://www.github.com/Kylep342"></i></a>
       </div>
       <div class="container">
-        <div class="row center">
-          <span class="section-label">Enter information about your loans and payments below</span>
-        </div>
         <div class="row input-interface" id="formDivContainer">
           <div class="col-md-6">
             <div class="row">
@@ -34,7 +22,7 @@ function loadApp() {
           </div>
           <div id="paymentForm" class="col-md-6">
             <div>
-              <span class="section-label">Experiment with monthly payment amounts here</span>
+              <span class="section-label">Experiment with monthly payments below</span>
             </div>
             <div class="payments-form-div">
               <form>
@@ -71,11 +59,7 @@ function loadApp() {
 
 function app() {
   // reset app state from previous run
-  LoanM8.paymentValues = [];
-  LoanM8.schedules = {};
-  LoanM8.lifetimeTotals = {};
-  LoanM8.paymentsTables = {};
-  // LoanM8.loan = null;
+  loans = createLoans();
   plotPayments();
   tabulateLifetimeTotals();
 }

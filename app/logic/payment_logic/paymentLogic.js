@@ -107,7 +107,7 @@ function paymentSchedules(loansArray, payment) {
 
   // clone an Array of Loans from those added by the user
   // this is done to handle current need for mutability
-  loans = loansArray.slice(0);
+  loans = JSON.parse(JSON.stringify(loansArray));
 
   // core data structure to contain graph points and lifetime payment totals
   let loansPaymentData = {};
@@ -151,7 +151,7 @@ function paymentSchedules(loansArray, payment) {
       loansPaymentData[loan.name].dailyBalanceData.interest.push(loan.interest);
       loansPaymentData[loan.name].dailyBalanceData.principal.push(loan.principal);
       loansPaymentData[loan.name].dailyBalanceData.balance.push(loan.interest + loan.principal);
-    }
+    });
     if (dateOfRepayment.getDate() === dueDay) {
       payments = allocatePayments(loans, payment);
       loans.forEach(function(loan, index) {
@@ -162,7 +162,7 @@ function paymentSchedules(loansArray, payment) {
           loansPaymentData[loan.name].paymentsTable
         );
         if (loan.principal === 0) {
-          loansPaymentData[loan.name].lifetimeData.finalPaymentDate = dateOfRepayment;
+          loansPaymentData[loan.name].lifetimeData.finalPaymentDate = new Date(dateOfRepayment.toISOString());
           loansPaymentData[loan.name].lifetimeData.lifetimeInterestPaid = loan.lifetimeInterestPaid;
           loansPaymentData[loan.name].lifetimeData.lifetimePrincipalPaid = loan.lifetimePrincipalPaid;
           loans.splice(index, 1);

@@ -4,7 +4,7 @@
 *
 */
 
-function preparePlots(Loan, pmt, plotlyPaymentsData, plotlyLifetimeTotalsData, index) {
+function preparePlots(Loan, pmt, loanPaymentsData, index) {
   /**
   *
   * This function generates plotting data for Plotly to consume to render graphs
@@ -15,26 +15,11 @@ function preparePlots(Loan, pmt, plotlyPaymentsData, plotlyLifetimeTotalsData, i
   const plotColor = graphColor(index);
 
   // generate payment data
-  const paymentData = paymentSchedule(Loan, pmt);
-  const paymentPlan = paymentData.dailyBalanceData;
-  const lifetimeTotals = paymentData.lifetimeData;
-
-  // update app state
-  LoanM8.paymentValues.push(pmt);
-
-  LoanM8.schedules[pmt] = {
-    'dates':      paymentPlan.dates,
-    'principal':  paymentPlan.principal,
-    'interest':   paymentPlan.interest
-  };
-
-  LoanM8.lifetimeTotals[pmt] = {
-    'interest':         lifetimeTotals.lifetimeInterestPaid,
-    'finalPaymentDate': lifetimeTotals.finalPaymentDate
-  };
+  const paymentPlan = loanPaymentData.dailyBalanceData;
+  const lifetimeTotals = loanPaymentData.lifetimeData;
 
   // prepare graphing objects
-  const graphLabel = '$' + String(pmt) + '/month';
+  const graphLabel = `${Loan.name} at $${String(pmt)}/month`;
 
   const paymentPlot = {
     x:        paymentPlan.dates,
@@ -63,11 +48,6 @@ function plotPayments() {
   *
   */
 
-  // const userLoan = $("#inBorrowingInputForm").length ? fastForwardLoan($("#inBorrowingInputForm")) : formToLoan($("#inPaymentInputForm"));
-
-  // LoanM8.loan = userLoan;
-
-  userLoan = LoanM8.loan;
 
   // The plotly.*Data variables are arrays due to Plotly needing arrays for data
   let plotlyPaymentsData = [];
