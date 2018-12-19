@@ -4,7 +4,14 @@
 *
 */
 
-function preparePlots(Loan, pmt, loanPaymentsData, index) {
+function preparePlots(
+  Loan,
+  pmt,
+  loanPaymentsData,
+  plotlyPmtsInputs,
+  plotlyTotalsInputs,
+  index
+) {
   /**
   *
   * This function generates plotting data for Plotly to consume to render graphs
@@ -15,8 +22,8 @@ function preparePlots(Loan, pmt, loanPaymentsData, index) {
   const plotColor = graphColor(index);
 
   // generate payment data
-  const paymentPlan = loanPaymentData.dailyBalanceData;
-  const lifetimeTotals = loanPaymentData.lifetimeData;
+  const paymentPlan = loanPaymentsData.dailyBalanceData;
+  const lifetimeTotals = loanPaymentsData.lifetimeData;
 
   // prepare graphing objects
   const graphLabel = `${Loan.name} at $${String(pmt)}/month`;
@@ -31,14 +38,14 @@ function preparePlots(Loan, pmt, loanPaymentsData, index) {
     }
   };
 
-  plotlyPaymentsData.push(paymentPlot);
+  plotlyPmtsInputs.push(paymentPlot);
 
-  plotlyLifetimeTotalsData[0].x.push(graphLabel);
-  plotlyLifetimeTotalsData[0].y.push(lifetimeTotals.lifetimePrincipalPaid);
-  plotlyLifetimeTotalsData[0].marker.color.push(plotColor)
-  plotlyLifetimeTotalsData[1].x.push(graphLabel);
-  plotlyLifetimeTotalsData[1].y.push(lifetimeTotals.lifetimeInterestPaid);
-  plotlyLifetimeTotalsData[1].marker.color.push(plotColor)
+  plotlyTotalsInputs[0].x.push(graphLabel);
+  plotlyTotalsInputs[0].y.push(lifetimeTotals.lifetimePrincipalPaid);
+  plotlyTotalsInputs[0].marker.color.push(plotColor)
+  plotlyTotalsInputs[1].x.push(graphLabel);
+  plotlyTotalsInputs[1].y.push(lifetimeTotals.lifetimeInterestPaid);
+  plotlyTotalsInputs[1].marker.color.push(plotColor)
 };
 
 function plotPayments() {
@@ -48,45 +55,58 @@ function plotPayments() {
   *
   */
 
+  const loansArray = createLoans();
 
   // The plotly.*Data variables are arrays due to Plotly needing arrays for data
-  let plotlyPaymentsData = [];
-  let plotlyLifetimeTotalsData = [
-    principals = {
-      x:        [],
-      y:        [],
-      width:    .4,
-      name:     'Principal',
-      type:     'bar',
-      marker: {
-        color:  []
+  let plotlyPmtsInputs = {};
+  let plotlyTotalsInputs = {};
+  for (loan of loansArray) {
+    plotlyPmtsInputs[loan.name] = [];
+    plotlyTotalsInputs[loan.name] = [
+      principals = {
+        x:        [],
+        y:        [],
+        width:    .4,
+        name:     'Principal',
+        type:     'bar',
+        marker: {
+          color:  []
+        }
+      },
+      interests = {
+        x:          [],
+        y:          [],
+        width:      .4,
+        name:       'Interest',
+        type:       'bar',
+        marker: {
+          color:    [],
+          opacity:  0.7
+        }
       }
-    },
-    interests = {
-      x:          [],
-      y:          [],
-      width:      .4,
-      name:       'Interest',
-      type:       'bar',
-      marker: {
-        color:    [],
-        opacity:  0.7
-      }
-    }
-  ];
+    ];
+  }
 
   // Process each payment input amount provided by user and insert data into containers
   const paymentInputs = $("#payments").find(".payAmt");
   paymentInputs.each(function(index) {
-    paymentInputs[index].value === "" ? void(0) : preparePlots(
-      userLoan,
-      Math.abs(parseFloat(paymentInputs[index].value)),
-      plotlyPaymentsData,
-      plotlyLifetimeTotalsData,
-      index
-    );
+    paymentInputs[index].value === "" ? void(0) : pmt = Math.abs(parseFloat(paymentInputs[index].value))
+    pmtSchedules = paymentSchedules(loansArray, pmt)
+
+    for (loan of loansArray) {
+      preparePlots(
+        loan,
+        pmt,
+        pmtSchedules[loan.name],
+        plotlyPmtsInputs,
+        plotlyTotalsInputs,
+        index
+      );
+    }
   });
 
+  //NOTE: This logic needs to be moved, and done for each loan/pmt graph combo
+  //NOTE: and then drawn into hidden elements, toggalable by buttos yet to be added
   // for the Payments plot: Prepare the layout object and then plot
   const paymentsLayout = {
     title:            'Loan Balances Over Time',
@@ -95,7 +115,7 @@ function plotPayments() {
       showtickprefix: 'first'
     }
   };
-  Plotly.react('loanPaymentsGraph', plotlyPaymentsData, paymentsLayout);
+  Plotly.react('loanPaymentsGraph', plotlyPmtsInputs, paymentsLayout);
 
 
   const lifetimeLayout = {
@@ -107,5 +127,5 @@ function plotPayments() {
       showtickprefix: 'first'
     }
   };
-  Plotly.react('loanLifetimeTotalsGraph', plotlyLifetimeTotalsData, lifetimeLayout);
+  Plotly.react('loanLifetimeTotalsGraph', plotlyTotalsInputs, lifetimeLayout);
 };

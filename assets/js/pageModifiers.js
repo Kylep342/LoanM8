@@ -19,36 +19,6 @@ function rmInputField() {
   };
 };
 
-function toggleBorrowForm() {
-  if ($("#inPaymentInputForm").length) {
-    $("#inPaymentInputForm").remove();
-    $("#formContainer").append(generateBorrowForm());
-  } else if (!($("#inPaymentInputForm").length) && !($("#inBorrowingInputForm").length)) {
-    insertPaymentInputsInterface();
-    insertAppButton();
-    $("#formContainer").append(generateBorrowForm());
-  } else {
-    return;
-  };
-};
-
-function togglePaymentForm() {
-  if ($("#inBorrowingInputForm").length) {
-    $("#inBorrowingInputForm").remove();
-    $("#formContainer").append(generatePayingForm());
-  } else if (!($("#inPaymentInputForm").length) && !($("#inBorrowingInputForm").length)) {
-    insertPaymentInputsInterface();
-    insertAppButton();
-    $("#formContainer").append(generatePayingForm());
-  } else {
-    return;
-  };
-};
-
-function addLoan() {
-  console.log("Loan added!");
-}
-
 function closeModal() {
   $(".modal").remove();
 }
@@ -56,12 +26,4 @@ function closeModal() {
 function backModal(modalFunction) {
   closeModal();
   modalFunction();
-}
-
-function insertPaymentInputsInterface() {
-  $("#formDivContainer").append(generatePaymentInputsInterface());
-}
-
-function insertAppButton() {
-  $("#appButton").append(generateAppButton());
 }

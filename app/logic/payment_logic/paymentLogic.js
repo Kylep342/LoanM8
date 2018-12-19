@@ -103,6 +103,8 @@ function paymentSchedules(loansArray, payment) {
   *   loansArray  [Array]{Loan}:  Arr
   *   payment     [Float]:        Pa
   *
+  * Returns:
+  *   loansPaymentData  [JSON]:   pass
   */
 
   // clone an Array of Loans from those added by the user
