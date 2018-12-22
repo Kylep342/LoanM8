@@ -77,19 +77,26 @@ function allocatePayments(loansArray, payment) {
   *
   */
   let payments = [];
-  loansArray.forEach(function(loan) {
+  for (loan of loansArray) {
     let amt = Math.min(loan.minPmt, loan.balance);
     payments.push(amt);
     payment -= amt;
-  });
+  };
   /**
   * after meeting minimum payment obilgations for each loan
-  * add any remaming available payment to the first loan's payment
-  * as long as it makes sense
-  * (while there is one loan with a balance greater than the minimum payment)
+  * distribute any remaming available payment amount as follows
+  *
+  * while remaining payment > 0, add the minimum of:
+  * (balance above minpmt) OR (remaining payment)
+  * to the highest priority loan (i.e. lowest index in array)
+  * while there is one loan with a balance greater than the minimum payment
   */
-  if (payments[0] < loans[0].balance) {
-      payments[0] += payment;
+  for (index in loansArray) {
+      balanceAboveMin = loansArray[index].balance - Math.min(loansArray[index].minpmt, loansArray[index].balance);
+      additionalAmount = Math.min(balanceAboveMin, payment);
+      payments[index] += additionalAmount;
+      payment -= additionalAmount;
+      if (payment === 0) { break }
   }
   return payments;
 }

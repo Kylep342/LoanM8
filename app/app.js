@@ -50,16 +50,14 @@ function loadApp() {
           <button class="btn btn-primary" type="button" onclick="app()">Project your loans</button>
         </div>
       </div>
-      <div id="loanPaymentsGraph" class="graph"></div>
-      <div id="loanLifetimeTotalsGraph" class="graph"></div>
-      <div id="loanLifetimeTotalsTable" class="container"></div>
+      <div id="loanPaymentsGraphs" class="graph"></div>
+      <div id="loanLifetimeTotalsGraphs" class="graph"></div>
+      <div id="loanLifetimeTotalsTables" class="container"></div>
     </div>
     `;
 }
 
 function app() {
-  // reset app state from previous run
-  loans = createLoans();
-  plotPayments();
-  tabulateLifetimeTotals();
+  renderUI();
+  // tabulateLifetimeTotals();
 }

@@ -10,7 +10,7 @@ function addInputField() {
     `
   );
 
-  $(".paymentInput").last().after(input);
+  $("#payments").append(input);
 };
 
 function rmInputField() {

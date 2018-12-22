@@ -9,7 +9,7 @@ a:link, a:visited, a:hover, a:active {
 
 div.graph {
   margin: auto;
-  max-width: 1440px;
+  max-width: 1200px;
 }
 
 .bold {
@@ -61,6 +61,10 @@ div.graph {
 .left {
   display: flex;
   justify-content: flex-start;
+}
+
+.loan-graph {
+  display: none;
 }
 
 .modal {

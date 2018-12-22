@@ -4,7 +4,7 @@
 *
 */
 
-function preparePlots(
+function preparePlotData(
   Loan,
   pmt,
   loanPaymentsData,
@@ -48,12 +48,57 @@ function preparePlots(
   plotlyTotalsInputs[1].marker.color.push(plotColor)
 };
 
-function plotPayments() {
+function drawPlots(
+  Loan,
+  plotlyPaymentsInputs,
+  plotlyTotalsInputs
+) {
+
+  const paymentsGraphID = `payments-graph-${Loan.name}`;
+  const paymentsGraphDiv = `div id=${paymentsGraphID}></div>`
+  $('#loanPaymentsGraphs').append(paymentsGraphDiv);
+
+  const paymentsLayout = {
+    title:            `Loan Balances Over Time - ${Loan.name}`,
+    yaxis: {
+      tickprefix:     '$',
+      showtickprefix: 'first'
+    }
+  };
+  Plotly.newPlot(
+    paymentsGraphDiv,
+    plotlyPaymentsInputs,
+    paymentsLayout
+  );
+
+  const totalsGraphID = `lifetime-totals-graph-${Loan.name}`;
+  const totalsGraphDiv = `<div id=${totalsGraphID}></div>`;
+  $('#loanLifetimeTotalsGraphs').append(totalsGraphDiv);
+
+  const lifetimeLayout = {
+    title:            `Total Amounts Paid Per Payment - ${Loan.name}`,
+    barmode:          'stack',
+    showlegend:       false,
+    yaxis: {
+      tickprefix:     '$',
+      showtickprefix: 'first'
+    }
+  };
+  Plotly.newPlot(
+    totalsGraphDiv,
+    plotlyTotalsInputs,
+    lifetimeLayout);
+}
+
+function renderUI() {
   /**
   *
   * Function that generates the graphs on the page
   *
   */
+
+  document.getElementById('loanPaymentsGraphs').innerHTML = ''
+  document.getElementById('loanLifetimeTotalsGraphs').innerHTML = ''
 
   const loansArray = createLoans();
 
@@ -90,42 +135,27 @@ function plotPayments() {
   // Process each payment input amount provided by user and insert data into containers
   const paymentInputs = $("#payments").find(".payAmt");
   paymentInputs.each(function(index) {
-    paymentInputs[index].value === "" ? void(0) : pmt = Math.abs(parseFloat(paymentInputs[index].value))
+    if (paymentInputs[index].value === "") { return }
+    let pmt = Math.abs(parseFloat(paymentInputs[index].value))
     pmtSchedules = paymentSchedules(loansArray, pmt)
 
     for (loan of loansArray) {
-      preparePlots(
+      preparePlotData(
         loan,
         pmt,
         pmtSchedules[loan.name],
-        plotlyPmtsInputs,
-        plotlyTotalsInputs,
+        plotlyPmtsInputs[loan.name],
+        plotlyTotalsInputs[loan.name],
         index
+      );
+      drawPlots(
+        loan,
+        plotlyPmtsInputs[loan.name],
+        plotlyTotalsInputs[loan.name]
       );
     }
   });
-
+}
   //NOTE: This logic needs to be moved, and done for each loan/pmt graph combo
   //NOTE: and then drawn into hidden elements, toggalable by buttos yet to be added
   // for the Payments plot: Prepare the layout object and then plot
-  const paymentsLayout = {
-    title:            'Loan Balances Over Time',
-    yaxis: {
-      tickprefix:     '$',
-      showtickprefix: 'first'
-    }
-  };
-  Plotly.react('loanPaymentsGraph', plotlyPmtsInputs, paymentsLayout);
-
-
-  const lifetimeLayout = {
-    title:            'Total Amounts Paid Per Payment',
-    barmode:          'stack',
-    showlegend:       false,
-    yaxis: {
-      tickprefix:     '$',
-      showtickprefix: 'first'
-    }
-  };
-  Plotly.react('loanLifetimeTotalsGraph', plotlyTotalsInputs, lifetimeLayout);
-};
