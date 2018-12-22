@@ -61,8 +61,7 @@ function drawPlots(
   const paymentsLayout = {
     title:            `Loan Balances Over Time - ${Loan.name}`,
     yaxis: {
-      tickprefix:     '$',
-      showtickprefix: 'first'
+      hoverformat:    '$.2f'
     }
   };
   Plotly.newPlot(
@@ -80,8 +79,7 @@ function drawPlots(
     barmode:          'stack',
     showlegend:       false,
     yaxis: {
-      tickprefix:     '$',
-      showtickprefix: 'first'
+      hoverformat:    '$.2f'
     }
   };
   Plotly.newPlot(

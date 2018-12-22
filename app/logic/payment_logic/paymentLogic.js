@@ -34,8 +34,6 @@ function pay(Loan, payment) {
       Loan.principal -= paymentToPrincipal;
     };
   };
-  Loan.lifetimeInterestPaid = parseFloat(Loan.lifetimeInterestPaid.toFixed(2));
-  Loan.lifetimePrincipalPaid = parseFloat(Loan.lifetimePrincipalPaid.toFixed(2));
   Loan.balance = Loan.principal + Loan.interest;
 };
 
@@ -125,7 +123,7 @@ function paymentSchedules(loansArray, payment) {
   const startDateStr = dateOfRepayment.toISOString();
 
   // Set up data container for payment info and initialize
-  loans.forEach(function(loan) {
+  for (loan of loans) {
     loansPaymentData[loan.name] = {
       dailyBalanceData: {
         dates:     [],
@@ -149,17 +147,17 @@ function paymentSchedules(loansArray, payment) {
       dateOfRepayment,
       loansPaymentData[loan.name].paymentsTable
     );
-  });
+  };
 
   while (loans.length) {
     const dateStr = dateOfRepayment.toISOString();
-    loans.forEach(function(loan) {
+    for (loan of loans) {
       accrueInterest(loan);
       loansPaymentData[loan.name].dailyBalanceData.dates.push(dateStr);
       loansPaymentData[loan.name].dailyBalanceData.interest.push(loan.interest);
       loansPaymentData[loan.name].dailyBalanceData.principal.push(loan.principal);
       loansPaymentData[loan.name].dailyBalanceData.balance.push(loan.interest + loan.principal);
-    });
+    };
     if (dateOfRepayment.getDate() === dueDay) {
       payments = allocatePayments(loans, payment);
       loans.forEach(function(loan, index) {
@@ -169,14 +167,16 @@ function paymentSchedules(loansArray, payment) {
           dateOfRepayment,
           loansPaymentData[loan.name].paymentsTable
         );
-        if (loan.principal === 0) {
-          loansPaymentData[loan.name].lifetimeData.finalPaymentDate = new Date(dateOfRepayment.toISOString());
-          loansPaymentData[loan.name].lifetimeData.lifetimeInterestPaid = loan.lifetimeInterestPaid;
-          loansPaymentData[loan.name].lifetimeData.lifetimePrincipalPaid = loan.lifetimePrincipalPaid;
-          loans.splice(index, 1);
-        };
       });
     };
+    loans.forEach(function(loan, index) {
+      if (loan.principal === 0) {
+        loansPaymentData[loan.name].lifetimeData.finalPaymentDate = new Date(dateOfRepayment.toLocaleDateString());
+        loansPaymentData[loan.name].lifetimeData.lifetimeInterestPaid = loan.lifetimeInterestPaid;
+        loansPaymentData[loan.name].lifetimeData.lifetimePrincipalPaid = loan.lifetimePrincipalPaid;
+        loans.splice(index, 1);
+      };
+    });
     dateOfRepayment.setDate(dateOfRepayment.getDate() + 1);
   }
   return loansPaymentData;
