@@ -169,14 +169,19 @@ function paymentSchedules(loansArray, payment) {
         );
       });
     };
-    loans.forEach(function(loan, index) {
+    // manual looping over loans is necessary
+    // due to splicing of loan from list once its principal is 0
+    for (i = 0; i < loans.length;) {
+      loan = loans[i];
       if (loan.principal === 0) {
         loansPaymentData[loan.name].lifetimeData.finalPaymentDate = new Date(dateOfRepayment.toLocaleDateString());
         loansPaymentData[loan.name].lifetimeData.lifetimeInterestPaid = loan.lifetimeInterestPaid;
         loansPaymentData[loan.name].lifetimeData.lifetimePrincipalPaid = loan.lifetimePrincipalPaid;
-        loans.splice(index, 1);
+        loans.splice(i, 1);
+        continue;
       };
-    });
+      i++;
+    };
     dateOfRepayment.setDate(dateOfRepayment.getDate() + 1);
   }
   return loansPaymentData;
