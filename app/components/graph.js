@@ -55,7 +55,7 @@ function drawPlots(
 ) {
 
   const paymentsGraphID = `payments-graph-${Loan.name}`;
-  const paymentsGraphDiv = `div id=${paymentsGraphID}></div>`
+  const paymentsGraphDiv = `<div id=${paymentsGraphID}></div>`;
   $('#loanPaymentsGraphs').append(paymentsGraphDiv);
 
   const paymentsLayout = {
@@ -66,7 +66,7 @@ function drawPlots(
     }
   };
   Plotly.newPlot(
-    paymentsGraphDiv,
+    paymentsGraphID,
     plotlyPaymentsInputs,
     paymentsLayout
   );
@@ -85,7 +85,7 @@ function drawPlots(
     }
   };
   Plotly.newPlot(
-    totalsGraphDiv,
+    totalsGraphID,
     plotlyTotalsInputs,
     lifetimeLayout);
 }
@@ -97,8 +97,8 @@ function renderUI() {
   *
   */
 
-  document.getElementById('loanPaymentsGraphs').innerHTML = ''
-  document.getElementById('loanLifetimeTotalsGraphs').innerHTML = ''
+  document.getElementById('loanPaymentsGraphs').innerHTML = '';
+  document.getElementById('loanLifetimeTotalsGraphs').innerHTML = '';
 
   const loansArray = createLoans();
 
@@ -135,7 +135,7 @@ function renderUI() {
   // Process each payment input amount provided by user and insert data into containers
   const paymentInputs = $("#payments").find(".payAmt");
   paymentInputs.each(function(index) {
-    if (paymentInputs[index].value === "") { return }
+    // if (paymentInputs[index].value === "") { return }
     let pmt = Math.abs(parseFloat(paymentInputs[index].value))
     pmtSchedules = paymentSchedules(loansArray, pmt)
 
@@ -156,6 +156,3 @@ function renderUI() {
     }
   });
 }
-  //NOTE: This logic needs to be moved, and done for each loan/pmt graph combo
-  //NOTE: and then drawn into hidden elements, toggalable by buttos yet to be added
-  // for the Payments plot: Prepare the layout object and then plot

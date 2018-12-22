@@ -91,13 +91,15 @@ function allocatePayments(loansArray, payment) {
   * to the highest priority loan (i.e. lowest index in array)
   * while there is one loan with a balance greater than the minimum payment
   */
-  for (index in loansArray) {
-      balanceAboveMin = loansArray[index].balance - Math.min(loansArray[index].minpmt, loansArray[index].balance);
-      additionalAmount = Math.min(balanceAboveMin, payment);
-      payments[index] += additionalAmount;
-      payment -= additionalAmount;
-      if (payment === 0) { break }
-  }
+  // for (index in loansArray) {
+  //     let balanceAboveMin = loansArray[index].balance - Math.min(loansArray[index].minpmt, loansArray[index].balance);
+  //     let additionalAmount = Math.min(balanceAboveMin, payment);
+  //     payments[index] += additionalAmount;
+  //     payment -= additionalAmount;
+  //     if (payment === 0) {
+  //       break;
+  //     }
+  // }
   return payments;
 }
 
