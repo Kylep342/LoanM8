@@ -19,6 +19,11 @@ function rmInputField() {
   };
 };
 
+function deleteLoan(id) {
+  let element = document.getElementById(id);
+  element.parentNode.removeChild(element);
+}
+
 function closeModal() {
   $(".modal").remove();
 }

@@ -114,9 +114,15 @@ function formToLoan() {
 
 
   const loanElement = `
-  <div class="loanDisplay">
-    <span class="show bold">${name}</span>
-    <span class="show">$${balance} at ${rate}%</span>
+  <div id="loan-${name}" class="loanDisplay">
+    <div class="row">
+      <div class="col-sm-4">
+        <span class="show bold">${name}</span>
+        <span class="show">$${balance} at ${rate}%</span>
+      </div>
+      <div class="col-sm-4 float-left">
+        <button class="btn btn-primary>" onclick="deleteLoan('loan-${name}')"><i class="far fa-trash-alt"></i></button>
+      </div>
     <ul class="loan">
       <li class="name hidden">${name}</li>
       <li class="principal hidden">${principal}</li>
@@ -175,18 +181,25 @@ function fastForwardLoan() {
   // const minPmt = calculateMinPmt();
 
   const loanElement = `
-  <div class="loanDisplay">
-    <span class="show bold">${name}</span>
-    <span class="show">$${balanceAtRepayment} at ${paymentRate}%</span>
-    <ul class="loan">
-      <li class="name hidden">${name}</li>
-      <li class="principal hidden">${balanceAtRepayment}</li>
-      <li class="interest hidden">0</li>
-      <li class="minPmt hidden">0</li>
-      <li class="rate hidden">${paymentRate}</li>
-      <li class="dueOn hidden">${dueOn}</li>
-      <li class="beginRepaymentDate hidden">${beginRepaymentDate}</li>
-    </ul>
+  <div id="loan-${name}" class="loanDisplay">
+    <div class="row">
+      <div class="col-sm-4">
+        <span class="show bold">${name}</span>
+        <span class="show">$${balanceAtRepayment} at ${paymentRate}%</span>
+      </div>
+      <div class="col-sm-4 float-left">
+        <button class="btn btn-primary>" onclick="deleteLoan('loan-${name}')"><i class="far fa-trash-alt"></i></button>
+      </div>
+      <ul class="loan">
+        <li class="name hidden">${name}</li>
+        <li class="principal hidden">${balanceAtRepayment}</li>
+        <li class="interest hidden">0</li>
+        <li class="minPmt hidden">0</li>
+        <li class="rate hidden">${paymentRate}</li>
+        <li class="dueOn hidden">${dueOn}</li>
+        <li class="beginRepaymentDate hidden">${beginRepaymentDate}</li>
+      </ul>
+    </div>
   </div>
   `
 
