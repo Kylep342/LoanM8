@@ -26,7 +26,7 @@ function preparePlotData(
   const lifetimeTotals = loanPaymentsData.lifetimeData;
 
   // prepare graphing objects
-  const graphLabel = `${Loan.name} at $${String(pmt)}/month`;
+  const graphLabel = `${Loan.name.replace('_', ' ')} at $${String(pmt)}/month`;
 
   const paymentPlot = {
     x:        paymentPlan.dates,
@@ -59,7 +59,7 @@ function drawPlots(
   $('#loanPaymentsGraphs').append(paymentsGraphDiv);
 
   const paymentsLayout = {
-    title:            `Loan Balances Over Time - ${Loan.name}`,
+    title:            `Loan Balances Over Time - ${Loan.name.replace('_', ' ')}`,
     yaxis: {
       hoverformat:    '$.2f'
     }
@@ -75,7 +75,7 @@ function drawPlots(
   $('#loanLifetimeTotalsGraphs').append(totalsGraphDiv);
 
   const lifetimeLayout = {
-    title:            `Total Amounts Paid Per Payment - ${Loan.name}`,
+    title:            `Total Amounts Paid Per Payment - ${Loan.name.replace('_', ' ')}`,
     barmode:          'stack',
     showlegend:       false,
     yaxis: {
