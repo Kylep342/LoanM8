@@ -121,7 +121,8 @@ function formToLoan() {
         <span class="show">$${balance} at ${rate}%</span>
       </div>
       <div class="col-sm-4 float-left">
-        <button class="btn btn-primary>" onclick="deleteLoan('loan-${name}')"><i class="fas fa-trash"></i></button>
+        <button class="btn btn-primary disabled" title="View Payments"><i class="fas fa-calendar"></i></button>
+        <button class="btn btn-primary" title="Delete Loan" onclick="deleteLoan('loan-${name}')"><i class="fas fa-trash"></i></button>
       </div>
     <ul class="loan">
       <li class="name hidden">${name}</li>
@@ -188,7 +189,8 @@ function fastForwardLoan() {
         <span class="show">$${balanceAtRepayment.toFixed(2)} at ${paymentRate}%</span>
       </div>
       <div class="col-sm-4 float-left">
-        <button class="btn btn-primary>" onclick="deleteLoan('loan-${name}')"><i class="fas fa-trash"></i></button>
+        <button class="btn btn-primary disabled" title="View Payments"><i class="fas fa-calendar"></i></button>
+        <button class="btn btn-primary" title="Delete Loan" onclick="deleteLoan('loan-${name}')"><i class="fas fa-trash"></i></button>
       </div>
       <ul class="loan">
         <li class="name hidden">${name}</li>
