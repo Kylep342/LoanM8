@@ -88,8 +88,7 @@ function formToLoan() {
 
   const form = $("#payingLoanInputModal")
 
-  const name = form.find("#name").val()
-  const id_name = name.replace(' ', '_')
+  const name = form.find("#name").val().replace(' ', '_')
   const balance = Math.abs(parseFloat(form.find("#balance").val()));
   const rate = Math.abs(parseFloat(form.find("#rate").val()));
   const dailyRate = rate / (36525);
@@ -115,7 +114,7 @@ function formToLoan() {
 
 
   const loanElement = `
-  <div id="loan-${id_name}" class="loanDisplay">
+  <div id="loan-${name}" class="loanDisplay">
     <div class="row">
       <div class="col-sm-4">
         <span class="show bold">${name}</span>
@@ -126,7 +125,7 @@ function formToLoan() {
         <button class="btn btn-primary" title="Delete Loan" onclick="deleteLoan('loan-${name}')"><i class="fas fa-trash"></i></button>
       </div>
     <ul class="loan">
-      <li class="name hidden">${id_name}</li>
+      <li class="name hidden">${name}</li>
       <li class="principal hidden">${principal}</li>
       <li class="interest hidden">${interest}</li>
       <li class="minPmt hidden">${minPmt}</li>
