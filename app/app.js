@@ -36,17 +36,13 @@ function loadApp() {
             </div>
             <div class="payments-form-modifiers-div">
               <div class="row padding-left">
-                <div id="addPayment" class="addInput float-left margins">
-                  <button class="btn btn-primary" type="button" onclick="addInputField()">+</button>
-                </div>
-                <div id="rmPayment" class="rmInput margins">
-                  <button class="btn btn-primary" type="button" onclick="rmInputField()">-</button>
-                </div>
+                <button class="btn btn-primary" type="button" onclick="addInputField()">+</button>
+                <button class="btn btn-primary" type="button" onclick="rmInputField()">-</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="row plot-app-buttion center" id="appButton">
+        <div class="row plot-app-buttion center margins" id="appButton">
           <button class="btn btn-primary" type="button" onclick="app()">Project your loans</button>
         </div>
       </div>
