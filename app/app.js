@@ -1,5 +1,7 @@
 // functions to extract form data from the DOM and graph a loan
 
+let LoanM8 = {};
+
 function loadApp() {
   document.body.innerHTML = `
     <div class="appContainer">
@@ -15,7 +17,7 @@ function loadApp() {
                 <span class="section-label">Your loans</span>
               </div>
               <div class="col-md-3 padding-none">
-                <button class="btn btn-primary" onclick="renderLoanTypeChoiceModal()">+</button>
+                <button id="addLoan" class="btn btn-primary" onclick="renderLoanTypeChoiceModal()">+</button>
               </div>
             </div>
             <div id="loansList" class="row loansList"></div>
@@ -45,10 +47,28 @@ function loadApp() {
         <div class="row plot-app-buttion center margins" id="appButton">
           <button class="btn btn-primary" type="button" onclick="app()">Project your loans</button>
         </div>
+        <div class="row">
+          <div class="col-md-4">
+            <button class="btn btn-secondary navTab" type="button" onclick="activateVizualizer('loanPaymentsGraphs')">Loan balances over time</button>
+          </div>
+          <div class="col-md-4">
+            <button class="btn btn-secondary navTab" type="button" onclick="activateVizualizer('loanLifetimeTotalsGraphs')">Total paid over lifetime</button>
+          </div>
+          <div class="col-md-4">
+            <button class="btn btn-secondary navTab" type="button" onclick="activateVizualizer('loanLifetimeTotalsTables')">Time/cost comparison table</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-11">
+            <div id="loanPaymentsGraphs" class="graph uiVizualizer"></div>
+            <div id="loanLifetimeTotalsGraphs" class="graph uiVizualizer"></div>
+            <div id="loanLifetimeTotalsTables" class="container uiVizualizer"></div>
+          </div>
+          <div class="col-lg-1">
+            <div class="loan-nav-menu" id="loanNavMenu"></div>
+          </div>
+        </div>
       </div>
-      <div id="loanPaymentsGraphs" class="graph"></div>
-      <div id="loanLifetimeTotalsGraphs" class="graph"></div>
-      <div id="loanLifetimeTotalsTables" class="container"></div>
     </div>
     `;
 }

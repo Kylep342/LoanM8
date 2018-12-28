@@ -32,3 +32,32 @@ function backModal(modalFunction) {
   closeModal();
   modalFunction();
 }
+
+function addLoanMenuButton(loan) {
+  const loanNavButton = `
+  <button class="btn btn-primary" onclick="displayGraph(${loan.name})">${loan.name.replace('_', ' ')}</button>
+  `
+  const $loanNavMenu = $('#loanNavMenu')
+  $loanNavMenu.append(loanNavButton)
+}
+
+function activateVizualizer(id) {
+  LoanM8.activeComponent = id;
+}
+
+function displayGraph(loanName) {
+  
+  let prefix = '';
+  switch (LoanM8.activeComponent) {
+    case loanPaymentsGraphs:
+      prefix = 'payments-graph-'
+      break;
+    case loanLifetimeTotalsGraphs:
+      prefix = 'lifetime-totals-graph-'
+      break;
+    case loanLifetimeTotalsTables:
+      prefix = 'foo'
+      break;
+  }
+  document.getElementById(`${prefix}${loanName}`).style.display = 'inline-block';
+}

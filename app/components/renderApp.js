@@ -55,7 +55,7 @@ function drawPlots(
 ) {
 
   const paymentsGraphID = `payments-graph-${Loan.name}`;
-  const paymentsGraphDiv = `<div id=${paymentsGraphID}></div>`;
+  const paymentsGraphDiv = `<div id=${paymentsGraphID} class="paymentsGraph paymentsGraph-${Loan.name}"></div>`;
   $('#loanPaymentsGraphs').append(paymentsGraphDiv);
 
   const paymentsLayout = {
@@ -71,7 +71,7 @@ function drawPlots(
   );
 
   const totalsGraphID = `lifetime-totals-graph-${Loan.name}`;
-  const totalsGraphDiv = `<div id=${totalsGraphID}></div>`;
+  const totalsGraphDiv = `<div id=${totalsGraphID} class="totalsGraph totalsGraph-${Loan.name}"></div>`;
   $('#loanLifetimeTotalsGraphs').append(totalsGraphDiv);
 
   const lifetimeLayout = {
@@ -94,9 +94,14 @@ function renderUI() {
   * Function that generates the graphs on the page
   *
   */
+  const tabs = $('.uiVisualizer');
+  tabs.each(function(index) {
+    tabs[index]
+  });
 
   document.getElementById('loanPaymentsGraphs').innerHTML = '';
   document.getElementById('loanLifetimeTotalsGraphs').innerHTML = '';
+  document.getElementById('loanNavMenu').innerHTML = '';
 
   const loansArray = createLoans();
 
@@ -153,4 +158,7 @@ function renderUI() {
       );
     }
   });
+  for (loan of loansArray) {
+    addLoanMenuButton(loan);
+  }
 }
