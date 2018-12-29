@@ -49,20 +49,20 @@ function loadApp() {
         </div>
         <div class="row">
           <div class="col-md-4">
-            <button class="btn btn-secondary navTab" type="button" onclick="activateVizualizer('loanPaymentsGraphs')">Loan balances over time</button>
+            <button class="btn btn-secondary navTab" type="button" onclick="activateVisualizer('loanPaymentsGraphs')">Loan balances over time</button>
           </div>
           <div class="col-md-4">
-            <button class="btn btn-secondary navTab" type="button" onclick="activateVizualizer('loanLifetimeTotalsGraphs')">Total paid over lifetime</button>
+            <button class="btn btn-secondary navTab" type="button" onclick="activateVisualizer('loanLifetimeTotalsGraphs')">Total paid over lifetime</button>
           </div>
           <div class="col-md-4">
-            <button class="btn btn-secondary navTab" type="button" onclick="activateVizualizer('loanLifetimeTotalsTables')">Time/cost comparison table</button>
+            <button class="btn btn-secondary navTab" type="button" onclick="activateVisualizer('loanLifetimeTotalsTables')">Time/cost comparison table</button>
           </div>
         </div>
         <div class="row">
           <div class="col-lg-11">
-            <div id="loanPaymentsGraphs" class="graph uiVizualizer"></div>
-            <div id="loanLifetimeTotalsGraphs" class="graph uiVizualizer"></div>
-            <div id="loanLifetimeTotalsTables" class="container uiVizualizer"></div>
+            <div id="loanPaymentsGraphs" class="graph uiVisualizer"></div>
+            <div id="loanLifetimeTotalsGraphs" class="graph uiVisualizer"></div>
+            <div id="loanLifetimeTotalsTables" class="container uiVisualizer"></div>
           </div>
           <div class="col-lg-1">
             <div class="loan-nav-menu" id="loanNavMenu"></div>

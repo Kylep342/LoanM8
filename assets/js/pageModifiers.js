@@ -35,29 +35,41 @@ function backModal(modalFunction) {
 
 function addLoanMenuButton(loan) {
   const loanNavButton = `
-  <button class="btn btn-primary" onclick="displayGraph(${loan.name})">${loan.name.replace('_', ' ')}</button>
+  <button class="btn btn-primary" onclick="displayGraph('${loan.name}')">${loan.name.replace('_', ' ')}</button>
   `
   const $loanNavMenu = $('#loanNavMenu')
   $loanNavMenu.append(loanNavButton)
 }
 
-function activateVizualizer(id) {
+function activateVisualizer(id) {
   LoanM8.activeComponent = id;
+  if (LoanM8.activeGraph !== undefined) {
+    displayGraph(LoanM8.activeGraph);
+  }
 }
 
 function displayGraph(loanName) {
-  
-  let prefix = '';
+  let graphs = $('.uiGraph');
+  graphs.each(function(index) {
+    graphs[index].style.display = 'none';
+  });
+
+  let prefix = null;
   switch (LoanM8.activeComponent) {
-    case loanPaymentsGraphs:
+    case 'loanPaymentsGraphs':
       prefix = 'payments-graph-'
       break;
-    case loanLifetimeTotalsGraphs:
+    case 'loanLifetimeTotalsGraphs':
       prefix = 'lifetime-totals-graph-'
       break;
-    case loanLifetimeTotalsTables:
+    case 'loanLifetimeTotalsTables':
       prefix = 'foo'
       break;
+    default:
+      prefix = 'payments-graph-';
+      break;
   }
-  document.getElementById(`${prefix}${loanName}`).style.display = 'inline-block';
+  id = prefix + loanName;
+  document.getElementById(id).style.display = 'inline-block';
+  LoanM8.activeGraph = loanName;
 }

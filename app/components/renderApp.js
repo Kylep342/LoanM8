@@ -55,7 +55,7 @@ function drawPlots(
 ) {
 
   const paymentsGraphID = `payments-graph-${Loan.name}`;
-  const paymentsGraphDiv = `<div id=${paymentsGraphID} class="paymentsGraph paymentsGraph-${Loan.name}"></div>`;
+  const paymentsGraphDiv = `<div id=${paymentsGraphID} class="uiGraph"></div>`;
   $('#loanPaymentsGraphs').append(paymentsGraphDiv);
 
   const paymentsLayout = {
@@ -71,7 +71,7 @@ function drawPlots(
   );
 
   const totalsGraphID = `lifetime-totals-graph-${Loan.name}`;
-  const totalsGraphDiv = `<div id=${totalsGraphID} class="totalsGraph totalsGraph-${Loan.name}"></div>`;
+  const totalsGraphDiv = `<div id=${totalsGraphID} class="uiGraph"></div>`;
   $('#loanLifetimeTotalsGraphs').append(totalsGraphDiv);
 
   const lifetimeLayout = {
@@ -94,16 +94,17 @@ function renderUI() {
   * Function that generates the graphs on the page
   *
   */
-  const tabs = $('.uiVisualizer');
+
+  const loansArray = createLoans();
+
+  let tabs = $('.navTab');
   tabs.each(function(index) {
-    tabs[index]
+    tabs[index].style.display = 'block';
   });
 
   document.getElementById('loanPaymentsGraphs').innerHTML = '';
   document.getElementById('loanLifetimeTotalsGraphs').innerHTML = '';
   document.getElementById('loanNavMenu').innerHTML = '';
-
-  const loansArray = createLoans();
 
   // The plotly.*Data variables are arrays due to Plotly needing arrays for data
   let plotlyPmtsInputs = {};
@@ -161,4 +162,6 @@ function renderUI() {
   for (loan of loansArray) {
     addLoanMenuButton(loan);
   }
+  LoanM8.activeGraph = loansArray[0].name;
+  activateVisualizer('loanPaymentsGraphs');
 }
