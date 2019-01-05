@@ -12,7 +12,7 @@ function pay(Loan, payment) {
   * Logic has been implemented to handle senseless use cases,
   * primarily, when a payment is smaller than a loan's interest
   *
-  * Params:
+  * Arguments:
   *   Loan     [Loan]:  A Loan object
   *   payment  [Float]: A payment
   *

@@ -2,7 +2,7 @@ function determineBeginRepaymentDate(gradDate) {
   /**
   *
   * Function to determine when a loan will enter repayment
-  * Params:
+  * Arguments:
   *   gradDate [Date]: The date when the user graduates from school
   *
   * Returns:
@@ -39,7 +39,7 @@ function calculateBalanceAtBeginRepayment(
   * Function to compute how much interest a loan will accrue between
   * the day it is disbursed and the day it enters repayment
   * All parameters are attributes of a Loan object
-  * Params:
+  * Arguments:
   *   subsizided              [bool]:   Flag denoting the loan's subsizied status
   *   beginRepaymentDate      [date]:   The date when the loan enters repayment
   *   firstDisbursementDate   [date]:   The date when the first half of the loan is disbursed to the school
@@ -63,7 +63,7 @@ function determinePrincipal(balance, dailyRate, previousPayDate) {
   *
   * Function to determine how much of an in-payment Loan's balance is principal
   *
-  * Params:
+  * Arguments:
   *   balance         [Float]:  The balance of the loan
   *   dailyRate       [Float]:  The rate at which interest is calculated daily
   *   previousPayDate [Date]:   The date the Loan was last paid

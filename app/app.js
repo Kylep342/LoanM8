@@ -1,7 +1,17 @@
 // functions to extract form data from the DOM and graph a loan
 
+/**
+*
+* Global variable to store state
+*
+*/
 let LoanM8 = {};
 
+/**
+*
+* Function to create base app HTML upon page load
+*
+*/
 function loadApp() {
   document.body.innerHTML = `
     <div class="appContainer">
@@ -73,6 +83,12 @@ function loadApp() {
     `;
 }
 
+/**
+*
+* 'main()' style function
+* This function calls all necessary functions to perform the app workflow
+*
+*/
 function app() {
   renderUI();
   // tabulateLifetimeTotals();

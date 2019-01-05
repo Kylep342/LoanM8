@@ -1,9 +1,17 @@
+// functions to process user input data and generate visualizations
+
 /**
 *
-*
+* Function to prepare Plotly data containers
+* Arguments:
+*   Loan                [Loan]:   Loan to which the payment data belongs
+*   pmt                 [float]:  Dollar amount representing user's total monthly payment
+*   loanPaymentsData    [object]: JSON containing daily balance data, as well as lifetime total statistics, of payments for the Loan
+*   plotlyPmtsInputs    [array]:  Array container to hold plotly graphing objects
+*   plotlyTotalsInputs  [array]:  Array container to hold plotly graphing objects
+*   index               [int]:    integer representing the loan's position in the loanArray (used for color selection)
 *
 */
-
 function preparePlotData(
   Loan,
   pmt,
@@ -12,12 +20,6 @@ function preparePlotData(
   plotlyTotalsInputs,
   index
 ) {
-  /**
-  *
-  * This function generates plotting data for Plotly to consume to render graphs
-  *
-  */
-
   // store color for graphs
   const plotColor = graphColor(index);
 
@@ -26,7 +28,7 @@ function preparePlotData(
   const lifetimeTotals = loanPaymentsData.lifetimeData;
 
   // prepare graphing objects
-  const graphLabel = `${Loan.name.replace('_', ' ')} at $${String(pmt)}/month`;
+  const graphLabel = `$${String(pmt)}/month`;
 
   const paymentPlot = {
     x:        paymentPlan.dates,
@@ -48,9 +50,18 @@ function preparePlotData(
   plotlyTotalsInputs[1].marker.color.push(plotColor)
 };
 
+/**
+*
+* Function to generate plots for a loan and draw them on the screen
+* Arguments:
+*   Loan                [Loan]:   Loan to which the payment data belongs
+*   plotlyPmtsInputs    [array]:  Array container to hold plotly graphing objects
+*   plotlyTotalsInputs  [array]:  Array container to hold plotly graphing objects
+*
+*/
 function drawPlots(
   Loan,
-  plotlyPaymentsInputs,
+  plotlyPmtsInputs,
   plotlyTotalsInputs
 ) {
 
@@ -66,7 +77,7 @@ function drawPlots(
   };
   Plotly.newPlot(
     paymentsGraphID,
-    plotlyPaymentsInputs,
+    plotlyPmtsInputs,
     paymentsLayout
   );
 
@@ -88,13 +99,13 @@ function drawPlots(
     lifetimeLayout);
 }
 
+/**
+*
+* Function to orchestrate the collection of plotting data and the generation of
+* graphs
+*
+*/
 function renderUI() {
-  /**
-  *
-  * Function that generates the graphs on the page
-  *
-  */
-
   const loansArray = createLoans();
 
   let tabs = $('.navTab');

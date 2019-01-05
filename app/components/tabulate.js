@@ -1,17 +1,12 @@
 /**
 *
-*
+* TODO
 *
 */
-
-function tabulateLifetimeTotals() {
-  /**
-  *
-  *
-  *
-  */
+function tabulateLifetimeTotals(loan, lifetimeTotalsData) {
   let tableHeaders = [`<th>Payment Amounts</th>`];
   let tableRows = [];
+  // revisit
   LoanM8.paymentValues.forEach(function(pmtAmt) {
     tableHeaders.push(`<th>$${pmtAmt}</th>`);
     let row = [`<td>$${pmtAmt}</td>`];
@@ -50,7 +45,7 @@ function tabulateLifetimeTotals() {
   });
 
   const element = (
-    `<div class="row center">
+    `<div id="" class="row center">
       <h4>
         Total Money and Time Comparison
       </h4>

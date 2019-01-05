@@ -1,3 +1,8 @@
+/**
+*
+* Function to generate input interface for loans currently in repayment
+*
+*/
 function renderPayingLoanFormModal() {
   // close any other open modals
   closeModal();
@@ -31,6 +36,9 @@ function renderPayingLoanFormModal() {
         </form>
         <div class="float-left">
           <button class="btn btn-primary" onclick="formToLoan(); closeModal();">Create</button>
+        </div>
+        <div class="float-left">
+          <button class="btn btn-primary" onclick="formToLoan(); renderLoanTypeChoiceModal();">Create another</button>
         </div>
         <div>
           <button class="btn btn-primary" onclick="backModal(renderLoanTypeChoiceModal);">Back</button>

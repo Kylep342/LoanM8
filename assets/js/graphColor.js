@@ -1,3 +1,12 @@
+/**
+*
+* Function to select graphing colors for a loan
+* Arguments:
+*   index [int]:    integer representing a Loan's position in a loanArray
+* Returns:
+*   color [string]: hex code representing the color to graph
+*
+*/
 function graphColor(index) {
   const digit = index % 4;
 

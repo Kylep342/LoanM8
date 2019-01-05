@@ -1,4 +1,12 @@
+/**
+*
+* Function to generate 'menu' style interface for users to select which type of
+* loan to create
+*
+*/
 function renderLoanTypeChoiceModal() {
+  closeModal();
+
   document.body.innerHTML += `
     <div id="borrowingLoanInputModal" class="modal">
       <div class="modal-content">
