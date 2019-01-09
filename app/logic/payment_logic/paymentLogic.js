@@ -5,20 +5,17 @@
 *
 */
 
+/**
+*
+* Function to make a payment to a Loan
+* The Loan is modified in place to reflect its state
+*
+* Arguments:
+*   Loan     [Loan]:  A Loan object
+*   payment  [Float]: A payment
+*
+*/
 function pay(Loan, payment) {
-  /**
-  *
-  * This function handles logic for making loan payments
-  * Logic has been implemented to handle senseless use cases,
-  * primarily, when a payment is smaller than a loan's interest
-  *
-  * Arguments:
-  *   Loan     [Loan]:  A Loan object
-  *   payment  [Float]: A payment
-  *
-  * Returns:
-  *   none
-  */
   if (payment <= Loan.interest) {
     Loan.interest -= payment;
     Loan.lifetimeInterestPaid += payment;
@@ -37,12 +34,18 @@ function pay(Loan, payment) {
   Loan.balance = Loan.principal + Loan.interest;
 };
 
+/**
+*
+* Function to record key attributes of a Loan
+* (date, current Loan balance, Total paid to Loan to date, Total interest paid to Loan to date)
+*
+* Arguments:
+*   Loan            [Loan]:   A Loan object
+*   dateInSchedule  [Date]:   A date representing when the Loan has been paid
+*   paymentsArray   [Array]:  Data container for recording stats over the lifetime of the Loan
+*
+*/
 function recordLoanState(Loan, dateInSchedule, paymentsArray) {
-  /**
-  *
-  *
-  *
-  */
   paymentsArray.push([
     dateInSchedule.toLocaleDateString(),
     Loan.balance,
@@ -51,6 +54,15 @@ function recordLoanState(Loan, dateInSchedule, paymentsArray) {
   ]);
 }
 
+/**
+*
+* This function computes one day's accrual of interest for a loan
+* It modifies the interest property of the Loan
+* Within the scope of this app, this funciton is only used during the repayment
+* of a Loan, due to the nuances that automatic electronic payments introduce
+* to interest rates
+*
+*/
 function accrueInterest(Loan) {
   /**
   *
@@ -64,16 +76,16 @@ function accrueInterest(Loan) {
   Loan.interest += parseFloat((Loan.principal * Loan.dailyRate).toFixed(2));
 };
 
+/**
+*
+* This function determines how much each loan should receive in payment
+*
+* Arguments:
+*   loansArray  [Array]{Loan}:  Array of Loan objects
+*   payment     [float]:        Total payment contribution for a month
+*
+*/
 function allocatePayments(loansArray, payment) {
-  /**
-  *
-  * This function determines how much each loan should receive in payment
-  *
-  * Arguments:
-  *   loansArray  [Array]{Loan}:  Array of Loan objects
-  *   payment     [float]:        Total payment contribution for a month
-  *
-  */
   let payments = [];
   for (loan of loansArray) {
     let amt = Math.min(loan.minPmt, loan.balance);
@@ -98,19 +110,18 @@ function allocatePayments(loansArray, payment) {
   return payments;
 }
 
+/**
+*
+* Function to generate payment data for loans
+*
+* Arguments:
+*   loansArray  [Array]:  Array containing Loans created by the user
+*   payment     [Float]:  Payment amount entered by the user
+*
+* Returns:
+*   loansPaymentData  [Object]:   pass
+*/
 function paymentSchedules(loansArray, payment) {
-  /**
-  *
-  * Function to generate payment data for loans
-  *
-  * Arguments:
-  *   loansArray  [Array]{Loan}:  Arr
-  *   payment     [Float]:        Pa
-  *
-  * Returns:
-  *   loansPaymentData  [JSON]:   pass
-  */
-
   // clone an Array of Loans from those added by the user
   // this is done to handle current need for mutability
   loans = JSON.parse(JSON.stringify(loansArray));

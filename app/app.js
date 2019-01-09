@@ -16,8 +16,8 @@ function loadApp() {
   document.body.innerHTML = `
     <div class="appContainer">
       <div class="page-header">
-        <h1>LoanM8</h1>
-        <a href="http://www.github.com/Kylep342/LoanM8" target="_blank"><i class="fab fa-github" href="http://www.github.com/Kylep342"></i></a>
+        <a class="homeLink" href="index.html"><h1>LoanM8</h1></a>
+        <a href="http://www.github.com/Kylep342/LoanM8" target="_blank"><i class="fab fa-github"></i></a>
       </div>
       <div class="container">
         <div class="row input-interface" id="formDivContainer">

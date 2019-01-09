@@ -54,6 +54,10 @@ a:link, a:visited, a:hover, a:active {
   display: none;
 }
 
+.homeLink:hover {
+  text-decoration: none;
+}
+
 .left {
   display: flex;
   justify-content: flex-start;
