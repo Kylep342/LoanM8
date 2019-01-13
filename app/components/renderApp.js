@@ -44,10 +44,10 @@ function preparePlotData(
 
   plotlyTotalsInputs[0].x.push(graphLabel);
   plotlyTotalsInputs[0].y.push(lifetimeTotals.lifetimePrincipalPaid);
-  plotlyTotalsInputs[0].marker.color.push(plotColor)
+  plotlyTotalsInputs[0].marker.color.push(plotColor);
   plotlyTotalsInputs[1].x.push(graphLabel);
   plotlyTotalsInputs[1].y.push(lifetimeTotals.lifetimeInterestPaid);
-  plotlyTotalsInputs[1].marker.color.push(plotColor)
+  plotlyTotalsInputs[1].marker.color.push(plotColor);
 };
 
 /**
@@ -151,8 +151,8 @@ function renderUI() {
   const paymentInputs = $("#payments").find(".payAmt");
   paymentInputs.each(function(index) {
     // if (paymentInputs[index].value === "") { return }
-    let pmt = Math.abs(parseFloat(paymentInputs[index].value))
-    pmtSchedules = paymentSchedules(loansArray, pmt)
+    let pmt = Math.abs(parseFloat(paymentInputs[index].value));
+    pmtSchedules = paymentSchedules(loansArray, pmt);
 
     for (loan of loansArray) {
       preparePlotData(

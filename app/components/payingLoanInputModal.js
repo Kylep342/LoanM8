@@ -46,4 +46,4 @@ function renderPayingLoanFormModal() {
       </div>
     </div>
   `;
-};
+}

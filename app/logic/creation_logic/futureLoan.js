@@ -24,9 +24,9 @@ function determineBeginRepaymentDate(gradDate) {
       gradDate.getMonth() - 6,
       gradDate.getDate()
     );
-  };
+  }
   return beginRepaymentDate;
-};
+}
 
 /**
 *
@@ -51,14 +51,14 @@ function calculateBalanceAtBeginRepayment(
   borrowDailyRate
 ) {
   if (subsidized) {
-    return borrowAmt
+    return borrowAmt;
   } else {
     firstDisbursementDays = Math.round((beginRepaymentDate - firstDisbursementDate) / 86400000);
     secondDisbursementDays = Math.round((beginRepaymentDate - secondDisbursementDate) / 86400000);
     interest = parseFloat((((1 / 2) * borrowAmt * borrowDailyRate * firstDisbursementDays) + ((1 / 2) * borrowAmt * borrowDailyRate * secondDisbursementDays)).toFixed(2));
     return (borrowAmt + interest);
-  };
-};
+  }
+}
 
 /**
  *
@@ -73,9 +73,9 @@ function calculateBalanceAtBeginRepayment(
  *
  */
 function fastForwardLoan() {
-  const form = $("#borrowingLoanInputModal")
+  const form = $("#borrowingLoanInputModal");
 
-  const name = form.find("#name").val()
+  const name = form.find("#name").val();
   const borrowAmt = Math.abs(parseFloat(form.find("#amount").val()));
   const borrowRate = Math.abs(parseFloat(form.find("#rate").val()));
   const borrowDecimalRate = borrowRate / 100;
@@ -122,7 +122,7 @@ function fastForwardLoan() {
       </ul>
     </div>
   </div>
-  `
+  `;
 
-  $("#loansList").append(loanElement)
-};
+  $("#loansList").append(loanElement);
+}

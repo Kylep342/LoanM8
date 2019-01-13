@@ -16,7 +16,7 @@
 function determinePrincipal(balance, dailyRate, previousPayDate) {
   let today = new Date();
   return parseFloat((balance / (1 + (dailyRate * Math.round((today.valueOf() - previousPayDate.valueOf())/86400000)))).toFixed(2));
-};
+}
 
 /**
 *
@@ -33,7 +33,7 @@ function determinePrincipal(balance, dailyRate, previousPayDate) {
 *
 */
 function interestTillNextPayment(principal, dailyRate, previousPayDate, nextPayDate) {
-  return principal * Math.floor((nextPayDate - previousPayDate) / 86400000) * dailyRate
+  return principal * Math.floor((nextPayDate - previousPayDate) / 86400000) * dailyRate;
 }
 
 /**
@@ -42,9 +42,9 @@ function interestTillNextPayment(principal, dailyRate, previousPayDate, nextPayD
 *
 */
 function formToLoan() {
-  const form = $("#payingLoanInputModal")
+  const form = $("#payingLoanInputModal");
 
-  const name = form.find("#name").val().replace(' ', '_')
+  const name = form.find("#name").val().replace(' ', '_');
   const balance = Math.abs(parseFloat(form.find("#balance").val()));
   const rate = Math.abs(parseFloat(form.find("#rate").val()));
   const dailyRate = rate / (36525);
@@ -90,7 +90,7 @@ function formToLoan() {
       <li class="beginRepaymentDate hidden">${beginRepaymentDate}</li>
     </ul>
   </div>
-  `
+  `;
 
-  $("#loansList").append(loanElement)
-};
+  $("#loansList").append(loanElement);
+}

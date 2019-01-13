@@ -29,10 +29,10 @@ function pay(Loan, payment) {
     } else {
       Loan.lifetimePrincipalPaid += paymentToPrincipal;
       Loan.principal -= paymentToPrincipal;
-    };
-  };
+    }
+  }
   Loan.balance = Loan.principal + Loan.interest;
-};
+}
 
 /**
 *
@@ -74,7 +74,7 @@ function accrueInterest(Loan) {
   *
   */
   Loan.interest += parseFloat((Loan.principal * Loan.dailyRate).toFixed(2));
-};
+}
 
 /**
 *
@@ -196,4 +196,4 @@ function paymentSchedules(loansArray, payment) {
     dateOfRepayment.setDate(dateOfRepayment.getDate() + 1);
   }
   return loansPaymentData;
-};
+}

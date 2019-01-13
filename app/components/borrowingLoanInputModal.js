@@ -60,4 +60,4 @@ function renderBorrowingLoanFormModal() {
       </div>
     </div>
   `;
-};
+}
