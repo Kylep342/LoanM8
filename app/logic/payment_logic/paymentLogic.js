@@ -64,15 +64,6 @@ function recordLoanState(Loan, dateInSchedule, paymentsArray) {
 *
 */
 function accrueInterest(Loan) {
-  /**
-  *
-  * This function computes one day's accrual of interest for a loan
-  * It modifies the interest property of the Loan
-  * Within the scope of this app, this function is only used during the repayment
-  * of a loan, due to the nuances that automatic electronic payments introduce
-  * to interest rates
-  *
-  */
   Loan.interest += parseFloat((Loan.principal * Loan.dailyRate).toFixed(2));
 }
 
@@ -111,6 +102,30 @@ function allocatePayments(loansArray, payment) {
 }
 
 /**
+ * 
+ * @param {*} loansPaymentsData 
+ * @param {*} dateString 
+ */
+function initAllLoansBalanceValuesForDate(loansPaymentsData, dateString) {
+  loansPaymentsData['All Loans'].dailyBalanceData.dates.push(dateString);
+  loansPaymentsData['All Loans'].dailyBalanceData.interest.push(0);
+  loansPaymentsData['All Loans'].dailyBalanceData.principal.push(0);
+  loansPaymentsData['All Loans'].dailyBalanceData.balance.push(0); 
+}
+
+function updateAllLoansBalanceValuesForDate(loansPaymentsData, Loan) {
+  loansPaymentsData['All Loans'].dailyBalanceData.interest[loansPaymentsData['All Loans'].dailyBalanceData.interest.length - 1] += Loan.interest;
+  loansPaymentsData['All Loans'].dailyBalanceData.principal[loansPaymentsData['All Loans'].dailyBalanceData.principal.length - 1] += Loan.principal;
+  loansPaymentsData['All Loans'].dailyBalanceData.balance[loansPaymentsData['All Loans'].dailyBalanceData.balance.length - 1] += (Loan.interest + Loan.principal);
+}
+
+function updateAllLoansLifetimeValues(loansPaymentsData, Loan, finalPaymentDate) {
+  loansPaymentsData['All Loans'].lifetimeData.lifetimeInterestPaid += Loan.lifetimeInterestPaid;
+  loansPaymentsData['All Loans'].lifetimeData.lifetimePrincipalPaid += Loan.lifetimePrincipalPaid;
+  loansPaymentsData['All Loans'].lifetimeData.finalPaymentDate = finalPaymentDate;
+}
+
+/**
 *
 * Function to generate payment data for loans
 *
@@ -119,7 +134,7 @@ function allocatePayments(loansArray, payment) {
 *   payment     [Float]:  Payment amount entered by the user
 *
 * Returns:
-*   loansPaymentData  [Object]:   pass
+*   loansPaymentsData  [Object]:   pass
 */
 function paymentSchedules(loansArray, payment) {
   // clone an Array of Loans from those added by the user
@@ -127,15 +142,31 @@ function paymentSchedules(loansArray, payment) {
   loans = JSON.parse(JSON.stringify(loansArray));
 
   // core data structure to contain graph points and lifetime payment totals
-  let loansPaymentData = {};
+  let loansPaymentsData = {};
 
   let dateOfRepayment = new Date(loans[0].beginRepaymentDate.valueOf());
   const dueDay = loans[0].dueOn;
   const startDateStr = dateOfRepayment.toISOString();
 
+  loansPaymentsData['All Loans'] = {
+    dailyBalanceData: {
+      dates: [],
+      interest: [],
+      principal: [],
+      balance: []
+    },
+    lifetimeData: {
+      lifetimeInterestPaid: 0,
+      lifetimePrincipalPaid: 0,
+      finalPaymentDate: null
+    },
+    paymentsTable: []
+  } 
+
+  initAllLoansBalanceValuesForDate(loansPaymentsData, startDateStr);
   // Set up data container for payment info and initialize
   for (loan of loans) {
-    loansPaymentData[loan.name] = {
+    loansPaymentsData[loan.name] = {
       dailyBalanceData: {
         dates:     [],
         interest:  [],
@@ -149,25 +180,30 @@ function paymentSchedules(loansArray, payment) {
       },
       paymentsTable: []
     }
-    loansPaymentData[loan.name].dailyBalanceData.dates.push(startDateStr);
-    loansPaymentData[loan.name].dailyBalanceData.interest.push(loan.interest);
-    loansPaymentData[loan.name].dailyBalanceData.principal.push(loan.principal);
-    loansPaymentData[loan.name].dailyBalanceData.balance.push(loan.interest + loan.principal);
+    loansPaymentsData[loan.name].dailyBalanceData.dates.push(startDateStr);
+    loansPaymentsData[loan.name].dailyBalanceData.interest.push(loan.interest);
+    loansPaymentsData[loan.name].dailyBalanceData.principal.push(loan.principal);
+    loansPaymentsData[loan.name].dailyBalanceData.balance.push(loan.interest + loan.principal);
+
+    updateAllLoansBalanceValuesForDate(loansPaymentsData, loan);
+
     recordLoanState(
       loan,
       dateOfRepayment,
-      loansPaymentData[loan.name].paymentsTable
+      loansPaymentsData[loan.name].paymentsTable
     );
   };
 
   while (loans.length) {
     const dateStr = dateOfRepayment.toISOString();
+    initAllLoansBalanceValuesForDate(loansPaymentsData, dateStr);
     for (loan of loans) {
       accrueInterest(loan);
-      loansPaymentData[loan.name].dailyBalanceData.dates.push(dateStr);
-      loansPaymentData[loan.name].dailyBalanceData.interest.push(loan.interest);
-      loansPaymentData[loan.name].dailyBalanceData.principal.push(loan.principal);
-      loansPaymentData[loan.name].dailyBalanceData.balance.push(loan.interest + loan.principal);
+      loansPaymentsData[loan.name].dailyBalanceData.dates.push(dateStr);
+      loansPaymentsData[loan.name].dailyBalanceData.interest.push(loan.interest);
+      loansPaymentsData[loan.name].dailyBalanceData.principal.push(loan.principal);
+      loansPaymentsData[loan.name].dailyBalanceData.balance.push(loan.interest + loan.principal);
+      updateAllLoansBalanceValuesForDate(loansPaymentsData, loan);
     };
     if (dateOfRepayment.getDate() === dueDay) {
       payments = allocatePayments(loans, payment);
@@ -176,7 +212,7 @@ function paymentSchedules(loansArray, payment) {
         recordLoanState(
           loan,
           dateOfRepayment,
-          loansPaymentData[loan.name].paymentsTable
+          loansPaymentsData[loan.name].paymentsTable
         );
       });
     };
@@ -185,9 +221,10 @@ function paymentSchedules(loansArray, payment) {
     for (i = 0; i < loans.length;) {
       loan = loans[i];
       if (loan.principal === 0) {
-        loansPaymentData[loan.name].lifetimeData.finalPaymentDate = new Date(dateOfRepayment.toLocaleDateString());
-        loansPaymentData[loan.name].lifetimeData.lifetimeInterestPaid = loan.lifetimeInterestPaid;
-        loansPaymentData[loan.name].lifetimeData.lifetimePrincipalPaid = loan.lifetimePrincipalPaid;
+        loansPaymentsData[loan.name].lifetimeData.finalPaymentDate = new Date(dateOfRepayment.toLocaleDateString());
+        loansPaymentsData[loan.name].lifetimeData.lifetimeInterestPaid = loan.lifetimeInterestPaid;
+        loansPaymentsData[loan.name].lifetimeData.lifetimePrincipalPaid = loan.lifetimePrincipalPaid;
+        updateAllLoansLifetimeValues(loansPaymentsData, loan, dateStr);
         loans.splice(i, 1);
         continue;
       };
@@ -195,5 +232,5 @@ function paymentSchedules(loansArray, payment) {
     };
     dateOfRepayment.setDate(dateOfRepayment.getDate() + 1);
   }
-  return loansPaymentData;
+  return loansPaymentsData;
 }
