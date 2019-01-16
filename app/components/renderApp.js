@@ -13,7 +13,6 @@
 *
 */
 function preparePlotData(
-  Loan,
   pmt,
   loanPaymentsData,
   plotlyPmtsInputs,
@@ -60,17 +59,17 @@ function preparePlotData(
 *
 */
 function drawPlots(
-  Loan,
+  loanName,
   plotlyPmtsInputs,
   plotlyTotalsInputs
 ) {
 
-  const paymentsGraphID = `payments-graph-${Loan.name}`;
+  const paymentsGraphID = `payments-graph-${loanName}`;
   const paymentsGraphDiv = `<div id=${paymentsGraphID} class="uiGraph"></div>`;
   $('#loanPaymentsGraphs').append(paymentsGraphDiv);
 
   const paymentsLayout = {
-    title:            `Loan Balances Over Time - ${Loan.name.replace('_', ' ')}`,
+    title:            `Loan Balances Over Time - ${loanName.replace('_', ' ')}`,
     yaxis: {
       hoverformat:    '$.2f'
     }
@@ -81,12 +80,12 @@ function drawPlots(
     paymentsLayout
   );
 
-  const totalsGraphID = `lifetime-totals-graph-${Loan.name}`;
+  const totalsGraphID = `lifetime-totals-graph-${loanName}`;
   const totalsGraphDiv = `<div id=${totalsGraphID} class="uiGraph"></div>`;
   $('#loanLifetimeTotalsGraphs').append(totalsGraphDiv);
 
   const lifetimeLayout = {
-    title:            `Total Amounts Paid Per Payment - ${Loan.name.replace('_', ' ')}`,
+    title:            `Total Amounts Paid Per Payment - ${loanName.replace('_', ' ')}`,
     barmode:          'stack',
     showlegend:       false,
     yaxis: {
@@ -120,6 +119,32 @@ function renderUI() {
   // The plotly.*Data variables are arrays due to Plotly needing arrays for data
   let plotlyPmtsInputs = {};
   let plotlyTotalsInputs = {};
+
+  plotlyPmtsInputs['All Loans'] = [];
+  plotlyTotalsInputs['All Loans'] = [
+      principals = {
+        x:        [],
+        y:        [],
+        width:    .4,
+        name:     'Principal',
+        type:     'bar',
+        marker: {
+          color:  []
+        }
+      },
+      interests = {
+        x:          [],
+        y:          [],
+        width:      .4,
+        name:       'Interest',
+        type:       'bar',
+        marker: {
+          color:    [],
+          opacity:  0.7
+        }
+      }
+  ];
+
   for (loan of loansArray) {
     plotlyPmtsInputs[loan.name] = [];
     plotlyTotalsInputs[loan.name] = [
@@ -154,9 +179,21 @@ function renderUI() {
     let pmt = Math.abs(parseFloat(paymentInputs[index].value));
     pmtSchedules = paymentSchedules(loansArray, pmt);
 
+    preparePlotData(
+      pmt,
+      pmtSchedules['All Loans'],
+      plotlyPmtsInputs['All Loans'],
+      plotlyTotalsInputs['All Loans'],
+      index
+    );
+    drawPlots(
+      'All_Loans',
+      plotlyPmtsInputs['All Loans'],
+      plotlyTotalsInputs['All Loans']
+    );
+
     for (loan of loansArray) {
       preparePlotData(
-        loan,
         pmt,
         pmtSchedules[loan.name],
         plotlyPmtsInputs[loan.name],
@@ -164,12 +201,13 @@ function renderUI() {
         index
       );
       drawPlots(
-        loan,
+        loan.name,
         plotlyPmtsInputs[loan.name],
         plotlyTotalsInputs[loan.name]
       );
     }
   });
+  addAllLoansMenuButton();
   for (loan of loansArray) {
     addLoanMenuButton(loan);
   }

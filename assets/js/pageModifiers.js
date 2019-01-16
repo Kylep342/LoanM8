@@ -68,9 +68,22 @@ function backModal(modalFunction) {
 function addLoanMenuButton(loan) {
   const loanNavButton = `
   <button class="btn btn-primary" onclick="displayGraph('${loan.name}')">${loan.name.replace('_', ' ')}</button>
-  `
-  const $loanNavMenu = $('#loanNavMenu')
-  $loanNavMenu.append(loanNavButton)
+  `;
+  const $loanNavMenu = $('#loanNavMenu');
+  $loanNavMenu.append(loanNavButton);
+}
+
+/**
+ * 
+ * 
+ * 
+ */
+function addAllLoansMenuButton() {
+  const loanNavButton = `
+  <button class="btn btn-primary" onclick="displayGraph('All_Loans')">All Loans</button>
+  `;
+  const $loanNavMenu = $('#loanNavMenu');
+  $loanNavMenu.append(loanNavButton);
 }
 
 /**
