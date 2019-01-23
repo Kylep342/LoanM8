@@ -14,19 +14,23 @@
 
 class Loan {
   constructor (
+    name,
     principal,
     interest,
+    minPmt,
     rate,
     dueOn,
-    beginRepaymentDate,
+    beginRepaymentDate
   ) {
+    this.name = name
     this.principal = principal
     this.interest = interest
     this.balance = this.principal + this.interest;
+    this.minPmt = minPmt;
     this.beginRepaymentDate = beginRepaymentDate;
     this.dueOn = dueOn;
-    this.decimalRate = rate / 100;
-    this.dailyRate = this.decimalRate / 365.25;
+    this.rate = rate;
+    this.dailyRate = this.rate / 36525;
     // Values to track lifetime stats for bar chart
     this.lifetimePrincipalPaid = 0;
     this.lifetimeInterestPaid = 0;
