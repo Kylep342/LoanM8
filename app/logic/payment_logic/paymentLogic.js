@@ -107,22 +107,22 @@ function allocatePayments(loansArray, payment) {
  * @param {*} dateString 
  */
 function initAllLoansBalanceValuesForDate(loansPaymentsData, dateString) {
-  loansPaymentsData['All Loans'].dailyBalanceData.dates.push(dateString);
-  loansPaymentsData['All Loans'].dailyBalanceData.interest.push(0);
-  loansPaymentsData['All Loans'].dailyBalanceData.principal.push(0);
-  loansPaymentsData['All Loans'].dailyBalanceData.balance.push(0); 
+  loansPaymentsData['All_Loans'].dailyBalanceData.dates.push(dateString);
+  loansPaymentsData['All_Loans'].dailyBalanceData.interest.push(0);
+  loansPaymentsData['All_Loans'].dailyBalanceData.principal.push(0);
+  loansPaymentsData['All_Loans'].dailyBalanceData.balance.push(0); 
 }
 
 function updateAllLoansBalanceValuesForDate(loansPaymentsData, Loan) {
-  loansPaymentsData['All Loans'].dailyBalanceData.interest[loansPaymentsData['All Loans'].dailyBalanceData.interest.length - 1] += Loan.interest;
-  loansPaymentsData['All Loans'].dailyBalanceData.principal[loansPaymentsData['All Loans'].dailyBalanceData.principal.length - 1] += Loan.principal;
-  loansPaymentsData['All Loans'].dailyBalanceData.balance[loansPaymentsData['All Loans'].dailyBalanceData.balance.length - 1] += (Loan.interest + Loan.principal);
+  loansPaymentsData['All_Loans'].dailyBalanceData.interest[loansPaymentsData['All_Loans'].dailyBalanceData.interest.length - 1] += Loan.interest;
+  loansPaymentsData['All_Loans'].dailyBalanceData.principal[loansPaymentsData['All_Loans'].dailyBalanceData.principal.length - 1] += Loan.principal;
+  loansPaymentsData['All_Loans'].dailyBalanceData.balance[loansPaymentsData['All_Loans'].dailyBalanceData.balance.length - 1] += (Loan.interest + Loan.principal);
 }
 
 function updateAllLoansLifetimeValues(loansPaymentsData, Loan, finalPaymentDate) {
-  loansPaymentsData['All Loans'].lifetimeData.lifetimeInterestPaid += Loan.lifetimeInterestPaid;
-  loansPaymentsData['All Loans'].lifetimeData.lifetimePrincipalPaid += Loan.lifetimePrincipalPaid;
-  loansPaymentsData['All Loans'].lifetimeData.finalPaymentDate = finalPaymentDate;
+  loansPaymentsData['All_Loans'].lifetimeData.lifetimeInterestPaid += Loan.lifetimeInterestPaid;
+  loansPaymentsData['All_Loans'].lifetimeData.lifetimePrincipalPaid += Loan.lifetimePrincipalPaid;
+  loansPaymentsData['All_Loans'].lifetimeData.finalPaymentDate = finalPaymentDate;
 }
 
 /**
@@ -148,7 +148,7 @@ function paymentSchedules(loansArray, payment) {
   const dueDay = loans[0].dueOn;
   const startDateStr = dateOfRepayment.toISOString();
 
-  loansPaymentsData['All Loans'] = {
+  loansPaymentsData['All_Loans'] = {
     dailyBalanceData: {
       dates: [],
       interest: [],

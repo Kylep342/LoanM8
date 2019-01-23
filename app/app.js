@@ -70,9 +70,9 @@ function loadApp() {
         </div>
         <div class="row">
           <div class="col-lg-11">
-            <div id="loanPaymentsGraphs" class="graph uiVisualizer"></div>
-            <div id="loanLifetimeTotalsGraphs" class="graph uiVisualizer"></div>
-            <div id="loanLifetimeTotalsTables" class="container uiVisualizer"></div>
+            <div id="loanPaymentsGraphs" class="graph uiVisualizerParent"></div>
+            <div id="loanLifetimeTotalsGraphs" class="graph uiVisualizerParent"></div>
+            <div id="loanLifetimeTotalsTables" class="container uiVisualizerParent"></div>
           </div>
           <div class="col-lg-1">
             <div class="loan-nav-menu" id="loanNavMenu"></div>

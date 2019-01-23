@@ -65,7 +65,7 @@ function drawPlots(
 ) {
 
   const paymentsGraphID = `payments-graph-${loanName}`;
-  const paymentsGraphDiv = `<div id=${paymentsGraphID} class="uiGraph"></div>`;
+  const paymentsGraphDiv = `<div id=${paymentsGraphID} class="uiVisualizer"></div>`;
   $('#loanPaymentsGraphs').append(paymentsGraphDiv);
 
   const paymentsLayout = {
@@ -81,7 +81,7 @@ function drawPlots(
   );
 
   const totalsGraphID = `lifetime-totals-graph-${loanName}`;
-  const totalsGraphDiv = `<div id=${totalsGraphID} class="uiGraph"></div>`;
+  const totalsGraphDiv = `<div id=${totalsGraphID} class="uiVisualizer"></div>`;
   $('#loanLifetimeTotalsGraphs').append(totalsGraphDiv);
 
   const lifetimeLayout = {
@@ -114,14 +114,15 @@ function renderUI() {
 
   document.getElementById('loanPaymentsGraphs').innerHTML = '';
   document.getElementById('loanLifetimeTotalsGraphs').innerHTML = '';
+  document.getElementById('loanLifetimeTotalsTables').innerHTML = '';
   document.getElementById('loanNavMenu').innerHTML = '';
 
   // The plotly.*Data variables are arrays due to Plotly needing arrays for data
   let plotlyPmtsInputs = {};
   let plotlyTotalsInputs = {};
 
-  plotlyPmtsInputs['All Loans'] = [];
-  plotlyTotalsInputs['All Loans'] = [
+  plotlyPmtsInputs['All_Loans'] = [];
+  plotlyTotalsInputs['All_Loans'] = [
       principals = {
         x:        [],
         y:        [],
@@ -172,27 +173,50 @@ function renderUI() {
     ];
   }
 
+  let tabulationValues = {
+    'All_Loans': {}
+  };
+  
+  for (const loan of loansArray) {
+    tabulationValues[loan.name] = {};
+  }
+
   // Process each payment input amount provided by user and insert data into containers
   const paymentInputs = $("#payments").find(".payAmt");
+  let payments = [];
+  paymentInputs.each(function(index) {
+    payments.push(Math.abs(parseFloat(paymentInputs[index].value)));
+  });
   paymentInputs.each(function(index) {
     // if (paymentInputs[index].value === "") { return }
     let pmt = Math.abs(parseFloat(paymentInputs[index].value));
+    let pmtAsStr = String(pmt);
+
+    for (const name in tabulationValues) {
+      tabulationValues[name][pmtAsStr] = {
+        interest: null,
+        finalPaymentDate: null
+      }
+    }
+
     pmtSchedules = paymentSchedules(loansArray, pmt);
 
     preparePlotData(
       pmt,
-      pmtSchedules['All Loans'],
-      plotlyPmtsInputs['All Loans'],
-      plotlyTotalsInputs['All Loans'],
+      pmtSchedules['All_Loans'],
+      plotlyPmtsInputs['All_Loans'],
+      plotlyTotalsInputs['All_Loans'],
       index
     );
-    drawPlots(
+    /*drawPlots(
       'All_Loans',
-      plotlyPmtsInputs['All Loans'],
-      plotlyTotalsInputs['All Loans']
-    );
+      plotlyPmtsInputs['All_Loans'],
+      plotlyTotalsInputs['All_Loans']
+    );*/
+    tabulationValues['All_Loans'][pmtAsStr].interest = pmtSchedules['All_Loans'].lifetimeData.lifetimeInterestPaid;
+    tabulationValues['All_Loans'][pmtAsStr].finalPaymentDate = pmtSchedules['All_Loans'].lifetimeData.finalPaymentDate;
 
-    for (loan of loansArray) {
+    for (let loan of loansArray) {
       preparePlotData(
         pmt,
         pmtSchedules[loan.name],
@@ -200,17 +224,50 @@ function renderUI() {
         plotlyTotalsInputs[loan.name],
         index
       );
-      drawPlots(
+      /*drawPlots(
         loan.name,
         plotlyPmtsInputs[loan.name],
         plotlyTotalsInputs[loan.name]
-      );
+      );*/
+      tabulationValues[loan.name][pmtAsStr].interest = pmtSchedules[loan.name].lifetimeData.lifetimeInterestPaid;
+      tabulationValues[loan.name][pmtAsStr].finalPaymentDate = pmtSchedules[loan.name].lifetimeData.finalPaymentDate;
     }
   });
+  
+  drawPlots(
+    'All_Loans',
+    plotlyPmtsInputs['All_Loans'],
+    plotlyTotalsInputs['All_Loans']
+   );
+
+  for (const loan of loansArray) {
+    drawPlots(
+      loan.name,
+      plotlyPmtsInputs[loan.name],
+      plotlyTotalsInputs[loan.name]
+    );
+  }
+
+
+  tabulateLifetimeTotals(
+    'All_Loans',
+    tabulationValues['All_Loans'],
+    payments
+  );
+
+  for (const loan of loansArray) {
+    tabulateLifetimeTotals(
+      loan.name,
+      tabulationValues[loan.name],
+      payments
+    );
+  }
+
+  // add buttons to toggle graphs for All_Loans totals, as well as each individual loan
   addAllLoansMenuButton();
-  for (loan of loansArray) {
+  for (const loan of loansArray) {
     addLoanMenuButton(loan);
   }
-  LoanM8.activeGraph = loansArray[0].name;
+  LoanM8.activeLoan = 'All_Loans';
   activateVisualizer('loanPaymentsGraphs');
 }

@@ -96,8 +96,8 @@ function addAllLoansMenuButton() {
 */
 function activateVisualizer(id) {
   LoanM8.activeComponent = id;
-  if (LoanM8.activeGraph !== undefined) {
-    displayGraph(LoanM8.activeGraph);
+  if (LoanM8.activeLoan !== undefined) {
+    displayGraph(LoanM8.activeLoan);
   }
 }
 
@@ -109,7 +109,7 @@ function activateVisualizer(id) {
 *
 */
 function displayGraph(loanName) {
-  let graphs = $('.uiGraph');
+  let graphs = $('.uiVisualizer');
   graphs.each(function(index) {
     graphs[index].style.display = 'none';
   });
@@ -123,7 +123,7 @@ function displayGraph(loanName) {
       prefix = 'lifetime-totals-graph-'
       break;
     case 'loanLifetimeTotalsTables':
-      prefix = 'foo'
+      prefix = 'lifetime-totals-table-'
       break;
     default:
       prefix = 'payments-graph-';
@@ -131,5 +131,5 @@ function displayGraph(loanName) {
   }
   id = prefix + loanName;
   document.getElementById(id).style.display = 'inline-block';
-  LoanM8.activeGraph = loanName;
+  LoanM8.activeLoan = loanName;
 }

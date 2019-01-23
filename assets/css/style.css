@@ -117,8 +117,6 @@ a:link, a:visited, a:hover, a:active {
 
 .section-label {
   display: inline;
-  margin-top: 25px;
-  margin-bottom: 25px;
   font-size: 18pt;
 }
 
@@ -126,7 +124,7 @@ a:link, a:visited, a:hover, a:active {
   text-align: center;
 }
 
-.uiGraph {
+.uiVisualizer {
   margin: auto;
   max-width: 1080px;
   display: none;
