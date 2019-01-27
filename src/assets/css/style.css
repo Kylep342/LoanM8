@@ -1,0 +1,131 @@
+body {
+  background-color: #ffffff;
+  font-family: 'Cairo', sans-serif;
+}
+
+a:link, a:visited, a:hover, a:active {
+  color: black;
+}
+
+
+.bold {
+  font-weight: bold;
+}
+
+.btn-vert {
+  vertical-align: middle;
+}
+
+.btn-width {
+  width: 50px;
+}
+
+.button-container {
+  justify-content: center;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.center-child-text {
+  text-align: center;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover, .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.float-left {
+  float: left;
+}
+
+.hidden {
+  display: none;
+}
+
+.homeLink:hover {
+  text-decoration: none;
+}
+
+.left {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.loan-graph {
+  display: none;
+}
+
+.modal {
+    display: block; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%; /* Could be more or less, depending on screen size */
+}
+
+.margins {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.navTab {
+  display: none;
+}
+
+.padding-left {
+  padding-left: 15px;
+}
+
+.padding-none {
+  padding: 0;
+}
+
+.page-header {
+  font-size: 20px;
+  text-align: center;
+}
+
+.right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.section-label {
+  display: inline;
+  font-size: 18pt;
+}
+
+.table td, th {
+  text-align: center;
+}
+
+.uiVisualizer {
+  margin: auto;
+  max-width: 1080px;
+  display: none;
+}
