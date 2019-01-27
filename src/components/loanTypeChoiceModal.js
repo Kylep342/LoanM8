@@ -4,8 +4,8 @@
 * loan to create
 *
 */
-function renderLoanTypeChoiceModal() {
-  closeModal();
+function renderLoanTypeChoiceModal () {
+  closeModal()
 
   document.body.innerHTML += `
     <div id="borrowingLoanInputModal" class="modal">
@@ -22,5 +22,5 @@ function renderLoanTypeChoiceModal() {
         </div>
       </div>
     </div>
-  `;
+  `
 }

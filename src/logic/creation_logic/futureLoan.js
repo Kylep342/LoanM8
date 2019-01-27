@@ -1,6 +1,5 @@
 // Functions needed to create Loans users plan on borrowing
 
-
 /**
 *
 * Function to determine when a loan will enter repayment
@@ -11,21 +10,21 @@
 *   beginRepaymentDate [Date]: The date when the loan enters repayment
 *
 */
-function determineBeginRepaymentDate(gradDate) {
+function determineBeginRepaymentDate (gradDate) {
   if (gradDate.getMonth() < 6) {
     beginRepaymentDate = new Date(
       gradDate.getFullYear(),
       gradDate.getMonth() + 6,
       gradDate.getDate()
-    );
+    )
   } else {
     beginRepaymentDate = new Date(
       gradDate.getFullYear() + 1,
       gradDate.getMonth() - 6,
       gradDate.getDate()
-    );
+    )
   }
-  return beginRepaymentDate;
+  return beginRepaymentDate
 }
 
 /**
@@ -42,7 +41,7 @@ function determineBeginRepaymentDate(gradDate) {
 *   borrowDailyRate         [float]:  The daily rate with which interest is calculated
 *
 */
-function calculateBalanceAtBeginRepayment(
+function calculateBalanceAtBeginRepayment (
   subsidized,
   beginRepaymentDate,
   firstDisbursementDate,
@@ -51,12 +50,12 @@ function calculateBalanceAtBeginRepayment(
   borrowDailyRate
 ) {
   if (subsidized) {
-    return borrowAmt;
+    return borrowAmt
   } else {
-    firstDisbursementDays = Math.round((beginRepaymentDate - firstDisbursementDate) / 86400000);
-    secondDisbursementDays = Math.round((beginRepaymentDate - secondDisbursementDate) / 86400000);
-    interest = parseFloat((((1 / 2) * borrowAmt * borrowDailyRate * firstDisbursementDays) + ((1 / 2) * borrowAmt * borrowDailyRate * secondDisbursementDays)).toFixed(2));
-    return (borrowAmt + interest);
+    firstDisbursementDays = Math.round((beginRepaymentDate - firstDisbursementDate) / 86400000)
+    secondDisbursementDays = Math.round((beginRepaymentDate - secondDisbursementDate) / 86400000)
+    interest = parseFloat((((1 / 2) * borrowAmt * borrowDailyRate * firstDisbursementDays) + ((1 / 2) * borrowAmt * borrowDailyRate * secondDisbursementDays)).toFixed(2))
+    return (borrowAmt + interest)
   }
 }
 
@@ -72,23 +71,23 @@ function calculateBalanceAtBeginRepayment(
  * none (adds html element with data to page)
  *
  */
-function fastForwardLoan() {
-  const form = $("#borrowingLoanInputModal");
+function fastForwardLoan () {
+  const form = $('#borrowingLoanInputModal')
 
-  const name = form.find("#name").val();
-  const borrowAmt = Math.abs(parseFloat(form.find("#amount").val()));
-  const borrowRate = Math.abs(parseFloat(form.find("#rate").val()));
-  const borrowDecimalRate = borrowRate / 100;
-  const borrowDailyRate = borrowDecimalRate / 365.25;
-  const firstDisbDate = new Date(sanitizeDate(form.find("#firstDisbDate").val()));
-  const secondDisbDate = new Date(sanitizeDate(form.find("#secondDisbDate").val()));
-  const subsidized = form.find("#subsidized").prop('checked');
-  const gradDate = new Date(sanitizeDate(form.find("#gradDate").val()));
-  const autopay = form.find("#autopay").prop('checked');
-  const beginRepaymentDate = determineBeginRepaymentDate(gradDate);
-  const dueOn = beginRepaymentDate.getDate();
+  const name = form.find('#name').val()
+  const borrowAmt = Math.abs(parseFloat(form.find('#amount').val()))
+  const borrowRate = Math.abs(parseFloat(form.find('#rate').val()))
+  const borrowDecimalRate = borrowRate / 100
+  const borrowDailyRate = borrowDecimalRate / 365.25
+  const firstDisbDate = new Date(sanitizeDate(form.find('#firstDisbDate').val()))
+  const secondDisbDate = new Date(sanitizeDate(form.find('#secondDisbDate').val()))
+  const subsidized = form.find('#subsidized').prop('checked')
+  const gradDate = new Date(sanitizeDate(form.find('#gradDate').val()))
+  const autopay = form.find('#autopay').prop('checked')
+  const beginRepaymentDate = determineBeginRepaymentDate(gradDate)
+  const dueOn = beginRepaymentDate.getDate()
 
-  const paymentRate = (autopay) ? borrowRate - .25 : borrowRate;
+  const paymentRate = (autopay) ? borrowRate - 0.25 : borrowRate
   const balanceAtRepayment = calculateBalanceAtBeginRepayment(
     subsidized,
     beginRepaymentDate,
@@ -96,7 +95,7 @@ function fastForwardLoan() {
     secondDisbDate,
     borrowAmt,
     borrowDailyRate
-  );
+  )
 
   // const minPmt = calculateMinPmt();
 
@@ -122,7 +121,7 @@ function fastForwardLoan() {
       </ul>
     </div>
   </div>
-  `;
+  `
 
-  $("#loansList").append(loanElement);
+  $('#loansList').append(loanElement)
 }

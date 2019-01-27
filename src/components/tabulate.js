@@ -3,50 +3,50 @@
 * TODO
 *
 */
-function tabulateLifetimeTotals(loanName, lifetimeTotalsData, pmtsArray) {
-  let tableHeaders = [`<th>Payment Amounts</th>`];
-  let tableRows = [];
+function tabulateLifetimeTotals (loanName, lifetimeTotalsData, pmtsArray) {
+  let tableHeaders = [`<th>Payment Amounts</th>`]
+  let tableRows = []
   // revisit
   for (let pmt of pmtsArray) {
-    const pmtAsStr = String(pmt);
-    tableHeaders.push(`<th>$${pmtAsStr}</th>`);
-    let row = [`<td>$${pmtAsStr}</td>`];
+    const pmtAsStr = String(pmt)
+    tableHeaders.push(`<th>$${pmtAsStr}</th>`)
+    let row = [`<td>$${pmtAsStr}</td>`]
     /* let interest = lifetimeTotalsData[pmtAsStr].interest;
     let finalPaymentDate = lifetimeTotalsData[pmtAsStr].finalPaymentDate; */
     for (let otherPmt of pmtsArray) {
-      const otherPmtAsStr = String(otherPmt);
+      const otherPmtAsStr = String(otherPmt)
       if (pmtAsStr === otherPmtAsStr) {
-        row.push(`<td>--</td>`);
+        row.push(`<td>--</td>`)
       } else {
         const lifetimeAmtDiff = (
           lifetimeTotalsData[pmtAsStr].interest -
           lifetimeTotalsData[otherPmtAsStr].interest
-        );
-        const amtPrefix = lifetimeAmtDiff < 0 ? '-' : '';
+        )
+        const amtPrefix = lifetimeAmtDiff < 0 ? '-' : ''
 
-        const payOff = new Date(lifetimeTotalsData[pmtAsStr].finalPaymentDate);
-        const otherPayOff = new Date(lifetimeTotalsData[otherPmtAsStr].finalPaymentDate);
+        const payOff = new Date(lifetimeTotalsData[pmtAsStr].finalPaymentDate)
+        const otherPayOff = new Date(lifetimeTotalsData[otherPmtAsStr].finalPaymentDate)
         const totalMonthsDiff = (
           ((payOff.getFullYear() - otherPayOff.getFullYear()) * 12) +
           (payOff.getMonth() - otherPayOff.getMonth())
-        );
-        const descriptor = (totalMonthsDiff < 0) ? 'later' : 'sooner';
-        const yearsDiff = Math.floor(Math.abs(totalMonthsDiff) / 12);
+        )
+        const descriptor = (totalMonthsDiff < 0) ? 'later' : 'sooner'
+        const yearsDiff = Math.floor(Math.abs(totalMonthsDiff) / 12)
         const monthsDiff = Math.abs(totalMonthsDiff) % 12
 
         const lifetimeTimeDiff = (
-          `${yearsDiff ? yearsDiff.toString() + (yearsDiff === 1 ? ' year ' : ' years ') : ''}`
-          + `${monthsDiff ? monthsDiff.toString() + (monthsDiff === 1 ? ' month ' : ' months ') : ''}`
-          + `${descriptor}`
-        );
+          `${yearsDiff ? yearsDiff.toString() + (yearsDiff === 1 ? ' year ' : ' years ') : ''}` +
+          `${monthsDiff ? monthsDiff.toString() + (monthsDiff === 1 ? ' month ' : ' months ') : ''}` +
+          `${descriptor}`
+        )
 
-        row.push(`<td>${amtPrefix}$${Math.abs(lifetimeAmtDiff).toFixed(2)}, ${lifetimeTimeDiff}`);
+        row.push(`<td>${amtPrefix}$${Math.abs(lifetimeAmtDiff).toFixed(2)}, ${lifetimeTimeDiff}`)
       }
     };
-    tableRows.push(`<tr>${row.join('')}</tr>`);
+    tableRows.push(`<tr>${row.join('')}</tr>`)
   };
 
-  const tableID = `lifetime-totals-table-${loanName}`;
+  const tableID = `lifetime-totals-table-${loanName}`
   const tableDiv = `
     <div id=${tableID} class="uiVisualizer">
       <div class="row center">
@@ -70,7 +70,7 @@ function tabulateLifetimeTotals(loanName, lifetimeTotalsData, pmtsArray) {
         </table>
       </div>
     </div>
-  `;
+  `
 
-  $("#loanLifetimeTotalsTables").append(tableDiv);
+  $('#loanLifetimeTotalsTables').append(tableDiv)
 };
