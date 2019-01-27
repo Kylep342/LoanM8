@@ -1,14 +1,14 @@
 // Collection of functions that modify the UI
 
-function addInputField() {
+function addInputField () {
   let input = `
     <div class="paymentInput">
       <label>Payment amount:</label>
       <input class="payAmt" type="number" step="0.01" min="0">
     </div>
-  `;
+  `
 
-  $("#payments").append(input);
+  $('#payments').append(input)
 };
 
 /**
@@ -16,9 +16,9 @@ function addInputField() {
 * Function to remove a payment input field
 *
 */
-function rmInputField() {
-  if ($(".paymentInput").length > 1) {
-    $(".paymentInput").last().remove()
+function rmInputField () {
+  if ($('.paymentInput').length > 1) {
+    $('.paymentInput').last().remove()
   };
 };
 
@@ -29,9 +29,9 @@ function rmInputField() {
 * Arguments:
 *   id [String]:  HTML element id of loan to delete
 */
-function deleteLoan(id) {
-  let element = document.getElementById(id);
-  element.parentNode.removeChild(element);
+function deleteLoan (id) {
+  let element = document.getElementById(id)
+  element.parentNode.removeChild(element)
 }
 
 /**
@@ -39,11 +39,11 @@ function deleteLoan(id) {
 * Function to close a modal
 *
 */
-function closeModal() {
+function closeModal () {
   let modals = $('.modal')
-  modals.each(function(index) {
+  modals.each(function (index) {
     modals[index].remove()
-  });
+  })
 }
 
 /**
@@ -53,9 +53,9 @@ function closeModal() {
 *   modalFunction [Function]: Name of function that generates the previous modal
 *
 */
-function backModal(modalFunction) {
-  closeModal();
-  modalFunction();
+function backModal (modalFunction) {
+  closeModal()
+  modalFunction()
 }
 
 /**
@@ -65,25 +65,25 @@ function backModal(modalFunction) {
 *   loan [Loan]:  Loan object representing the desired loan
 *
 */
-function addLoanMenuButton(loan) {
+function addLoanMenuButton (loan) {
   const loanNavButton = `
   <button class="btn btn-primary" onclick="displayGraph('${loan.name}')">${loan.name.replace('_', ' ')}</button>
-  `;
-  const $loanNavMenu = $('#loanNavMenu');
-  $loanNavMenu.append(loanNavButton);
+  `
+  const $loanNavMenu = $('#loanNavMenu')
+  $loanNavMenu.append(loanNavButton)
 }
 
 /**
- * 
- * 
- * 
+ *
+ *
+ *
  */
-function addAllLoansMenuButton() {
+function addAllLoansMenuButton () {
   const loanNavButton = `
   <button class="btn btn-primary" onclick="displayGraph('All_Loans')">All Loans</button>
-  `;
-  const $loanNavMenu = $('#loanNavMenu');
-  $loanNavMenu.append(loanNavButton);
+  `
+  const $loanNavMenu = $('#loanNavMenu')
+  $loanNavMenu.append(loanNavButton)
 }
 
 /**
@@ -94,10 +94,10 @@ function addAllLoansMenuButton() {
 *                 of the desired type
 *
 */
-function activateVisualizer(id) {
-  LoanM8.activeComponent = id;
+function activateVisualizer (id) {
+  LoanM8.activeComponent = id
   if (LoanM8.activeLoan !== undefined) {
-    displayGraph(LoanM8.activeLoan);
+    displayGraph(LoanM8.activeLoan)
   }
 }
 
@@ -108,28 +108,28 @@ function activateVisualizer(id) {
 *   loanName [String]: Name of desired loan to render visualization
 *
 */
-function displayGraph(loanName) {
-  let graphs = $('.uiVisualizer');
-  graphs.each(function(index) {
-    graphs[index].style.display = 'none';
-  });
+function displayGraph (loanName) {
+  let graphs = $('.uiVisualizer')
+  graphs.each(function (index) {
+    graphs[index].style.display = 'none'
+  })
 
-  let prefix = null;
+  let prefix = null
   switch (LoanM8.activeComponent) {
     case 'loanPaymentsGraphs':
       prefix = 'payments-graph-'
-      break;
+      break
     case 'loanLifetimeTotalsGraphs':
       prefix = 'lifetime-totals-graph-'
-      break;
+      break
     case 'loanLifetimeTotalsTables':
       prefix = 'lifetime-totals-table-'
-      break;
+      break
     default:
-      prefix = 'payments-graph-';
-      break;
+      prefix = 'payments-graph-'
+      break
   }
-  id = prefix + loanName;
-  document.getElementById(id).style.display = 'inline-block';
-  LoanM8.activeLoan = loanName;
+  id = prefix + loanName
+  document.getElementById(id).style.display = 'inline-block'
+  LoanM8.activeLoan = loanName
 }

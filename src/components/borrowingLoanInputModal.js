@@ -3,9 +3,9 @@
 * Function to generate input interface for loans yet to enter in repayment
 *
 */
-function renderBorrowingLoanFormModal() {
+function renderBorrowingLoanFormModal () {
   // close any other modals
-  closeModal();
+  closeModal()
 
   document.body.innerHTML += `
     <div id="borrowingLoanInputModal" class="modal">
@@ -59,5 +59,5 @@ function renderBorrowingLoanFormModal() {
         </div>
       </div>
     </div>
-  `;
+  `
 }

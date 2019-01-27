@@ -5,14 +5,14 @@
 * Global variable to store state
 *
 */
-let LoanM8 = {};
+let LoanM8 = {}
 
 /**
 *
 * Function to create base app HTML upon page load
 *
 */
-function loadApp() {
+function loadApp () {
   document.body.innerHTML = `
     <div class="appContainer">
       <div class="page-header">
@@ -80,7 +80,7 @@ function loadApp() {
         </div>
       </div>
     </div>
-    `;
+    `
 }
 
 /**
@@ -89,7 +89,7 @@ function loadApp() {
 * This function calls all necessary functions to perform the app workflow
 *
 */
-function app() {
-  renderUI();
+function app () {
+  renderUI()
   // tabulateLifetimeTotals();
 }
