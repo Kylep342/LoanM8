@@ -23,6 +23,6 @@ function graphColor (index) {
     case 3:
       color = '#D4826A'
       break
-  };
+  }
   return color
-};
+}

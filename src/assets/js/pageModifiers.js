@@ -9,7 +9,7 @@ function addInputField () {
   `
 
   $('#payments').append(input)
-};
+}
 
 /**
 *
@@ -19,8 +19,8 @@ function addInputField () {
 function rmInputField () {
   if ($('.paymentInput').length > 1) {
     $('.paymentInput').last().remove()
-  };
-};
+  }
+}
 
 /**
 *

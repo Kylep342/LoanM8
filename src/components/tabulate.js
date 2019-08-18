@@ -42,9 +42,9 @@ function tabulateLifetimeTotals (loanName, lifetimeTotalsData, pmtsArray) {
 
         row.push(`<td>${amtPrefix}$${Math.abs(lifetimeAmtDiff).toFixed(2)}, ${lifetimeTimeDiff}`)
       }
-    };
+    }
     tableRows.push(`<tr>${row.join('')}</tr>`)
-  };
+  }
 
   const tableID = `lifetime-totals-table-${loanName}`
   const tableDiv = `
@@ -73,4 +73,4 @@ function tabulateLifetimeTotals (loanName, lifetimeTotalsData, pmtsArray) {
   `
 
   $('#loanLifetimeTotalsTables').append(tableDiv)
-};
+}

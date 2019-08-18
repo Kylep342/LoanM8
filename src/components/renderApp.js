@@ -47,7 +47,7 @@ function preparePlotData (
   plotlyTotalsInputs[1].x.push(graphLabel)
   plotlyTotalsInputs[1].y.push(lifetimeTotals.lifetimeInterestPaid)
   plotlyTotalsInputs[1].marker.color.push(plotColor)
-};
+}
 
 /**
 *

@@ -33,5 +33,5 @@ class Loan {
     // Values to track lifetime stats for bar chart
     this.lifetimePrincipalPaid = 0
     this.lifetimeInterestPaid = 0
-  };
-};
+  }
+}

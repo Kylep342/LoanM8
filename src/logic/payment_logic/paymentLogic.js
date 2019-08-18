@@ -82,7 +82,7 @@ function allocatePayments (loansArray, payment) {
     let amt = Math.min(loan.minPmt, loan.balance)
     payments.push(amt)
     payment -= amt
-  };
+  }
   /**
   * after meeting minimum payment obilgations for each loan
   * distribute any remaming available payment amount as follows
@@ -192,7 +192,7 @@ function paymentSchedules (loansArray, payment) {
       dateOfRepayment,
       loansPaymentsData[loan.name].paymentsTable
     )
-  };
+  }
 
   while (loans.length) {
     const dateStr = dateOfRepayment.toISOString()
@@ -204,7 +204,7 @@ function paymentSchedules (loansArray, payment) {
       loansPaymentsData[loan.name].dailyBalanceData.principal.push(loan.principal)
       loansPaymentsData[loan.name].dailyBalanceData.balance.push(loan.interest + loan.principal)
       updateAllLoansBalanceValuesForDate(loansPaymentsData, loan)
-    };
+    }
     if (dateOfRepayment.getDate() === dueDay) {
       payments = allocatePayments(loans, payment)
       loans.forEach(function (loan, index) {
@@ -215,7 +215,7 @@ function paymentSchedules (loansArray, payment) {
           loansPaymentsData[loan.name].paymentsTable
         )
       })
-    };
+    }
     // manual looping over loans is necessary
     // due to splicing of loan from list once its principal is 0
     for (i = 0; i < loans.length;) {
@@ -227,9 +227,9 @@ function paymentSchedules (loansArray, payment) {
         updateAllLoansLifetimeValues(loansPaymentsData, loan, dateStr)
         loans.splice(i, 1)
         continue
-      };
+      }
       i++
-    };
+    }
     dateOfRepayment.setDate(dateOfRepayment.getDate() + 1)
   }
   return loansPaymentsData
