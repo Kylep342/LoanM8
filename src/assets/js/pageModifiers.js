@@ -36,6 +36,22 @@ function deleteLoan(id) {
   element.parentNode.removeChild(element);
 }
 
+function editLoan(id) {
+  let loan = document.getElementById(id);
+  let loanType = loan.getElementsByClassName("loanType")[0].innerText;
+  switch (loanType) {
+    case "current":
+      renderPayingLoanFormModal(loan);
+      break;
+    case "future":
+      renderBorrowingLoanFormModal(loan);
+      break;
+    default:
+      void 0;
+      break;
+  }
+}
+
 /**
  *
  * Function to close a modal
@@ -113,9 +129,9 @@ function activateVisualizer(id) {
  *
  */
 function displayGraph(loanName) {
-  let graphs = $(".uiVisualizer");
-  graphs.each(function(index) {
-    graphs[index].style.display = "none";
+  let visuals = $(".uiVisualizer");
+  visuals.each(function(index) {
+    visuals[index].style.display = "none";
   });
 
   let prefix = null;

@@ -1,11 +1,11 @@
 /**
-*
-* Function to generate input interface for loans yet to enter in repayment
-*
-*/
-function renderBorrowingLoanFormModal () {
+ *
+ * Function to generate input interface for loans yet to enter in repayment
+ *
+ */
+function renderBorrowingLoanFormModal(loanDiv = null) {
   // close any other modals
-  closeModal()
+  closeModal();
 
   document.body.innerHTML += `
     <div id="borrowingLoanInputModal" class="modal">
@@ -15,15 +15,23 @@ function renderBorrowingLoanFormModal () {
         <form id="inBorrowingInputForm" class="margins">
           <div>
             <label for="name">Name:</label>
-            <input type="string" id="name" name="loanName">
+            <input type="string" id="name" name="loanName" value=${
+              loanDiv ? loanDiv.getElementsByClassName("name")[0].innerText : ""
+            }>
           </div>
           <div>
             <label for="amount">Loan amount:</label>
-            <input type="number" step="0.01" min="0" id="amount" name="loanAmount" placeholder="e.g. 5500">
+            <input type="number" step="0.01" min="0" id="amount" name="loanAmount" placeholder="e.g. 5500" value=${
+              loanDiv
+                ? loanDiv.getElementsByClassName("principal")[0].innerText
+                : ""
+            }>
           </div>
           <div>
             <label for="rate">Interest rate:</label>
-            <input type="number" step="0.01" min="0" id="rate" name="interestRate" placeholder="e.g. 5.25">
+            <input type="number" step="0.01" min="0" id="rate" name="interestRate" placeholder="e.g. 5.25" value=${
+              loanDiv ? loanDiv.getElementsByClassName("rate")[0].innerText : ""
+            }>
           </div>
           <div>
             <label for="firstDisbDate">First disbursement date::</label>
@@ -59,5 +67,5 @@ function renderBorrowingLoanFormModal () {
         </div>
       </div>
     </div>
-  `
+  `;
 }
