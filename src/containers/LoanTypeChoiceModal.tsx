@@ -5,36 +5,30 @@ import Button from '../components/Button'
 import CurrentLoanFormContainer from './CurrentLoanForm'
 import FutureLoanFormContainer from './FutureLoanForm'
 
-class LoanTypeChoiceModal extends React.Component {
-    constructor(props) {
-        super(props);
+import './style.css'
 
-        this.renderCurrentLoanForm = this.renderCurrentLoanForm.bind(this)
-        this.renderFutureLoanForm = this.renderFutureLoanForm.bind(this)
-    }
-    renderCurrentLoanForm(event) {
+class LoanTypeChoiceModal extends React.Component {
+    renderCurrentLoanForm = (event) => {
         event.preventDefault();
         ReactDOM.render(<CurrentLoanFormContainer />, document.getElementById('form-div'))
     }
 
-    renderFutureLoanForm(event) {
+    renderFutureLoanForm = (event) => {
         event.preventDefault();
         ReactDOM.render(<FutureLoanFormContainer />, document.getElementById('form-div'))
     }
 
     render() {
         return (
-            <div id='borrowingLoanInputModal' className='modal'>
-                <div className='modal-content'>
+            <div className="modal">
+                <div id='borrowingLoanInputModal' className='modal-content'>
                     <span className='section-label'>Have you begun repaying this loan?</span>
                     {/* <span className='close' onclick='closeModal()'>&times;</span> */}
-                    <div className='margins'>
-                        <div className='float-left'>
-                            <Button action={this.renderCurrentLoanForm} type={'seconday'} title={'Yes'} style={buttonStyle} /> {/* Yes */}
-                        </div>
-                        <div>
-                            <Button action={this.renderFutureLoanForm} type={'seconday'} title={'No'} style={buttonStyle} /> {/* Yes */}
-                        </div>
+                    <div className='float-left'>
+                        <Button action={this.renderCurrentLoanForm} type={'seconday'} title={'Yes'} style={buttonStyle} /> {/* Yes */}
+                    </div>
+                    <div>
+                        <Button action={this.renderFutureLoanForm} type={'seconday'} title={'No'} style={buttonStyle} /> {/* Yes */}
                     </div>
                 </div>
             </div>

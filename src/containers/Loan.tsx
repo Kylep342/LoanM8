@@ -1,39 +1,39 @@
 import * as React from 'react'
 
-export default class Loan extends React.Component {
-    state = {
-        name: '',
-        principal: 0,
-        interest: 0,
-        balance: 0,
-        minPmt: 0,
-        beginRepaymentDate: null,
-        dueOn: 0,
-        rate: 0,
-        dailyRate: 0,
-        lifetimePrincipalPaid: 0,
-        lifetimeInterestPaid: 0
-    };
+interface Props { }
+interface State {
+    type: string;
+    name: string;
+    principal: number,
+    interest: number,
+    balance: number,
+    minPmt: number,
+    beginRepaymentDate: Date,
+    dueOn: number,
+    rate: number,
+    dailyRate: number,
+    lifetimePrincipalPaid: number,
+    lifetimeInterestPaid: number
+}
+
+}
+
+export default class Loan extends React.Component<Props, State> {
+    constructor(props) {
+        super(props)
+
+        this.createCurrent = this.createCurrent.bind(this);
+        this.createFuture = this.createFuture.bind(this);
+
+        this.state = props.type === 'current' ? this.createCurrent(props) : this.createFuture(props)
+    }
+    ;
 
     calculateBeginRepaymentDate = (graduationDate) => {
-        void(0)
+        void (0)
     }
 
-    create = (props) => {
-        this.setState({
-            name: props.name,
-            principal: props.principal,
-            interest: props.interest,
-            balance: props.principal + props.interest,
-            minPmt: props.minPmt,
-            beginRepaymentDate: this.calculateBeginRepaymentDate(props.graduationDate),
-            dueOn: props.graduationDate.getDate(),
-            rate: props.rate,
-            dailyRate: props.rate / 36525
-        });
-    };
-
-    render () {
+    render() {
         return (
             <div>
                 <span>${this.state.name}</span>
