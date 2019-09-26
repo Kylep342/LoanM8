@@ -4,7 +4,7 @@ import * as React from 'react'
 const CheckBox = (props) => {
     return (
         <div className="form-group">
-            <label htmlFor={props.name} className="form-label">{props.title}
+            <label htmlFor={props.name} className="form-label">{props.title + ": "}
                 <input
                     id={props.name}
                     name={props.name}
