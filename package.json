@@ -18,8 +18,9 @@
     },
     "homepage": "https://github.com/Kylep342/LoanM8#readme",
     "devDependencies": {
-        "@types/react": "^16.9.2",
-        "@types/react-dom": "^16.9.0",
+        "@types/react": "^16.9.3",
+        "@types/react-dom": "^16.9.1",
+        "@types/react-redux": "^7.1.3",
         "parcel-bundler": "^1.12.3",
         "react": "^16.9.0",
         "react-dom": "^16.9.0",
