@@ -13,16 +13,6 @@ interface IState {
 }
 
 
-// ReactDOM.render(
-//     <Button
-//         action={() => { ReactDOM.render(<LoanTypeChoiceModal />, document.getElementById('form-div')) }}
-//         type={'primary'}
-//         title={'Create Loan'}
-//         style={null}
-//     />,
-//     document.getElementById('main')
-// )
-
 class App extends React.Component<{}, IState> {
     constructor(props: {}) {
         super(props);
