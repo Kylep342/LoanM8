@@ -68,6 +68,7 @@ class App extends React.Component<{}, IState> {
     }
 
     private handleCurrentLoanFormCreateClick = () => {
+        console.log(this.state);
         this.setState({ currentLoanFormOpen: false });
     }
 
@@ -81,6 +82,7 @@ class App extends React.Component<{}, IState> {
     }
 
     private handleFutureLoanFormCreateClick = () => {
+        console.log(this.state);
         this.setState({ futureLoanFormOpen: false });
     }
 
