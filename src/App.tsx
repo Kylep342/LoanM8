@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
+import Header from './header';
 import LoanTypeChoiceModal from './containers/LoanTypeChoiceModal';
 import CurrentLoanFormContainer from './containers/CurrentLoanForm';
 import FutureLoanFormContainer from './containers/FutureLoanForm';
@@ -26,9 +27,7 @@ class App extends React.Component<{}, IState> {
     public render() {
         return (
             <div className="App">
-                <header className="App-header">
-                    <p>Placeholder header</p>
-                </header>
+                <Header />
                 <button onClick={this.handleCreateClick}>Add a Loan</button>
                 <LoanTypeChoiceModal
                     open={this.state.loanTypeChoiceFormOpen}
