@@ -2,18 +2,8 @@ body {
     margin: 0;
     padding: 0;
     font-family: "Cairo", sans-serif;
+    /* font-size: 20px; */
+    color: #6C809A;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-}
-
-.header {
-    text-align: center;
-    background-color: #7808FA;
-    height: 140px;
-    padding: 20px;
-    color: #FFFFFF;
-}
-
-.white {
-    color: #FFFFFF;
 }

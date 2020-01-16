@@ -1,43 +1,35 @@
-import * as React from 'react'
+import * as React from "react"
+import { connect } from "react-redux";
 
+import { IApplicationState } from "../store/Store";
+import { futureCreate, futureBack, futureExit } from "../store/actions/FormsActions";
+import { IFutureLoanState } from "../types/LoanTypes";
 
-import './style.css'
+import "./style.css"
 
 interface IProps {
     open: boolean;
-    onCreateClick: () => void;
-    onClearClick: () => void;
-    onBackClick: () => void;
+    create: typeof futureCreate;
+    back: typeof futureBack;
+    exit: typeof futureExit;
 }
 
-interface IState {
-    name: string;
-    principal: number;
-    rate: number;
-    firstDisbursementDate: Date;
-    secondDisbursementDate: Date;
-    subsidized: boolean;
-    graduationDate: Date;
-    autopay: boolean;
-}
-
-
-class FutureLoanFormContainer extends React.Component<IProps, IState> {
+class FutureLoanFormContainer extends React.Component<IProps, IFutureLoanState> {
     state = {
-        name: '',
-        principal: 0,
-        rate: 0,
+        name: undefined,
+        principal: undefined,
+        interestRate: undefined,
         firstDisbursementDate: undefined,
         secondDisbursementDate: undefined,
-        subsidized: false,
+        subsidized: undefined,
         graduationDate: undefined,
-        autopay: false
+        autopay: undefined
     }
 
     /* */
     handleInputChange = (event) => {
         const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const value = target.type === "checkbox" ? target.checked : target.value;
         const name = target.name;
 
         this.setState(prevState => (
@@ -45,166 +37,176 @@ class FutureLoanFormContainer extends React.Component<IProps, IState> {
         ))
     }
 
-    handleFormSubmit = (event) => {
-        event.preventDefault();
-        console.log(this.state)
-    }
-
-    handleClearForm = (event) => {
-        event.preventDefault();
-        this.setState({
-            name: '',
-            principal: 0,
-            rate: 0,
-            firstDisbursementDate: undefined,
-            secondDisbursementDate: undefined,
-            subsidized: false,
-            graduationDate: undefined,
-            autopay: false
-        })
-    }
-
-    handleBack = (event) => {
-        event.preventDefault();
-        // ReactDOM.render(<LoanTypeChoiceModal />, document.getElementById('form-div'));
-    }
-
-
     public render() {
         return (
             <div className={this.props.open ? "modal-wrapper modal-visible" : "modal-wrapper"}>
                 <div className="modal-container">
-                    <form className="modal-content container-fluid" onSubmit={this.handleFormSubmit}>
-                        <div className="modal-content-container">
-                            <div className='form-group'>
-                                <label htmlFor={'name'} className={'form-label'}>Loan Name: </label>
+                    <div className="modal-content-container"> {/*onSubmit={this.handleFormSubmit}>*/}
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <span className="modal-title">Creating a Future Loan</span>
+                                <span className="close" onClick={this.handleExitClick}>&times;</span>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor={"name"} className={"form-label"}>Loan Name: </label>
                                 <input
-                                    type={'text'}
-                                    id={'futureLoanNameInput'}
-                                    name={'name'}
-                                    value={this.state.name}
-                                    placeholder={'Enter a name for the loan'}
+                                    type={"text"}
+                                    id={"futureLoanNameInput"}
+                                    name={"name"}
+                                    value={this.state.name || ""}
+                                    placeholder={"Enter a name for the loan"}
                                     onChange={this.handleInputChange}
                                 /> {/* Loan Name */}
                             </div>
 
-                            <div className='form-group'>
-                                <label htmlFor={'principal'} className={'form-label'}>Principal: </label>
+                            <div className="form-group">
+                                <label htmlFor={"principal"} className={"form-label"}>Principal: </label>
                                 <input
-                                    type={'number'}
-                                    id={'futureLoanPrincipalInput'}
-                                    name={'principal'}
-                                    value={this.state.principal}
-                                    placeholder={undefined}
+                                    type={"number"}
+                                    id={"futureLoanPrincipalInput"}
+                                    name={"principal"}
+                                    value={this.state.principal || ""}
+                                    step={"0.01"}
+                                    placeholder={"Enter the principal"}
                                     onChange={this.handleInputChange}
                                 /> {/* Principal */}
                             </div>
 
-                            <div className='form-group'>
-                                <label htmlFor={'rate'} className={'form-label'}>Interest Rate: </label>
+                            <div className="form-group">
+                                <label htmlFor={"interestRate"} className={"form-label"}>Interest Rate: </label>
                                 <input
-                                    type={'number'}
-                                    id={'futureLoanRateInput'}
-                                    name={'rate'}
-                                    value={this.state.rate}
-                                    placeholder={undefined}
+                                    type={"number"}
+                                    id={"futureLoanRateInput"}
+                                    name={"interestRate"}
+                                    value={this.state.interestRate || ""}
+                                    step={"0.01"}
+                                    placeholder={"Enter the interest interestRate"}
                                     onChange={this.handleInputChange}
-                                /> {/* Interest Rate */}
+                                /> {/* Interest interestRate */}
                             </div>
 
-                            <div className='form-group'>
-                                <label htmlFor={'firstDisbursementDate'} className={'form-label'}>First Disbursement Date: </label>
+                            <div className="form-group">
+                                <label htmlFor={"firstDisbursementDate"} className={"form-label"}>First Disbursement Date: </label>
                                 <input
-                                    type={'date'}
-                                    id={'futureLoanFirstDisbursementDateInput'}
-                                    name={'firstDisbursementDate'}
-                                    value={this.state.firstDisbursementDate}
-                                    placeholder={undefined}
+                                    type={"date"}
+                                    id={"futureLoanFirstDisbursementDateInput"}
+                                    name={"firstDisbursementDate"}
+                                    value={this.state.firstDisbursementDate || ""}
+                                    placeholder={"Enter the first disbursement date"}
                                     onChange={this.handleInputChange}
                                 /> {/* First Disbursement Date */}
                             </div>
 
-                            <div className='form-group'>
-                                <label htmlFor={'secondDisbursementDate'} className={'form-label'}>Second Disbursement Date: </label>
+                            <div className="form-group">
+                                <label htmlFor={"secondDisbursementDate"} className={"form-label"}>Second Disbursement Date: </label>
                                 <input
-                                    type={'date'}
-                                    id={'futureLoanSecondDisbursementDateInput'}
-                                    name={'secondDisbursementDate'}
-                                    value={this.state.secondDisbursementDate}
-                                    placeholder={undefined}
+                                    type={"date"}
+                                    id={"futureLoanSecondDisbursementDateInput"}
+                                    name={"secondDisbursementDate"}
+                                    value={this.state.secondDisbursementDate || ""}
+                                    placeholder={"Enter the second disbursement date"}
                                     onChange={this.handleInputChange}
                                 /> {/* Second Disbursement Date */}
                             </div>
 
-                            <div className='form-group'>
-                                <label htmlFor={'subsidized'} className={'form-label'}>Is this loan subsidized: </label>
+                            <div className="form-group">
+                                <label htmlFor={"subsidized"} className={"form-label"}>Is this loan subsidized: </label>
                                 <input
-                                    type={'checkbox'}
-                                    id={'futureLoanSubsidizedInput'}
-                                    name={'subsidized'}
-                                    checked={this.state.subsidized}
+                                    type={"checkbox"}
+                                    id={"futureLoanSubsidizedInput"}
+                                    name={"subsidized"}
+                                    checked={this.state.subsidized || false}
                                     onChange={this.handleInputChange}
                                 /> {/* Subsidized */}
                             </div>
 
-                            <div className='form-group'>
-                                <label htmlFor={'graduationDate'} className={'form-label'}>Graduation Date: </label>
+                            <div className="form-group">
+                                <label htmlFor={"graduationDate"} className={"form-label"}>Graduation Date: </label>
                                 <input
-                                    type={'date'}
-                                    id={'futureLoanGraduationDateInput'}
-                                    name={'graduationDate'}
-                                    value={this.state.graduationDate}
-                                    placeholder={undefined}
+                                    type={"date"}
+                                    id={"futureLoanGraduationDateInput"}
+                                    name={"graduationDate"}
+                                    value={this.state.graduationDate || ""}
+                                    placeholder={"Enter your graduation date"}
                                     onChange={this.handleInputChange}
                                 /> {/* Graduation Date */}
                             </div>
 
-                            <div className='form-group'>
-                                <label htmlFor={'autopay'} className={'form-label'}>Will you use autopay: </label>
+                            <div className="form-group">
+                                <label htmlFor={"autopay"} className={"form-label"}>Will you use autopay: </label>
                                 <input
-                                    type={'checkbox'}
-                                    id={'futureLoanAutopayInput'}
-                                    name={'autopay'}
-                                    checked={this.state.autopay}
+                                    type={"checkbox"}
+                                    id={"futureLoanAutopayInput"}
+                                    name={"autopay"}
+                                    checked={this.state.autopay || false}
                                     onChange={this.handleInputChange}
                                 /> {/* Autopay */}
                             </div>
                         </div>
-
-                        <div className="modal-buttons-container">
+                    </div>
+                    <div className="modal-buttons-container">
                             <button
-                                className={'button-primary'}
+                                className={"button-primary"}
                                 onClick={this.handleCreateClick}>
                                 Create
                             </button>
                             <button
-                                className={'button-secondary'}
-                                onClick={this.handleClearClick}>
+                                className={"button-secondary"}
+                                onClick={this.clearFields}>
                                 Clear
                             </button>
                             <button
-                                className={'button-secondary'}
+                                className={"button-secondary"}
                                 onClick={this.handleBackClick}>
                                 Back
                             </button>
                         </div>
-                    </form>
                 </div>
             </div>
         )
     }
 
-    private handleCreateClick = () => {
-        this.props.onCreateClick();
+    private clearFields = () => {
+        this.setState({
+            name: undefined,
+            principal: undefined,
+            interestRate: undefined,
+            firstDisbursementDate: undefined,
+            secondDisbursementDate: undefined,
+            subsidized: undefined,
+            graduationDate: undefined,
+            autopay: undefined
+        })
     }
 
-    private handleClearClick = () => {
-        this.props.onClearClick();
+    private handleCreateClick = () => {
+        this.props.create();
+        this.clearFields();
     }
 
     private handleBackClick = () => {
-        this.props.onBackClick();
+        this.clearFields();
+        this.props.back();
+    }
+    
+    private handleExitClick = () => {
+        this.clearFields();
+        this.props.exit();
     }
 }
 
-export default FutureLoanFormContainer
+const mapStateToProps = (store: IApplicationState) => {
+    return {
+        open: store.forms.futureLoanFormOpen
+    }
+}
+
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        create: () => dispatch(futureCreate()),
+        back: () => dispatch(futureBack()),
+        exit: () => dispatch(futureExit()),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FutureLoanFormContainer);

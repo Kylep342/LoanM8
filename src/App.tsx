@@ -1,98 +1,42 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import { Store } from "redux";
+import { Provider } from "react-redux";
 
-import Header from './header';
-import LoanTypeChoiceModal from './containers/LoanTypeChoiceModal';
-import CurrentLoanFormContainer from './containers/CurrentLoanForm';
-import FutureLoanFormContainer from './containers/FutureLoanForm';
-
-
-interface IState {
-    loanTypeChoiceFormOpen: boolean;
-    currentLoanFormOpen: boolean;
-    futureLoanFormOpen: boolean;
-}
+import configureStore from "./store/Store";
+import { IApplicationState } from "./store/Store";
+import Header from "./components/Header";
+import LoanTypeChoiceModal from "./components/LoanTypeChoiceModal";
+import CurrentLoanFormContainer from "./containers/CurrentLoanForm";
+import FutureLoanFormContainer from "./containers/FutureLoanForm";
+import CreateLoanButton from "./components/CreateLoanButton";
 
 
-class App extends React.Component<{}, IState> {
-    constructor(props: {}) {
-        super(props);
-        this.state = {
-            loanTypeChoiceFormOpen: false,
-            currentLoanFormOpen: false,
-            futureLoanFormOpen: false,
-        }
-    }
-
+class App extends React.Component {
     public render() {
         return (
             <div className="App">
                 <Header />
-                <button onClick={this.handleCreateClick}>Add a Loan</button>
-                <LoanTypeChoiceModal
-                    open={this.state.loanTypeChoiceFormOpen}
-                    onCreateCurrentLoanClick={this.handleChoiceFormChooseCurrentLoanClick}
-                    onCreateFutureLoanClick={this.handleChoiceFormChooseFutureLoanClick}
-                />
-                <CurrentLoanFormContainer
-                    open={this.state.currentLoanFormOpen}
-                    onCreateClick={this.handleCurrentLoanFormCreateClick}
-                    onClearClick={this.handleCurrentLoanFormClearClick}
-                    onBackClick={this.handleCurrentLoanFormBackClick}
-                />
-                <FutureLoanFormContainer
-                    open={this.state.futureLoanFormOpen}
-                    onCreateClick={this.handleFutureLoanFormCreateClick}
-                    onClearClick={this.handleFutureLoanFormClearClick}
-                    onBackClick={this.handleFutureLoanFormBackClick}
-                />
+                <CreateLoanButton />
+                <LoanTypeChoiceModal />
+                <CurrentLoanFormContainer />
+                <FutureLoanFormContainer />
             </div>
         )
     }
-
-    private handleCreateClick = () => {
-        this.setState({ loanTypeChoiceFormOpen: true });
-    }
-
-    private handleChoiceFormChooseCurrentLoanClick = () => {
-        this.setState({ loanTypeChoiceFormOpen: false, currentLoanFormOpen: true });
-    }
-
-    private handleChoiceFormChooseFutureLoanClick = () => {
-        this.setState({ loanTypeChoiceFormOpen: false, futureLoanFormOpen: true });
-    }
-
-    private handleChoiceFormExit = () => {
-        this.setState({ loanTypeChoiceFormOpen: false });
-    }
-
-    private handleCurrentLoanFormCreateClick = () => {
-        console.log(this.state);
-        this.setState({ currentLoanFormOpen: false });
-    }
-
-    private handleCurrentLoanFormClearClick = () => {
-        void (0);
-        // this.setState({loanTypeChoiceFormOpen: true });
-    }
-
-    private handleCurrentLoanFormBackClick = () => {
-        this.setState({ currentLoanFormOpen: false, loanTypeChoiceFormOpen: true });
-    }
-
-    private handleFutureLoanFormCreateClick = () => {
-        console.log(this.state);
-        this.setState({ futureLoanFormOpen: false });
-    }
-
-    private handleFutureLoanFormClearClick = () => {
-        void (0);
-        // this.setState({loanTypeChoiceFormOpen: true });
-    }
-
-    private handleFutureLoanFormBackClick = () => {
-        this.setState({ futureLoanFormOpen: false, loanTypeChoiceFormOpen: true });
-    }
 }
 
-ReactDOM.render(<App />, document.getElementById('main'))
+interface IProps {
+    store: Store<IApplicationState>;
+}
+
+const Root: React.SFC<IProps> = props => {
+    return (
+        <Provider store={props.store}>
+            <App />
+        </Provider>
+    );
+}
+
+const store = configureStore();
+ReactDOM.render(<Root store={store}/>, document.getElementById("main"))

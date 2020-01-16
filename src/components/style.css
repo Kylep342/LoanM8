@@ -1,0 +1,49 @@
+.button-primary {
+  background-color: #386150;
+  border-color: #386150;
+  border-radius: 6px;
+  font-family: "Cairo", sans-serif;
+  color: #fff;
+}
+.button-primary:hover {
+  background-color: #386150;
+  border-color: #386150;
+}
+
+.header {
+    text-align: center;
+    /* background-color: #7808FA; */
+    background-color: #386150;
+    height: 140px;
+    padding: 20px;
+    color: #FFFFFF;
+    font-family: "Cairo", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.white {
+    color: #FFFFFF;
+}
+
+a:active,
+a:hover,
+a:link,
+a:visited {
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+.close {
+  color: #6C809A;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
