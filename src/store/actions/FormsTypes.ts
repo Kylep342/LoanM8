@@ -1,3 +1,5 @@
+import { Loan } from "../../Loan";
+
 export enum FormsActionTypes {
     BEGIN = "FAT/BEGIN",
     CHOOSE_CURRENT = "FAT/CHOOSE_CURRENT",
@@ -35,6 +37,7 @@ export interface IFormsActionsChoiceExit {
 
 export interface IFormsActionsCurrentCreate {
     type: FormsActionTypes.CURRENT_CREATE;
+    newCurrentLoan: Loan;
     currentLoanFormOpen: boolean;
 }
 
@@ -51,6 +54,7 @@ export interface IFormsActionsCurrentExit {
 
 export interface IFormsActionsFutureCreate {
     type: FormsActionTypes.FUTURE_CREATE;
+    newFutureLoan: Loan;
     futureLoanFormOpen: boolean;
 }
 

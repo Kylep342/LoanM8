@@ -72,6 +72,6 @@ export const createCurrentLoan = (state: ICurrentLoanState): Loan => {
         type: LoanTypes.Current,
         formState: state
     }
-    
+
     return loan
 }

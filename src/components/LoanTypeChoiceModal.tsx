@@ -25,7 +25,7 @@ class LoanTypeChoiceModal extends React.Component<IProps> {
                             </div>
                             <span className="section-label">Is this a loan you currently have, or are you looking to borrow?</span>
                         </div>
-                        <div className="modal-buttons-container">
+                        <div className="choice-modal-buttons-container">
                             <button
                                 onClick={this.handleCreateCurrentLoanClick}
                                 className={"button-primary"}>

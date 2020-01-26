@@ -1,6 +1,7 @@
 import { Reducer } from "redux";
 
 import { IFormsState, FormsActions, FormsActionTypes } from "../actions/FormsTypes";
+// import { ILoansState } from "../actions/LoansTypes";
 
 const initialState: IFormsState = {
     loanTypeChoiceFormOpen: false,
@@ -9,60 +10,62 @@ const initialState: IFormsState = {
 }
 
 export const FormsReducer: Reducer<IFormsState, FormsActions> = (state = initialState, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case FormsActionTypes.BEGIN:
             return {
                 ...state,
-                loanTypeChoiceFormOpen: true
+                loanTypeChoiceFormOpen: action.loanTypeChoiceFormOpen
             }
         case FormsActionTypes.CHOOSE_CURRENT:
             return {
                 ...state,
-                loanTypeChoiceFormOpen: false,
-                currentLoanFormOpen: true
+                loanTypeChoiceFormOpen: action.loanTypeChoiceFormOpen,
+                currentLoanFormOpen: action.currentLoanFormOpen
             }
         case FormsActionTypes.CHOOSE_FUTURE:
             return {
                 ...state,
-                loanTypeChoiceFormOpen: false,
-                futureLoanFormOpen: true
+                loanTypeChoiceFormOpen: action.loanTypeChoiceFormOpen,
+                futureLoanFormOpen: action.futureLoanFormOpen
             }
         case FormsActionTypes.CHOICE_EXIT:
             return {
                 ...state,
-                loanTypeChoiceFormOpen: false
+                loanTypeChoiceFormOpen: action.loanTypeChoiceFormOpen
             }
         case FormsActionTypes.CURRENT_CREATE:
             return {
                 ...state,
-                currentLoanFormOpen: false
+                newCurrentLoan: action.newCurrentLoan,
+                currentLoanFormOpen: action.currentLoanFormOpen
             }
         case FormsActionTypes.CURRENT_BACK:
             return {
                 ...state,
-                currentLoanFormOpen: false,
-                loanTypeChoiceFormOpen: true
+                currentLoanFormOpen: action.currentLoanFormOpen,
+                loanTypeChoiceFormOpen: action.loanTypeChoiceFormOpen
             }
         case FormsActionTypes.CURRENT_EXIT:
             return {
                 ...state,
-                currentLoanFormOpen: false
+                currentLoanFormOpen: action.currentLoanFormOpen
             }
         case FormsActionTypes.FUTURE_CREATE:
             return {
                 ...state,
-                futureLoanFormOpen: false
+                newFutureLoan: action.newFutureLoan,
+                futureLoanFormOpen: action.futureLoanFormOpen
             }
         case FormsActionTypes.FUTURE_BACK:
             return {
                 ...state,
-                futureLoanFormOpen: false,
-                loanTypeChoiceFormOpen: true
+                futureLoanFormOpen: action.futureLoanFormOpen,
+                loanTypeChoiceFormOpen: action.loanTypeChoiceFormOpen
             }
         case FormsActionTypes.FUTURE_EXIT:
             return {
                 ...state,
-                futureLoanFormOpen: false
+                futureLoanFormOpen: action.futureLoanFormOpen
             }
         default:
             return state

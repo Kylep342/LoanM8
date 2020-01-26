@@ -7,8 +7,8 @@ import configureStore from "./store/Store";
 import { IApplicationState } from "./store/Store";
 import Header from "./components/Header";
 import LoanTypeChoiceModal from "./components/LoanTypeChoiceModal";
-import CurrentLoanFormContainer from "./containers/CurrentLoanForm";
-import FutureLoanFormContainer from "./containers/FutureLoanForm";
+import CurrentLoanFormContainer from "./components/CurrentLoanForm";
+import FutureLoanFormContainer from "./components/FutureLoanForm";
 import CreateLoanButton from "./components/CreateLoanButton";
 
 
@@ -39,4 +39,4 @@ const Root: React.SFC<IProps> = props => {
 }
 
 const store = configureStore();
-ReactDOM.render(<Root store={store}/>, document.getElementById("main"))
+ReactDOM.render(<Root store={store} />, document.getElementById("main"))

@@ -9,13 +9,14 @@ interface IProps {
     begin: typeof begin;
 }
 
+// const CreateLoanButton: React.Component<IProps> = props => {
 class CreateLoanButton extends React.Component<IProps> {
     public render() {
         return (
             <button className={"button-primary"} onClick={this.handleCreateClick}>Add a Loan</button>
         )
     }
-    
+
     private handleCreateClick = () => {
         this.props.begin();
     }
