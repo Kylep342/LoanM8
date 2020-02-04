@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { IApplicationState } from "../store/Store";
 import { futureCreate, futureBack, futureExit } from "../store/actions/FormsActions";
 import { IFutureLoanState } from "../types/LoanTypes";
+import { createFutureLoan } from "../creators/futureLoanCreator";
 
 import "./style.css"
 
@@ -145,22 +146,22 @@ class FutureLoanFormContainer extends React.Component<IProps, IFutureLoanState> 
                         </div>
                     </div>
                     <div className="modal-buttons-container">
-                            <button
-                                className={"button-primary"}
-                                onClick={this.handleCreateClick}>
-                                Create
+                        <button
+                            className={"button-primary"}
+                            onClick={this.handleCreateClick}>
+                            Create
                             </button>
-                            <button
-                                className={"button-secondary"}
-                                onClick={this.clearFields}>
-                                Clear
+                        <button
+                            className={"button-secondary"}
+                            onClick={this.clearFields}>
+                            Clear
                             </button>
-                            <button
-                                className={"button-secondary"}
-                                onClick={this.handleBackClick}>
-                                Back
+                        <button
+                            className={"button-secondary"}
+                            onClick={this.handleBackClick}>
+                            Back
                             </button>
-                        </div>
+                    </div>
                 </div>
             </div>
         )
@@ -180,7 +181,8 @@ class FutureLoanFormContainer extends React.Component<IProps, IFutureLoanState> 
     }
 
     private handleCreateClick = () => {
-        this.props.create();
+        const newFutureLoan = createFutureLoan(this.state)
+        this.props.create(newFutureLoan);
         this.clearFields();
     }
 
@@ -188,7 +190,7 @@ class FutureLoanFormContainer extends React.Component<IProps, IFutureLoanState> 
         this.clearFields();
         this.props.back();
     }
-    
+
     private handleExitClick = () => {
         this.clearFields();
         this.props.exit();
@@ -203,7 +205,7 @@ const mapStateToProps = (store: IApplicationState) => {
 
 const mapDispatchToProps = (dispatch: any) => {
     return {
-        create: () => dispatch(futureCreate()),
+        create: (newFutureLoan) => dispatch(futureCreate(newFutureLoan)),
         back: () => dispatch(futureBack()),
         exit: () => dispatch(futureExit()),
     }

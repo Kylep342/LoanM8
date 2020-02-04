@@ -85,4 +85,5 @@ export interface IFormsState {
     readonly currentLoanFormOpen: boolean;
     readonly futureLoanFormOpen: boolean;
     readonly loanTypeChoiceFormOpen: boolean;
+    readonly loans: Loan[];
 }

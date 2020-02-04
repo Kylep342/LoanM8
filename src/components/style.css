@@ -136,3 +136,25 @@ a:visited {
   text-decoration: none;
   cursor: pointer;
 }
+
+.loanCard {
+    padding-left: 70px
+}
+
+.loanCardName {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.loansPanel {
+    margin-top: 20px;
+    width: 33%
+}
+
+.loansPanelNotifier {
+    text-align: center;
+}
+
+.loansPanelTitle {
+    text-align: center
+}

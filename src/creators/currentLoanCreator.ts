@@ -47,25 +47,32 @@ const determinePrincipal = (
  *      A current loan Loan object for use by the calculator
  */
 export const createCurrentLoan = (state: ICurrentLoanState): Loan => {
+
+    const name = state.name;
+    const balance = parseFloat(state.balance)
+    const interestRate = parseFloat(state.interestRate)
+    const minPmt = parseFloat(state.minPmt)
+    const lastPaidOn = new Date(state.lastPaidOn)
+
     const principal = determinePrincipal(
-        state.balance,
-        state.interestRate / 36525,
-        state.lastPaidOn
+        balance,
+        interestRate / 36525,
+        lastPaidOn
     );
 
     const loan: Loan = {
-        name: state.name,
-        balance: state.balance,
-        interestRate: state.interestRate,
-        minPmt: state.minPmt,
-        lastPaidOn: state.lastPaidOn,
-        dueOn: state.lastPaidOn.getDate(),
+        name: name,
+        balance: balance,
+        interestRate: interestRate,
+        minPmt: minPmt,
+        lastPaidOn: lastPaidOn,
+        dueOn: lastPaidOn.getDate(),
         principal: principal,
-        interest: state.balance - principal,
+        interest: balance - principal,
         beginRepaymentDate: new Date(
-            state.lastPaidOn.getFullYear(),
-            state.lastPaidOn.getMonth() + 1,
-            state.lastPaidOn.getDate()
+            lastPaidOn.getFullYear(),
+            lastPaidOn.getMonth() + 1,
+            lastPaidOn.getDate()
         ),
         lifetimePrincipalPaid: 0,
         lifetimeInterestPaid: 0,

@@ -1,12 +1,14 @@
 import { Reducer } from "redux";
 
 import { IFormsState, FormsActions, FormsActionTypes } from "../actions/FormsTypes";
-// import { ILoansState } from "../actions/LoansTypes";
+import { Loan } from "../../Loan";
 
 const initialState: IFormsState = {
     loanTypeChoiceFormOpen: false,
     currentLoanFormOpen: false,
-    futureLoanFormOpen: false
+    futureLoanFormOpen: false,
+    loans: new Array<Loan>(),
+
 }
 
 export const FormsReducer: Reducer<IFormsState, FormsActions> = (state = initialState, action) => {
@@ -36,7 +38,7 @@ export const FormsReducer: Reducer<IFormsState, FormsActions> = (state = initial
         case FormsActionTypes.CURRENT_CREATE:
             return {
                 ...state,
-                newCurrentLoan: action.newCurrentLoan,
+                loans: [...state.loans, action.newCurrentLoan],
                 currentLoanFormOpen: action.currentLoanFormOpen
             }
         case FormsActionTypes.CURRENT_BACK:
@@ -53,7 +55,7 @@ export const FormsReducer: Reducer<IFormsState, FormsActions> = (state = initial
         case FormsActionTypes.FUTURE_CREATE:
             return {
                 ...state,
-                newFutureLoan: action.newFutureLoan,
+                loans: [...state.loans, action.newFutureLoan],
                 futureLoanFormOpen: action.futureLoanFormOpen
             }
         case FormsActionTypes.FUTURE_BACK:

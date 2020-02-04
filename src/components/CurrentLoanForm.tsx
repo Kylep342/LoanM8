@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { IApplicationState } from "../store/Store";
 import { currentCreate, currentBack, currentExit } from "../store/actions/FormsActions";
 import { ICurrentLoanState } from "../types/LoanTypes"
+import { createCurrentLoan } from "../creators/currentLoanCreator";
 
 import "./style.css"
 
@@ -109,22 +110,22 @@ class CurrentLoanFormContainer extends React.Component<IProps, ICurrentLoanState
                         </div>
                     </div>
                     <div className="modal-buttons-container">
-                            <button
-                                className={"button-primary"}
-                                onClick={this.handleCreateClick}>
-                                Create
-                            </button>
-                            <button
-                                className={"button-secondary"}
-                                onClick={this.clearFields}>
-                                Clear
-                            </button>
-                            <button
-                                className={"button-secondary"}
-                                onClick={this.handleBackClick}>
-                                Back
-                            </button>
-                        </div>
+                        <button
+                            className={"button-primary"}
+                            onClick={this.handleCreateClick}>
+                            Create
+                        </button>
+                        <button
+                            className={"button-secondary"}
+                            onClick={this.clearFields}>
+                            Clear
+                        </button>
+                        <button
+                            className={"button-secondary"}
+                            onClick={this.handleBackClick}>
+                            Back
+                        </button>
+                    </div>
                 </div>
             </div>
         );
@@ -136,13 +137,13 @@ class CurrentLoanFormContainer extends React.Component<IProps, ICurrentLoanState
             balance: undefined,
             interestRate: undefined,
             minPmt: undefined,
-            lastPaidOn: undefined 
+            lastPaidOn: undefined,
         })
     }
 
     private handleCreateClick = () => {
-        //NOTE: Add call to redux to create loan from current props
-        this.props.create();
+        const newCurrentLoan = createCurrentLoan(this.state);
+        this.props.create(newCurrentLoan);
         this.clearFields();
     }
 
@@ -165,7 +166,7 @@ const mapStateToProps = (store: IApplicationState) => {
 
 const mapDispatchToProps = (dispatch: any) => {
     return {
-        create: () => dispatch(currentCreate()),
+        create: (newCurrentLoan) => dispatch(currentCreate(newCurrentLoan)),
         back: () => dispatch(currentBack()),
         exit: () => dispatch(currentExit()),
     }

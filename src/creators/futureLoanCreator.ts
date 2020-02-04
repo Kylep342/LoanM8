@@ -22,10 +22,10 @@ const calculateBalanceAtBeginRepayment = (
 ): number => {
     return (
         // ternary written over two lines becaue my editor mangles text coloring otherwise
-        subsidized ? principal :
-        (
-            principal +
-            parseFloat(
+        subsidized ?
+            principal :
+            (
+                principal +
                 (
                     (
                         (1 / 2) *
@@ -51,30 +51,38 @@ const calculateBalanceAtBeginRepayment = (
                             86400000
                         )
                     )
-                ).toFixed(2)
+                )
             )
-        )
     )
 }
 
 export const createFutureLoan = (state: IFutureLoanState): Loan => {
-    
-    const beginRepaymentDate = determineBeginRepaymentDate(state.graduationDate);
+
+    const name = state.name;
+    const principal = parseFloat(state.principal);
+    const interestRate = parseFloat(state.interestRate);
+    const firstDisbursementDate = new Date(state.firstDisbursementDate);
+    const secondDisbursementDate = new Date(state.secondDisbursementDate);
+    const subsidized = state.subsidized;
+    const graduationDate = new Date(state.graduationDate);
+    const autopay = state.autopay;
+
+    const beginRepaymentDate = determineBeginRepaymentDate(graduationDate);
     const balance = calculateBalanceAtBeginRepayment(
-            state.subsidized,
-            beginRepaymentDate,
-            state.firstDisbursementDate,
-            state.secondDisbursementDate,
-            state.principal,
-            state.interestRate
-        )
-    
+        subsidized,
+        beginRepaymentDate,
+        firstDisbursementDate,
+        secondDisbursementDate,
+        principal,
+        interestRate
+    )
+
     const loan: Loan = {
-        name: state.name,
-        principal: state.principal,
-        interestRate: state.interestRate,
+        name: name,
+        principal: principal,
+        interestRate: autopay ? interestRate - 0.25 : interestRate,
         balance: balance,
-        interest: state.principal - balance,
+        interest: principal - balance,
         //TODO: revisit these next two
         minPmt: undefined,
         lastPaidOn: undefined,

@@ -3,7 +3,8 @@ import { ActionCreator } from "redux";
 import * as FAT from "./FormsTypes";
 import { createCurrentLoan } from "../../creators/currentLoanCreator";
 import { createFutureLoan } from "../../creators/futureLoanCreator";
-import { ICurrentLoanState, IFutureLoanState } from "../../types/LoanTypes";
+// import { ICurrentLoanState, IFutureLoanState } from "../../types/LoanTypes";
+import { Loan } from "../../Loan";
 
 export const begin: ActionCreator<FAT.IFormsActionsBegin> = () => ({
     type: FAT.FormsActionTypes.BEGIN,
@@ -27,9 +28,9 @@ export const choiceExit: ActionCreator<FAT.IFormsActionsChoiceExit> = () => ({
     loanTypeChoiceFormOpen: false
 })
 
-export const currentCreate: ActionCreator<FAT.IFormsActionsCurrentCreate> = (formState: ICurrentLoanState) => ({
+export const currentCreate: ActionCreator<FAT.IFormsActionsCurrentCreate> = (newCurrentLoan: Loan) => ({
     type: FAT.FormsActionTypes.CURRENT_CREATE,
-    newCurrentLoan: createCurrentLoan(formState),
+    newCurrentLoan: newCurrentLoan,
     currentLoanFormOpen: false
 })
 
@@ -44,9 +45,9 @@ export const currentExit: ActionCreator<FAT.IFormsActionsCurrentExit> = () => ({
     currentLoanFormOpen: false
 })
 
-export const futureCreate: ActionCreator<FAT.IFormsActionsFutureCreate> = (formState: IFutureLoanState) => ({
+export const futureCreate: ActionCreator<FAT.IFormsActionsFutureCreate> = (newFutureLoan: Loan) => ({
     type: FAT.FormsActionTypes.FUTURE_CREATE,
-    newFutureLoan: createFutureLoan(formState),
+    newFutureLoan: newFutureLoan,
     futureLoanFormOpen: false
 })
 

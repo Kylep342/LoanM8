@@ -9,21 +9,19 @@ import Header from "./components/Header";
 import LoanTypeChoiceModal from "./components/LoanTypeChoiceModal";
 import CurrentLoanFormContainer from "./components/CurrentLoanForm";
 import FutureLoanFormContainer from "./components/FutureLoanForm";
-import CreateLoanButton from "./components/CreateLoanButton";
+import LoansPanel from "./components/LoansPanel";
 
 
-class App extends React.Component {
-    public render() {
-        return (
-            <div className="App">
-                <Header />
-                <CreateLoanButton />
-                <LoanTypeChoiceModal />
-                <CurrentLoanFormContainer />
-                <FutureLoanFormContainer />
-            </div>
-        )
-    }
+const App: React.SFC = () => {
+    return (
+        <div className="App">
+            <Header />
+            <LoanTypeChoiceModal />
+            <CurrentLoanFormContainer />
+            <FutureLoanFormContainer />
+            <LoansPanel />
+        </div>
+    )
 }
 
 interface IProps {
