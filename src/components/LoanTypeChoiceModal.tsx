@@ -2,7 +2,7 @@ import * as React from "react"
 import { connect } from "react-redux";
 
 import { IApplicationState } from "../store/Store";
-import { chooseCurrent, chooseFuture, choiceExit } from "../store/actions/FormsActions";
+import { chooseCurrent, chooseFuture, choiceExit } from "../store/actions/Actions";
 
 import "./style.css"
 

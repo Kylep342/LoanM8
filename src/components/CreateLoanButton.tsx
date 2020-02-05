@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
-import { begin } from "../store/actions/FormsActions";
+import { begin } from "../store/actions/Actions";
 
 import "./style.css";
 

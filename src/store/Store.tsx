@@ -1,14 +1,14 @@
 import { combineReducers, createStore, Store } from "redux";
 
-import { IFormsState } from "./actions/FormsTypes";
-import { FormsReducer } from "./reducers/FormsReducer";
+import { IAppState } from "./actions/Types";
+import { AppReducer } from "./reducers/AppReducer";
 
 export interface IApplicationState {
-    forms: IFormsState;
+    forms: IAppState;
 }
 
 const rootReducer = combineReducers<IApplicationState>({
-    forms: FormsReducer
+    forms: AppReducer
 });
 
 export default function configureStore(): Store<IApplicationState> {

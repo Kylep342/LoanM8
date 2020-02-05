@@ -2,7 +2,7 @@ import * as React from "react"
 import { connect } from "react-redux";
 
 import { IApplicationState } from "../store/Store";
-import { currentCreate, currentBack, currentExit } from "../store/actions/FormsActions";
+import { currentCreate, currentBack, currentExit } from "../store/actions/Actions";
 import { ICurrentLoanState } from "../types/LoanTypes"
 import { createCurrentLoan } from "../creators/currentLoanCreator";
 

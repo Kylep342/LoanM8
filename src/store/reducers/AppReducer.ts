@@ -1,70 +1,71 @@
 import { Reducer } from "redux";
 
-import { IFormsState, FormsActions, FormsActionTypes } from "../actions/FormsTypes";
+import { IAppState, Actions, ActionTypes } from "../actions/Types";
 import { Loan } from "../../Loan";
 
-const initialState: IFormsState = {
+const initialState: IAppState = {
     loanTypeChoiceFormOpen: false,
     currentLoanFormOpen: false,
     futureLoanFormOpen: false,
     loans: new Array<Loan>(),
+    monthly_payment_amounts: new Array<number>(),
 
 }
 
-export const FormsReducer: Reducer<IFormsState, FormsActions> = (state = initialState, action) => {
+export const AppReducer: Reducer<IAppState, Actions> = (state = initialState, action) => {
     switch (action.type) {
-        case FormsActionTypes.BEGIN:
+        case ActionTypes.BEGIN:
             return {
                 ...state,
                 loanTypeChoiceFormOpen: action.loanTypeChoiceFormOpen
             }
-        case FormsActionTypes.CHOOSE_CURRENT:
+        case ActionTypes.CHOOSE_CURRENT:
             return {
                 ...state,
                 loanTypeChoiceFormOpen: action.loanTypeChoiceFormOpen,
                 currentLoanFormOpen: action.currentLoanFormOpen
             }
-        case FormsActionTypes.CHOOSE_FUTURE:
+        case ActionTypes.CHOOSE_FUTURE:
             return {
                 ...state,
                 loanTypeChoiceFormOpen: action.loanTypeChoiceFormOpen,
                 futureLoanFormOpen: action.futureLoanFormOpen
             }
-        case FormsActionTypes.CHOICE_EXIT:
+        case ActionTypes.CHOICE_EXIT:
             return {
                 ...state,
                 loanTypeChoiceFormOpen: action.loanTypeChoiceFormOpen
             }
-        case FormsActionTypes.CURRENT_CREATE:
+        case ActionTypes.CURRENT_CREATE:
             return {
                 ...state,
                 loans: [...state.loans, action.newCurrentLoan],
                 currentLoanFormOpen: action.currentLoanFormOpen
             }
-        case FormsActionTypes.CURRENT_BACK:
+        case ActionTypes.CURRENT_BACK:
             return {
                 ...state,
                 currentLoanFormOpen: action.currentLoanFormOpen,
                 loanTypeChoiceFormOpen: action.loanTypeChoiceFormOpen
             }
-        case FormsActionTypes.CURRENT_EXIT:
+        case ActionTypes.CURRENT_EXIT:
             return {
                 ...state,
                 currentLoanFormOpen: action.currentLoanFormOpen
             }
-        case FormsActionTypes.FUTURE_CREATE:
+        case ActionTypes.FUTURE_CREATE:
             return {
                 ...state,
                 loans: [...state.loans, action.newFutureLoan],
                 futureLoanFormOpen: action.futureLoanFormOpen
             }
-        case FormsActionTypes.FUTURE_BACK:
+        case ActionTypes.FUTURE_BACK:
             return {
                 ...state,
                 futureLoanFormOpen: action.futureLoanFormOpen,
                 loanTypeChoiceFormOpen: action.loanTypeChoiceFormOpen
             }
-        case FormsActionTypes.FUTURE_EXIT:
+        case ActionTypes.FUTURE_EXIT:
             return {
                 ...state,
                 futureLoanFormOpen: action.futureLoanFormOpen
@@ -74,4 +75,4 @@ export const FormsReducer: Reducer<IFormsState, FormsActions> = (state = initial
     }
 }
 
-export default FormsReducer;
+export default AppReducer;
