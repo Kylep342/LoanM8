@@ -8,7 +8,7 @@ const initialState: IAppState = {
     currentLoanFormOpen: false,
     futureLoanFormOpen: false,
     loans: new Array<Loan>(),
-    monthly_payment_amounts: new Array<number>(),
+    monthlyPaymentBudgets: new Array<number>(),
 
 }
 

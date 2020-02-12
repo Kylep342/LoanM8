@@ -42,7 +42,7 @@ class FutureLoanFormContainer extends React.Component<IProps, IFutureLoanState> 
         return (
             <div className={this.props.open ? "modal-wrapper modal-visible" : "modal-wrapper"}>
                 <div className="modal-container">
-                    <div className="modal-content-container"> {/*onSubmit={this.handleFormSubmit}>*/}
+                    <div className="modal-content-container">
                         <div className="modal-content">
                             <div className="modal-header">
                                 <span className="modal-title">Creating a Future Loan</span>
@@ -81,7 +81,7 @@ class FutureLoanFormContainer extends React.Component<IProps, IFutureLoanState> 
                                     name={"interestRate"}
                                     value={this.state.interestRate || ""}
                                     step={"0.01"}
-                                    placeholder={"Enter the interest interestRate"}
+                                    placeholder={"Enter the interest rate"}
                                     onChange={this.handleInputChange}
                                 /> {/* Interest interestRate */}
                             </div>
@@ -199,7 +199,7 @@ class FutureLoanFormContainer extends React.Component<IProps, IFutureLoanState> 
 
 const mapStateToProps = (store: IApplicationState) => {
     return {
-        open: store.forms.futureLoanFormOpen
+        open: store.app.futureLoanFormOpen
     }
 }
 

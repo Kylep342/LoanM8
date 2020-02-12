@@ -39,7 +39,7 @@ class CurrentLoanFormContainer extends React.Component<IProps, ICurrentLoanState
         return (
             <div className={this.props.open ? "modal-wrapper modal-visible" : "modal-wrapper"}>
                 <div className="modal-container">
-                    <div className="modal-content-container"> {/*onSubmit={this.handleFormSubmit}>*/}
+                    <div className="modal-content-container">
                         <div className="modal-content">
                             <div className="modal-header">
                                 <span className="modal-title">Creating a Current Loan</span>
@@ -160,7 +160,7 @@ class CurrentLoanFormContainer extends React.Component<IProps, ICurrentLoanState
 
 const mapStateToProps = (store: IApplicationState) => {
     return {
-        open: store.forms.currentLoanFormOpen
+        open: store.app.currentLoanFormOpen
     }
 }
 

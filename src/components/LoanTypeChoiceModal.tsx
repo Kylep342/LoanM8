@@ -20,7 +20,7 @@ class LoanTypeChoiceModal extends React.Component<IProps> {
                 <div className="modal-container">
                     <div id="borrowingLoanInputModal" className="modal-content">
                         <div className="modal-title-container">
-                            <div className="form-group">
+                            <div className="exit-group">
                                 <span className="close" onClick={this.handleExitClick}>&times;</span>
                             </div>
                             <span className="section-label">Is this a loan you currently have, or are you looking to borrow?</span>
@@ -58,7 +58,7 @@ class LoanTypeChoiceModal extends React.Component<IProps> {
 
 const mapStateToProps = (store: IApplicationState) => {
     return {
-        open: store.forms.loanTypeChoiceFormOpen
+        open: store.app.loanTypeChoiceFormOpen
     }
 }
 

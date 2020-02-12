@@ -4,11 +4,11 @@ import { IAppState } from "./actions/Types";
 import { AppReducer } from "./reducers/AppReducer";
 
 export interface IApplicationState {
-    forms: IAppState;
+    app: IAppState;
 }
 
 const rootReducer = combineReducers<IApplicationState>({
-    forms: AppReducer
+    app: AppReducer
 });
 
 export default function configureStore(): Store<IApplicationState> {

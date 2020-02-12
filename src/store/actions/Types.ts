@@ -86,5 +86,5 @@ export interface IAppState {
     readonly futureLoanFormOpen: boolean;
     readonly loanTypeChoiceFormOpen: boolean;
     readonly loans: Loan[];
-    readonly monthly_payment_amounts: number[];
+    readonly monthlyPaymentBudgets: number[];
 }
