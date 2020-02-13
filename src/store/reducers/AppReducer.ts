@@ -53,6 +53,11 @@ export const AppReducer: Reducer<IAppState, Actions> = (state = initialState, ac
                 ...state,
                 currentLoanFormOpen: action.currentLoanFormOpen
             }
+        case ActionTypes.DELETE_LOAN:
+            return {
+                ...state,
+                loans: state.loans.filter(loan => loan.name !== action.loanKey)
+            }
         case ActionTypes.FUTURE_CREATE:
             return {
                 ...state,

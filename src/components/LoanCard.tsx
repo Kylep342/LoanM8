@@ -1,24 +1,46 @@
 import * as React from "react";
+import { connect } from "react-redux";
 
 import { Loan } from "../Loan";
+import { deleteLoan } from "../store/actions/Actions";
 
 import "./style.css";
 
 interface IProps {
     key: string;
     loan: Loan;
+    delete: typeof deleteLoan;
 }
 
-const LoanCard: React.SFC<IProps> = props => {
-    return (
-        <React.Fragment>
-            <div key={props.key} className={"loanCard"}>
-                <span className={"loanCardName"}>{props.loan.name}</span>
-                <br></br>
-                <span>${props.loan.balance.toFixed(2)} at {props.loan.interestRate}%</span>
-            </div>
-        </React.Fragment>
-    )
+class LoanCard extends React.Component<IProps> {
+    public render() {
+        return (
+            <React.Fragment>
+                <div key={this.props.key} className={"loanCard"}>
+                    <div className={"loanInfo"}>
+                        <span className={"loanCardName"}>{this.props.loan.name}</span>
+                        <br></br>
+                        <span>${this.props.loan.balance.toFixed(2)} at {this.props.loan.interestRate}%</span>
+                    </div>
+                    <div className="deleteButtonWrapper">
+                        <button className={"deleteLoanButton"} onClick={this.handleDelete}>
+                            <i className="fa fa-trash" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </React.Fragment>
+        )
+    }
+
+    private handleDelete = () => {
+        this.props.delete(this.props.loan.name)
+    }
 }
 
-export default LoanCard;
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        delete: (loanKey) => dispatch(deleteLoan(loanKey)),
+    }
+}
+
+export default connect(null, mapDispatchToProps)(LoanCard);

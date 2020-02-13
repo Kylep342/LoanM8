@@ -42,6 +42,11 @@ export const currentExit: ActionCreator<AAT.IActionsCurrentExit> = () => ({
     currentLoanFormOpen: false
 })
 
+export const deleteLoan: ActionCreator<AAT.IActionsDeleteLoan> = (loanKey: string) => ({
+    type: AAT.ActionTypes.DELETE_LOAN,
+    loanKey: loanKey
+})
+
 export const futureCreate: ActionCreator<AAT.IActionsFutureCreate> = (newFutureLoan: Loan) => ({
     type: AAT.ActionTypes.FUTURE_CREATE,
     newFutureLoan: newFutureLoan,

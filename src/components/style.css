@@ -8,7 +8,6 @@ a:visited {
 
 button {
   margin-left: 10px;
-  min-width: 80px;
   line-height: 20px;
   border-style: solid;
   border-radius: 6px;
@@ -98,6 +97,7 @@ button {
   border-color: #386150;
   color: #386150;
   font-family: "Cairo", sans-serif;
+  min-width: 80px;
 }
 
 .button-secondary:hover {
@@ -109,6 +109,7 @@ button {
   border-color: #386150;
   font-family: "Cairo", sans-serif;
   color: #fff;
+  min-width: 80px;
 }
 
 .button-primary:hover {
@@ -133,6 +134,10 @@ button {
   cursor: pointer;
 }
 
+.deleteLoanButton {
+    background-color: #386150;
+}
+
 .form-group {
     display: flex;
 }
@@ -142,6 +147,7 @@ button {
 }
 
 .loanCard {
+    display: flex;
     padding-left: 70px;
 }
 
@@ -165,21 +171,4 @@ button {
 
 .white {
     color: #FFFFFF;
-}
-
-.tabs {
-  list-style: none;
-  padding: 0;
-}
-.tabs li {
-  display: inline-block;
-  padding: 5px;
-  margin: 0px 5px 0px 5px;
-  cursor: pointer;
-}
-.tabs li:focus {
-  outline: none;
-}
-.tabs li.active {
-  border-bottom: #222 solid 2px;
 }

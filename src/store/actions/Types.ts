@@ -8,6 +8,7 @@ export enum ActionTypes {
     CURRENT_CREATE = "AAT/CURRENT_CREATE",
     CURRENT_BACK = "AAT/CURRENT_BACK",
     CURRENT_EXIT = "AAT/CURRENT_EXIT",
+    DELETE_LOAN = "AAT/DELETE_LOAN",
     FUTURE_CREATE = "AAT/FUTURE_CREATE",
     FUTURE_BACK = "AAT/FUTURE_BACK",
     FUTURE_EXIT = "AAT/FUTURE_EXIT",
@@ -52,6 +53,11 @@ export interface IActionsCurrentExit {
     currentLoanFormOpen: boolean;
 }
 
+export interface IActionsDeleteLoan {
+    type: ActionTypes.DELETE_LOAN;
+    loanKey: string;
+}
+
 export interface IActionsFutureCreate {
     type: ActionTypes.FUTURE_CREATE;
     newFutureLoan: Loan;
@@ -77,6 +83,7 @@ export type Actions =
     | IActionsCurrentCreate
     | IActionsCurrentBack
     | IActionsCurrentExit
+    | IActionsDeleteLoan
     | IActionsFutureCreate
     | IActionsFutureBack
     | IActionsFutureExit
