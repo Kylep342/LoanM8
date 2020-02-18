@@ -15,20 +15,18 @@ interface IProps {
 class LoanCard extends React.Component<IProps> {
     public render() {
         return (
-            <React.Fragment>
-                <div key={this.props.key} className={"loanCard"}>
-                    <div className={"loanInfo"}>
-                        <span className={"loanCardName"}>{this.props.loan.name}</span>
-                        <br></br>
-                        <span>${this.props.loan.balance.toFixed(2)} at {this.props.loan.interestRate}%</span>
-                    </div>
-                    <div className="deleteButtonWrapper">
-                        <button className={"deleteLoanButton"} onClick={this.handleDelete}>
-                            <i className="fa fa-trash" aria-hidden="true"></i>
-                        </button>
-                    </div>
+            <div key={this.props.key} className={"loanCard"}>
+                <div className={"loanInfo"}>
+                    <span className={"loanCardName"}>{this.props.loan.name}</span>
+                    <br></br>
+                    <span>${this.props.loan.balance.toFixed(2)} at {this.props.loan.interestRate}%</span>
                 </div>
-            </React.Fragment>
+                <div className="deleteButtonWrapper">
+                    <button className={"deleteLoanButton"} onClick={this.handleDelete}>
+                        <i className="fa fa-trash" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
         )
     }
 
