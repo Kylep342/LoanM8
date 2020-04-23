@@ -18,7 +18,6 @@ const LoansPanel: React.SFC<IProps> = props => {
         <div className={"loansPanel"}>
             <div className={"loansPanelTitle"}>
                 <h2>Your Loans</h2>
-                <CreateLoanButton />
             </div>
             <div className={"loansPanelContent"}>
                 {!props.loans.length ?
@@ -26,9 +25,12 @@ const LoansPanel: React.SFC<IProps> = props => {
                         You haven't added any loans. Click "Add a Loan" to get started.
                         </p> :
                     props.loans.map(loan => {
-                        return <LoanCard key={loan.name} loan={loan}></LoanCard>
+                        return <LoanCard key={loan.id} loan={loan}></LoanCard>
                     })
                 }
+            </div>
+            <div className={"loansPanelTitle"}>
+                <CreateLoanButton />
             </div>
         </div>
     )

@@ -31,7 +31,7 @@ class LoanCard extends React.Component<IProps> {
     }
 
     private handleDelete = () => {
-        this.props.delete(this.props.loan.name)
+        this.props.delete(this.props.loan.id)
     }
 }
 

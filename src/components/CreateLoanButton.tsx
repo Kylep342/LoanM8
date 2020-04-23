@@ -1,15 +1,14 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
-import { begin } from "../store/actions/Actions";
+import { beginLoanCreate } from "../store/actions/Actions";
 
 import "./style.css";
 
 interface IProps {
-    begin: typeof begin;
+    begin: typeof beginLoanCreate;
 }
 
-// const CreateLoanButton: React.Component<IProps> = props => {
 class CreateLoanButton extends React.Component<IProps> {
     public render() {
         return (
@@ -24,7 +23,7 @@ class CreateLoanButton extends React.Component<IProps> {
 
 const mapDispatchToProps = (dispatch: any) => {
     return {
-        begin: () => dispatch(begin())
+        begin: () => dispatch(beginLoanCreate())
     }
 }
 

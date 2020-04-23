@@ -1,6 +1,8 @@
 
 import { Loan, LoanTypes } from "../Loan";
 import { IFutureLoanState } from "../types/LoanTypes";
+import { RandomID } from "../utils/RandomID";
+import { apportionInterest } from "../utils/interestFuncs";
 
 
 // maybe this doesn't need to be a function
@@ -21,44 +23,23 @@ const calculateBalanceAtBeginRepayment = (
     interestRate: number
 ): number => {
     return (
-        // ternary written over two lines becaue my editor mangles text coloring otherwise
-        subsidized ?
-            principal :
-            (
-                principal +
-                (
-                    (
-                        (1 / 2) *
-                        principal *
-                        (interestRate / 36525) *
-                        Math.round(
-                            (
-                                beginRepaymentDate.valueOf() -
-                                firstDisbursementDate.valueOf()
-                            ) /
-                            86400000
-                        )
-                    ) +
-                    (
-                        (1 / 2) *
-                        principal *
-                        (interestRate / 36525) *
-                        Math.round(
-                            (
-                                beginRepaymentDate.valueOf() -
-                                secondDisbursementDate.valueOf()
-                            ) /
-                            86400000
-                        )
-                    )
-                )
-            )
+        subsidized ? principal : (principal + apportionInterest(
+            principal,
+            interestRate,
+            beginRepaymentDate,
+            [
+                firstDisbursementDate,
+                secondDisbursementDate
+            ]
+        ))
     )
 }
 
 export const createFutureLoan = (state: IFutureLoanState): Loan => {
 
     const name = state.name;
+    // For the next 2 paramters, the TypeScript compiler will complain
+    // about a type mismatch, but the JS form parsing turns everything into a string
     const principal = parseFloat(state.principal);
     const interestRate = parseFloat(state.interestRate);
     const firstDisbursementDate = new Date(state.firstDisbursementDate);
@@ -91,6 +72,7 @@ export const createFutureLoan = (state: IFutureLoanState): Loan => {
         lifetimePrincipalPaid: 0,
         lifetimeInterestPaid: 0,
         type: LoanTypes.Future,
+        id: RandomID(),
         formState: state
     }
 

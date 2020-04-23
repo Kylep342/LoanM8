@@ -21,6 +21,7 @@ export interface Loan {
     lifetimeInterestPaid: number;
     // flag indicating 
     type: LoanTypes;
+    id: string;
     //TODO: Implement editing with this member
     // form state
     formState: FormStates

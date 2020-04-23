@@ -3,9 +3,14 @@ import { ActionCreator } from "redux";
 import * as AAT from "./Types";
 import { Loan } from "../../Loan";
 
-export const begin: ActionCreator<AAT.IActionsBegin> = () => ({
-    type: AAT.ActionTypes.BEGIN,
+export const beginLoanCreate: ActionCreator<AAT.IActionsBeginLoanCreate> = () => ({
+    type: AAT.ActionTypes.BEGIN_LOAN_CREATE,
     loanTypeChoiceFormOpen: true
+})
+
+export const beginPaymentCreate: ActionCreator<AAT.IActionsBeginPaymentCreate> = () => ({
+    type: AAT.ActionTypes.BEGIN_PAYMENT_CREATE,
+    paymentInputFormOpen: true
 })
 
 export const chooseCurrent: ActionCreator<AAT.IActionsChooseCurrent> = () => ({
@@ -62,4 +67,14 @@ export const futureBack: ActionCreator<AAT.IActionsFutureBack> = () => ({
 export const futureExit: ActionCreator<AAT.IActionsFutureExit> = () => ({
     type: AAT.ActionTypes.FUTURE_EXIT,
     futureLoanFormOpen: false
+})
+
+export const paymentCreate: ActionCreator<AAT.IActionsPaymentCreate> = () => ({
+    type: AAT.ActionTypes.PAYMENT_CREATE,
+    paymentInputFormOpen: false
+})
+
+export const paymentExit: ActionCreator<AAT.IActionsPaymentExit> = () => ({
+    type: AAT.ActionTypes.PAYMENT_EXIT,
+    paymentInputFormOpen: false
 })

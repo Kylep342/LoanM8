@@ -1,7 +1,9 @@
 import { Loan } from "../../Loan";
+import { monthlyPayment } from "../../monthlyPayment";
 
 export enum ActionTypes {
-    BEGIN = "AAT/BEGIN",
+    BEGIN_LOAN_CREATE = "AAT/BEGIN_LOAN_CREATE",
+    BEGIN_PAYMENT_CREATE = "AAT/BEGIN_PAYMENT_CREATE",
     CHOOSE_CURRENT = "AAT/CHOOSE_CURRENT",
     CHOOSE_FUTURE = "AAT/CHOOSE_FUTURE",
     CHOICE_EXIT = "AAT/CHOICE_EXIT",
@@ -12,11 +14,18 @@ export enum ActionTypes {
     FUTURE_CREATE = "AAT/FUTURE_CREATE",
     FUTURE_BACK = "AAT/FUTURE_BACK",
     FUTURE_EXIT = "AAT/FUTURE_EXIT",
+    PAYMENT_CREATE = "AAT/PAYMENT_CREATE",
+    PAYMENT_EXIT = "AAT/PAYMENT_EXIT",
 }
 
-export interface IActionsBegin {
-    type: ActionTypes.BEGIN;
+export interface IActionsBeginLoanCreate {
+    type: ActionTypes.BEGIN_LOAN_CREATE;
     loanTypeChoiceFormOpen: boolean;
+}
+
+export interface IActionsBeginPaymentCreate {
+    type: ActionTypes.BEGIN_PAYMENT_CREATE;
+    paymentInputFormOpen: boolean;
 }
 
 export interface IActionsChooseCurrent {
@@ -75,8 +84,19 @@ export interface IActionsFutureExit {
     futureLoanFormOpen: boolean;
 }
 
+export interface IActionsPaymentCreate {
+    type: ActionTypes.PAYMENT_CREATE;
+    paymentInputFormOpen: boolean;
+}
+
+export interface IActionsPaymentExit {
+    type: ActionTypes.PAYMENT_EXIT;
+    paymentInputFormOpen: boolean;
+}
+
 export type Actions =
-    | IActionsBegin
+    | IActionsBeginLoanCreate
+    | IActionsBeginPaymentCreate
     | IActionsChooseCurrent
     | IActionsChooseFuture
     | IActionsChoiceExit
@@ -87,11 +107,14 @@ export type Actions =
     | IActionsFutureCreate
     | IActionsFutureBack
     | IActionsFutureExit
+    | IActionsPaymentCreate
+    | IActionsPaymentExit
 
 export interface IAppState {
     readonly currentLoanFormOpen: boolean;
     readonly futureLoanFormOpen: boolean;
     readonly loanTypeChoiceFormOpen: boolean;
+    readonly paymentInputFormOpen: boolean;
     readonly loans: Loan[];
-    readonly monthlyPaymentBudgets: number[];
+    readonly monthlyPaymentBudgets: monthlyPayment[];
 }

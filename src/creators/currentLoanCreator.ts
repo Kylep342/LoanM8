@@ -1,5 +1,6 @@
 import { Loan, LoanTypes } from "../Loan";
 import { ICurrentLoanState } from "../types/LoanTypes";
+import { RandomID } from "../utils/RandomID";
 
 /**
  *
@@ -49,6 +50,8 @@ const determinePrincipal = (
 export const createCurrentLoan = (state: ICurrentLoanState): Loan => {
 
     const name = state.name;
+    // For the next 3 paramters, the TypeScript compiler will complain
+    // about a type mismatch, but the JS form parsing turns everything into a string
     const balance = parseFloat(state.balance)
     const interestRate = parseFloat(state.interestRate)
     const minPmt = parseFloat(state.minPmt)
@@ -77,6 +80,7 @@ export const createCurrentLoan = (state: ICurrentLoanState): Loan => {
         lifetimePrincipalPaid: 0,
         lifetimeInterestPaid: 0,
         type: LoanTypes.Current,
+        id: RandomID(),
         formState: state
     }
 
