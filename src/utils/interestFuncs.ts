@@ -1,9 +1,21 @@
+/**
+ *
+ * Function to reduce an array of interest partitions into a single, total interest value
+ *
+ * @param accumulator
+ * @param currentValue
+ * @param index
+ * @param initialValue
+ */
+
+
 const reduceInterestValues = (
     accumulator: number,
     currentValue: number,
     index: number,
-    initialValue: number
+    array: number[]
 ): number => accumulator + currentValue;
+
 
 export const apportionInterest = (
     principal: number,
