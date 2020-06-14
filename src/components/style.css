@@ -134,7 +134,7 @@ button {
   cursor: pointer;
 }
 
-.deleteLoanButton {
+.deleteCardButton {
     background-color: #386150;
 }
 
@@ -146,26 +146,26 @@ button {
     flex: 1;
 }
 
-.loanCard {
+.itemCard {
     display: flex;
     padding-left: 70px;
 }
 
-.loanCardName {
+.cardName {
     font-size: 24px;
     font-weight: bold;
 }
 
-.loansPanel {
+.cardsPanel {
     margin-top: 20px;
-    width: 33%
+    width: 20%
 }
 
-.loansPanelNotifier {
+.cardsPanelNotifier {
     text-align: center;
 }
 
-.loansPanelTitle {
+.cardsPanelTitle {
     text-align: center
 }
 

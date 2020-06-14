@@ -1,25 +1,23 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
-import { Loan } from "../Loan";
-import { deleteLoan } from "../store/actions/Actions";
-
-import "./style.css";
+import { Budget } from "../Budget";
+import { deleteBudget } from "../store/actions/Actions";
 
 interface IProps {
-    key: string;
-    loan: Loan;
-    delete: typeof deleteLoan;
+    key: string,
+    budget: Budget;
+    delete: typeof deleteBudget;
 }
 
-class LoanCard extends React.Component<IProps> {
+class BudgetCard extends React.Component<IProps> {
     public render() {
         return (
             <div key={this.props.key} className={"itemCard"}>
                 <div className={"cardInfo"}>
-                    <span className={"cardName"}>{this.props.loan.name}</span>
+                    <span className={"cardName"}>{"Monthly Payment Budget"}</span>
                     <br></br>
-                    <span>${this.props.loan.balance.toFixed(2)} at {this.props.loan.interestRate}%</span>
+                    <span>${this.props.budget.amount.toFixed(2)}/Month</span>
                 </div>
                 <div className={"deleteButtonWrapper"}>
                     <button className={"deleteCardButton"} onClick={this.handleDelete}>
@@ -31,14 +29,14 @@ class LoanCard extends React.Component<IProps> {
     }
 
     private handleDelete = () => {
-        this.props.delete(this.props.loan.id)
+        this.props.delete(this.props.budget.id)
     }
 }
 
 const mapDispatchToProps = (dispatch: any) => {
     return {
-        delete: (loanKey) => dispatch(deleteLoan(loanKey)),
+        delete: (budgetKey) => dispatch(deleteBudget(budgetKey)),
     }
 }
 
-export default connect(null, mapDispatchToProps)(LoanCard);
+export default connect(null, mapDispatchToProps)(BudgetCard);

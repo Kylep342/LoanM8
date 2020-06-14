@@ -8,9 +8,9 @@ export const beginLoanCreate: ActionCreator<AAT.IActionsBeginLoanCreate> = () =>
     loanTypeChoiceFormOpen: true
 })
 
-export const beginPaymentCreate: ActionCreator<AAT.IActionsBeginPaymentCreate> = () => ({
-    type: AAT.ActionTypes.BEGIN_PAYMENT_CREATE,
-    paymentInputFormOpen: true
+export const beginBudgetCreate: ActionCreator<AAT.IActionsbeginBudgetCreate> = () => ({
+    type: AAT.ActionTypes.BEGIN_BUDGET_CREATE,
+    budgetInputFormOpen: true
 })
 
 export const chooseCurrent: ActionCreator<AAT.IActionsChooseCurrent> = () => ({
@@ -47,6 +47,11 @@ export const currentExit: ActionCreator<AAT.IActionsCurrentExit> = () => ({
     currentLoanFormOpen: false
 })
 
+export const deleteBudget: ActionCreator<AAT.IActionsDeleteBudget> = (budgetKey: string) => ({
+    type: AAT.ActionTypes.DELETE_BUDGET,
+    budgetKey: budgetKey
+})
+
 export const deleteLoan: ActionCreator<AAT.IActionsDeleteLoan> = (loanKey: string) => ({
     type: AAT.ActionTypes.DELETE_LOAN,
     loanKey: loanKey
@@ -69,12 +74,12 @@ export const futureExit: ActionCreator<AAT.IActionsFutureExit> = () => ({
     futureLoanFormOpen: false
 })
 
-export const paymentCreate: ActionCreator<AAT.IActionsPaymentCreate> = () => ({
-    type: AAT.ActionTypes.PAYMENT_CREATE,
-    paymentInputFormOpen: false
+export const budgetCreate: ActionCreator<AAT.IActionsBudgetCreate> = () => ({
+    type: AAT.ActionTypes.BUDGET_CREATE,
+    budgetInputFormOpen: false
 })
 
-export const paymentExit: ActionCreator<AAT.IActionsPaymentExit> = () => ({
-    type: AAT.ActionTypes.PAYMENT_EXIT,
-    paymentInputFormOpen: false
+export const budgetExit: ActionCreator<AAT.IActionsBudgetExit> = () => ({
+    type: AAT.ActionTypes.BUDGET_EXIT,
+    budgetInputFormOpen: false
 })

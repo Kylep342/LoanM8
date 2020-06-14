@@ -1,21 +1,22 @@
 import { Loan } from "../../Loan";
-import { monthlyPayment } from "../../monthlyPayment";
+import { Budget } from "../../Budget";
 
 export enum ActionTypes {
     BEGIN_LOAN_CREATE = "AAT/BEGIN_LOAN_CREATE",
-    BEGIN_PAYMENT_CREATE = "AAT/BEGIN_PAYMENT_CREATE",
+    BEGIN_BUDGET_CREATE = "AAT/BEGIN_BUDGET_CREATE",
     CHOOSE_CURRENT = "AAT/CHOOSE_CURRENT",
     CHOOSE_FUTURE = "AAT/CHOOSE_FUTURE",
     CHOICE_EXIT = "AAT/CHOICE_EXIT",
     CURRENT_CREATE = "AAT/CURRENT_CREATE",
     CURRENT_BACK = "AAT/CURRENT_BACK",
     CURRENT_EXIT = "AAT/CURRENT_EXIT",
+    DELETE_BUDGET = "AAT/DELETE_BUDGET",
     DELETE_LOAN = "AAT/DELETE_LOAN",
     FUTURE_CREATE = "AAT/FUTURE_CREATE",
     FUTURE_BACK = "AAT/FUTURE_BACK",
     FUTURE_EXIT = "AAT/FUTURE_EXIT",
-    PAYMENT_CREATE = "AAT/PAYMENT_CREATE",
-    PAYMENT_EXIT = "AAT/PAYMENT_EXIT",
+    BUDGET_CREATE = "AAT/BUDGET_CREATE",
+    BUDGET_EXIT = "AAT/BUDGET_EXIT",
 }
 
 export interface IActionsBeginLoanCreate {
@@ -23,9 +24,9 @@ export interface IActionsBeginLoanCreate {
     loanTypeChoiceFormOpen: boolean;
 }
 
-export interface IActionsBeginPaymentCreate {
-    type: ActionTypes.BEGIN_PAYMENT_CREATE;
-    paymentInputFormOpen: boolean;
+export interface IActionsbeginBudgetCreate {
+    type: ActionTypes.BEGIN_BUDGET_CREATE;
+    budgetInputFormOpen: boolean;
 }
 
 export interface IActionsChooseCurrent {
@@ -62,6 +63,11 @@ export interface IActionsCurrentExit {
     currentLoanFormOpen: boolean;
 }
 
+export interface IActionsDeleteBudget {
+    type: ActionTypes.DELETE_BUDGET;
+    budgetKey: string;
+}
+
 export interface IActionsDeleteLoan {
     type: ActionTypes.DELETE_LOAN;
     loanKey: string;
@@ -84,37 +90,38 @@ export interface IActionsFutureExit {
     futureLoanFormOpen: boolean;
 }
 
-export interface IActionsPaymentCreate {
-    type: ActionTypes.PAYMENT_CREATE;
-    paymentInputFormOpen: boolean;
+export interface IActionsBudgetCreate {
+    type: ActionTypes.BUDGET_CREATE;
+    budgetInputFormOpen: boolean;
 }
 
-export interface IActionsPaymentExit {
-    type: ActionTypes.PAYMENT_EXIT;
-    paymentInputFormOpen: boolean;
+export interface IActionsBudgetExit {
+    type: ActionTypes.BUDGET_EXIT;
+    budgetInputFormOpen: boolean;
 }
 
 export type Actions =
     | IActionsBeginLoanCreate
-    | IActionsBeginPaymentCreate
+    | IActionsbeginBudgetCreate
     | IActionsChooseCurrent
     | IActionsChooseFuture
     | IActionsChoiceExit
     | IActionsCurrentCreate
     | IActionsCurrentBack
     | IActionsCurrentExit
+    | IActionsDeleteBudget
     | IActionsDeleteLoan
     | IActionsFutureCreate
     | IActionsFutureBack
     | IActionsFutureExit
-    | IActionsPaymentCreate
-    | IActionsPaymentExit
+    | IActionsBudgetCreate
+    | IActionsBudgetExit
 
 export interface IAppState {
     readonly currentLoanFormOpen: boolean;
     readonly futureLoanFormOpen: boolean;
     readonly loanTypeChoiceFormOpen: boolean;
-    readonly paymentInputFormOpen: boolean;
+    readonly budgetInputFormOpen: boolean;
     readonly loans: Loan[];
-    readonly monthlyPaymentBudgets: monthlyPayment[];
+    readonly budgets: Budget[];
 }

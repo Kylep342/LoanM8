@@ -2,15 +2,15 @@ import { Reducer } from "redux";
 
 import { IAppState, Actions, ActionTypes } from "../actions/Types";
 import { Loan } from "../../Loan";
-import { monthlyPayment } from "../../monthlyPayment";
+import { Budget } from "../../budget";
 
 const initialState: IAppState = {
     loanTypeChoiceFormOpen: false,
-    paymentInputFormOpen: false,
     currentLoanFormOpen: false,
     futureLoanFormOpen: false,
+    budgetInputFormOpen: false,
     loans: new Array<Loan>(),
-    monthlyPaymentBudgets: new Array<monthlyPayment>(),
+    budgets: new Array<Budget>(),
 
 }
 
@@ -21,10 +21,10 @@ export const AppReducer: Reducer<IAppState, Actions> = (state = initialState, ac
                 ...state,
                 loanTypeChoiceFormOpen: action.loanTypeChoiceFormOpen
             }
-        case ActionTypes.BEGIN_PAYMENT_CREATE:
+        case ActionTypes.BEGIN_BUDGET_CREATE:
             return {
                 ...state,
-                paymentInputFormOpen: action.paymentInputFormOpen
+                budgetInputFormOpen: action.budgetInputFormOpen
             }
         case ActionTypes.CHOOSE_CURRENT:
             return {

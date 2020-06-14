@@ -15,21 +15,21 @@ interface IProps {
 
 const LoansPanel: React.SFC<IProps> = props => {
     return (
-        <div className={"loansPanel"}>
-            <div className={"loansPanelTitle"}>
+        <div className={"cardsPanel"}>
+            <div className={"cardsPanelTitle"}>
                 <h2>Your Loans</h2>
             </div>
-            <div className={"loansPanelContent"}>
+            <div className={"cardsPanelContent"}>
                 {!props.loans.length ?
-                    <p className={"loansPanelNotifier"}>
+                    <p className={"cardsPanelNotifier"}>
                         You haven't added any loans. Click "Add a Loan" to get started.
-                        </p> :
+                    </p> :
                     props.loans.map(loan => {
                         return <LoanCard key={loan.id} loan={loan}></LoanCard>
                     })
                 }
             </div>
-            <div className={"loansPanelTitle"}>
+            <div className={"cardsPanelTitle"}>
                 <CreateLoanButton />
             </div>
         </div>

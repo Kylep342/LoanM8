@@ -9,6 +9,8 @@ import Header from "./components/Header";
 import LoanTypeChoiceModal from "./components/LoanTypeChoiceModal";
 import CurrentLoanFormContainer from "./components/CurrentLoanForm";
 import FutureLoanFormContainer from "./components/FutureLoanForm";
+import BudgetFormContainer from "./components/BudgetForm";
+import BudgetsPanel from "./components/BudgetsPanel";
 import LoansPanel from "./components/LoansPanel";
 
 
@@ -19,7 +21,9 @@ const App: React.SFC = () => {
             <LoanTypeChoiceModal />
             <CurrentLoanFormContainer />
             <FutureLoanFormContainer />
+            <BudgetFormContainer />
             <LoansPanel />
+            <BudgetsPanel />
         </div>
     )
 }
