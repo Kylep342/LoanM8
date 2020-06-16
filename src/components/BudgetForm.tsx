@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { IApplicationState } from "../store/Store";
 import { budgetCreate, budgetExit } from "../store/actions/Actions";
 import { IBudgetState } from "../types/BudgetTypes";
-import { createBudget } from "../creators/monthlyPaymentCreator";
+import { createBudget } from "../creators/budgetCreator";
 
 import "./style.css";
 
@@ -15,7 +15,7 @@ interface IProps {
 }
 
 
-class MonthlyPaymentFormContainer extends React.Component<IProps, IBudgetState> {
+class BudgetFormContainer extends React.Component<IProps, IBudgetState> {
     state = {
         amount: undefined
     }
@@ -73,7 +73,7 @@ class MonthlyPaymentFormContainer extends React.Component<IProps, IBudgetState> 
     }
 
     private handleCreateClick = () => {
-        const newMonthlyPaymentBudget = createBudget(this.state.amount);
+        const newMonthlyPaymentBudget = createBudget(this.state);
         this.props.create(newMonthlyPaymentBudget);
         this.clearFields();
     }
@@ -92,9 +92,9 @@ const mapStateToProps = (store: IApplicationState) => {
 
 const mapDispatchToProps = (dispatch: any) => {
     return {
-        create: (newMonthlyPaymentBudget) => dispatch(budgetCreate(newMonthlyPaymentBudget)),
+        create: (newBudget) => dispatch(budgetCreate(newBudget)),
         exit: () => dispatch(budgetExit()),
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MonthlyPaymentFormContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(BudgetFormContainer);

@@ -92,6 +92,7 @@ export interface IActionsFutureExit {
 
 export interface IActionsBudgetCreate {
     type: ActionTypes.BUDGET_CREATE;
+    newBudget: Budget;
     budgetInputFormOpen: boolean;
 }
 

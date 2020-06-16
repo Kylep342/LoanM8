@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import { IApplicationState } from "../store/Store";
 import BudgetCard from "./BudgetCard";
-import { Budget } from "../budget";
+import { Budget } from "../Budget";
 
 import "./style.css";
 import CreateBudgetButton from "./CreateBudgetButton";

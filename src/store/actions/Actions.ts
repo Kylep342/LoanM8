@@ -1,6 +1,7 @@
 import { ActionCreator } from "redux";
 
 import * as AAT from "./Types";
+import { Budget } from "../../Budget";
 import { Loan } from "../../Loan";
 
 export const beginLoanCreate: ActionCreator<AAT.IActionsBeginLoanCreate> = () => ({
@@ -74,8 +75,9 @@ export const futureExit: ActionCreator<AAT.IActionsFutureExit> = () => ({
     futureLoanFormOpen: false
 })
 
-export const budgetCreate: ActionCreator<AAT.IActionsBudgetCreate> = () => ({
+export const budgetCreate: ActionCreator<AAT.IActionsBudgetCreate> = (newBudget: Budget) => ({
     type: AAT.ActionTypes.BUDGET_CREATE,
+    newBudget: newBudget,
     budgetInputFormOpen: false
 })
 
