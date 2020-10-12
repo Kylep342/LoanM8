@@ -87,8 +87,7 @@ const allocatePayments = (
     payment: number
 ) => {
     let payments = []
-    let loan;
-    for (loan of loansArray) {
+    for (let loan of loansArray) {
         let amt = Math.min(loan.minPmt, loan.balance)
         payments.push(amt)
         payment -= amt
@@ -102,8 +101,7 @@ const allocatePayments = (
     * to the highest priority loan (i.e. lowest index in array)
     * while there is one loan with a balance greater than the minimum payment
     */
-    let index;
-    for (index in payments) {
+    for (let index in payments) {
         let additionalAmount = Math.min((loansArray[index].balance - payments[index]), payment)
         payments[index] += additionalAmount
         payment -= additionalAmount
@@ -189,8 +187,7 @@ export const paymentSchedules = (
 
     initAllLoansBalanceValuesForDate(loansPaymentsData, startDateStr)
     // Set up data container for payment info and initialize
-    let loan;
-    for (loan of loans) {
+    for (let loan of loans) {
         loansPaymentsData[loan.name] = {
             dailyBalanceData: {
                 dates: [],
@@ -222,7 +219,7 @@ export const paymentSchedules = (
     while (loans.length) {
         const dateStr = dateOfRepayment.toISOString()
         initAllLoansBalanceValuesForDate(loansPaymentsData, dateStr)
-        for (loan of loans) {
+        for (let loan of loans) {
             accrueInterest(loan)
             loansPaymentsData[loan.name].dailyBalanceData.dates.push(dateStr)
             loansPaymentsData[loan.name].dailyBalanceData.interest.push(loan.interest)
@@ -245,6 +242,7 @@ export const paymentSchedules = (
         // manual looping over loans is necessary
         // due to splicing of loan from list once its principal is 0
         let index;
+        let loan;
         for (index = 0; index < loans.length;) {
             loan = loans[index]
             if (loan.principal === 0) {
