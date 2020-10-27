@@ -1,8 +1,8 @@
 .DS_store
 
-node_modules/**
-.cache/**
-dist/**
+node_modules/
 
-.vscode/**
+.cache/
+dist/
 
+.vscode/
