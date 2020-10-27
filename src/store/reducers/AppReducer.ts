@@ -11,7 +11,6 @@ const initialState: IAppState = {
     budgetInputFormOpen: false,
     loans: new Array<Loan>(),
     budgets: new Array<Budget>(),
-
 }
 
 export const AppReducer: Reducer<IAppState, Actions> = (state = initialState, action) => {
@@ -74,7 +73,7 @@ export const AppReducer: Reducer<IAppState, Actions> = (state = initialState, ac
         case ActionTypes.DELETE_BUDGET:
             return {
                 ...state,
-                budgets: state.budgets.filter(budget => budget.id != action.budgetKey),
+                budgets: state.budgets.filter(budget => budget.id !== action.budgetKey),
             }
         case ActionTypes.DELETE_LOAN:
             return {
