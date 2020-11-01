@@ -13,7 +13,7 @@ interface IProps {
     budgets: Budget[];
 }
 
-const PaymentsPanel: React.SFC<IProps> = props => {
+const PaymentsPanel: React.FunctionComponent<IProps> = props => {
     return (
         <div className={"cardsPanel"}>
             <div className={"cardsPanelTitle"}>

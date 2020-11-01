@@ -13,7 +13,7 @@ interface IProps {
     loans: Loan[];
 }
 
-const LoansPanel: React.SFC<IProps> = props => {
+const LoansPanel: React.FunctionComponent<IProps> = props => {
     return (
         <div className={"cardsPanel"}>
             <div className={"cardsPanelTitle"}>

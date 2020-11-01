@@ -14,7 +14,7 @@ import BudgetsPanel from "./components/BudgetsPanel";
 import LoansPanel from "./components/LoansPanel";
 
 
-const App: React.SFC = () => {
+const App: React.FunctionComponent = () => {
     return (
         <div className="App">
             <Header />
@@ -32,7 +32,7 @@ interface IProps {
     store: Store<IApplicationState>;
 }
 
-const Root: React.SFC<IProps> = props => {
+const Root: React.FunctionComponent<IProps> = props => {
     return (
         <Provider store={props.store}>
             <App />

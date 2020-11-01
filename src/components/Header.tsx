@@ -2,7 +2,7 @@ import * as React from "react";
 
 import "./style.css";
 
-const Header: React.SFC = () => {
+const Header: React.FunctionComponent = () => {
     return (
         <header className="header">
             <h1 className="header-title">LoanM8</h1>
