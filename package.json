@@ -18,8 +18,8 @@
     },
     "homepage": "https://github.com/Kylep342/LoanM8#readme",
     "devDependencies": {
-        "@types/react": "^16.9.53",
-        "@types/react-dom": "^16.9.8",
+        "@types/react": "^16.9.55",
+        "@types/react-dom": "^16.9.9",
         "@types/react-redux": "^7.1.9",
         "parcel-bundler": "^1.12.4",
         "react": "^16.14.0",
@@ -29,7 +29,7 @@
         "typescript": "^3.9.7"
     },
     "dependencies": {
-        "@types/plotly.js": "^1.54.0",
+        "@types/plotly.js": "^1.54.2",
         "parcel": "^1.12.4",
         "plotly.js": "^1.57.1"
     }
