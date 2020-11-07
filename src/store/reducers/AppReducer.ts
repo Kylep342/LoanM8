@@ -11,7 +11,15 @@ const initialState: IAppState = {
     budgetInputFormOpen: false,
     loans: new Array<Loan>(),
     budgets: new Array<Budget>(),
+    loanBalances: new Array<Number>(),
+    lifetimeTotals: new Array<Number>(),
 }
+
+
+export const CalculatePayments = (loans: Array<Loan>, budgets: Array<Budget>): any => {
+    return loans.length && budgets.length ? [] : []
+}
+
 
 export const AppReducer: Reducer<IAppState, Actions> = (state = initialState, action) => {
     switch (action.type) {

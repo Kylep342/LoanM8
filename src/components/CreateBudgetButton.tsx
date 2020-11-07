@@ -13,7 +13,7 @@ interface IProps {
 class CreatePaymentButton extends React.Component<IProps> {
     public render() {
         return (
-            <button className={"button-primary"} onClick={this.handleCreateClick}>Add a Monthly Payment Budget</button>
+            <button className={"add-button align-right"} onClick={this.handleCreateClick}>+</button>
         )
     }
 

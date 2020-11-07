@@ -125,4 +125,6 @@ export interface IAppState {
     readonly budgetInputFormOpen: boolean;
     readonly loans: Loan[];
     readonly budgets: Budget[];
+    readonly loanBalances: Number[];
+    readonly lifetimeTotals: Number[];
 }

@@ -15,9 +15,7 @@ class BudgetCard extends React.Component<IProps> {
         return (
             <div key={this.props.key} className={"itemCard"}>
                 <div className={"cardInfo"}>
-                    <span className={"cardName"}>{"Monthly Payment Budget"}</span>
-                    <br></br>
-                    <span>${this.props.budget.amount.toFixed(2)}/Month</span>
+                    <span className={"cardName"}>${this.props.budget.amount.toFixed(2)}/Month</span>
                 </div>
                 <div className={"deleteButtonWrapper"}>
                     <button className={"deleteCardButton"} onClick={this.handleDelete}>

@@ -17,20 +17,18 @@ const LoansPanel: React.FunctionComponent<IProps> = props => {
     return (
         <div className={"cardsPanel"}>
             <div className={"cardsPanelTitle"}>
-                <h2>Your Loans</h2>
+                <h2 className={"align-left"}>Your Loans</h2>
+                <CreateLoanButton />
             </div>
             <div className={"cardsPanelContent"}>
                 {!props.loans.length ?
                     <p className={"cardsPanelNotifier"}>
-                        You haven't added any loans. Click "Add a Loan" to get started.
+                        You haven't added any loans. Click the "+" to get started.
                     </p> :
                     props.loans.map(loan => {
                         return <LoanCard key={loan.id} loan={loan}></LoanCard>
                     })
                 }
-            </div>
-            <div className={"cardsPanelTitle"}>
-                <CreateLoanButton />
             </div>
         </div>
     )

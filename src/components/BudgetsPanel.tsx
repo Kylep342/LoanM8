@@ -17,20 +17,18 @@ const PaymentsPanel: React.FunctionComponent<IProps> = props => {
     return (
         <div className={"cardsPanel"}>
             <div className={"cardsPanelTitle"}>
-                <h2>Your Monthly Payment Budgets</h2>
+                <h2 className={"align-left"}>Your Budgets</h2>
+                <CreateBudgetButton />
             </div>
             <div className={"cardsPanelContent"}>
                 {!props.budgets.length ?
                     <p className={"cardsPanelNotifier"}>
-                        You haven't added any monthly payment budgets. Click "Add a Budget" to get started.
+                        You haven't added any monthly payment budgets. Click the "+" to get started.
                     </p> :
                     props.budgets.map(budget => {
                         return <BudgetCard key={budget.id} budget={budget}></BudgetCard>
                     })
                 }
-            </div>
-            <div className={"cardsPanelTitle"}>
-                <CreateBudgetButton />
             </div>
         </div>
     )

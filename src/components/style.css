@@ -19,7 +19,7 @@ button {
     text-align: center;
     /* background-color: #7808FA; */
     background-color: #386150;
-    height: 140px;
+    height: 120px;
     padding: 20px;
     color: #FFFFFF;
     font-family: "Cairo", sans-serif;
@@ -134,6 +134,11 @@ button {
   cursor: pointer;
 }
 
+.deleteButtonWrapper {
+    display: flex;
+    align-items: center;
+}
+
 .deleteCardButton {
     background-color: #386150;
 }
@@ -157,16 +162,45 @@ button {
 }
 
 .cardsPanel {
+    display: flex;
+    flex-direction: column;
     margin-top: 20px;
-    width: 20%
+    margin-left: 25px;
+    width: 20%;
+}
+
+.add-button {
+    background-color: #386150;
+    border-color: #386150;
+    font-family: "Cairo", sans-serif;
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 80%;
+    transform: translateY(-50%);
+}
+
+.align-left {
+    float: left;
+}
+
+.align-right {
+    float: right;
 }
 
 .cardsPanelNotifier {
     text-align: center;
 }
 
+.cardsPanelContent {
+    display: block;
+}
+
 .cardsPanelTitle {
-    text-align: center
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    clear:both;
 }
 
 .white {

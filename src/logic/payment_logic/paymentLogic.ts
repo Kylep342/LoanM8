@@ -161,7 +161,7 @@ export const paymentSchedules = (
 ) => {
     // clone an Array of Loans from those added by the user
     // this is done to handle current need for mutability
-    let loans = JSON.parse(JSON.stringify(loansArray))
+    let loans = loansArray
 
     // core data structure to contain graph points and lifetime payment totals
     let loansPaymentsData = {}
