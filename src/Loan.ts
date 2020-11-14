@@ -1,4 +1,4 @@
-import { FormStates } from "./types/LoanTypes";
+import { FormStates } from "./types/LoanStateTypes";
 
 export enum LoanTypes {
     Current = "CURRENT",
@@ -12,6 +12,7 @@ export interface Loan {
     interestRate: number;
     minPmt: number;
     lastPaidOn: Date;
+    autopay: boolean;
     // necessary fields that are hidden and/or computed after user input
     principal: number;
     interest: number;

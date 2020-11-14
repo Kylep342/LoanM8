@@ -1,6 +1,6 @@
 
 import { Loan, LoanTypes } from "../Loan";
-import { IFutureLoanState } from "../types/LoanTypes";
+import { IFutureLoanState } from "../types/LoanStateTypes";
 import { RandomID } from "../utils/RandomID";
 import { apportionInterest } from "../utils/interestFuncs";
 
@@ -61,7 +61,8 @@ export const createFutureLoan = (state: IFutureLoanState): Loan => {
     const loan: Loan = {
         name: name,
         principal: principal,
-        interestRate: autopay ? interestRate - 0.25 : interestRate,
+        interestRate: interestRate,
+        autopay: autopay,
         balance: balance,
         interest: principal - balance,
         //TODO: revisit these next two

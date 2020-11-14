@@ -184,6 +184,10 @@ button {
     float: left;
 }
 
+.fa-trash {
+    color: #fff;
+}
+
 .align-right {
     float: right;
 }

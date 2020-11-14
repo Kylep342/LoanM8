@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import { IApplicationState } from "../store/Store";
 import { currentCreate, currentBack, currentExit } from "../store/actions/Actions";
-import { ICurrentLoanState } from "../types/LoanTypes";
+import { ICurrentLoanState } from "../types/LoanStateTypes";
 import { createCurrentLoan } from "../creators/currentLoanCreator";
 
 import "./style.css";
@@ -21,6 +21,7 @@ class CurrentLoanFormContainer extends React.Component<IProps, ICurrentLoanState
         name: undefined,
         balance: undefined,
         interestRate: undefined,
+        autopay: undefined,
         minPmt: undefined,
         lastPaidOn: undefined
     }
@@ -107,6 +108,17 @@ class CurrentLoanFormContainer extends React.Component<IProps, ICurrentLoanState
                                     onChange={this.handleInputChange}
                                 /> {/* Last Paid On */}
                             </div>
+
+                            <div className="form-group">
+                                <label htmlFor={"autopay"} className={"form-label"}>Do you use autopay: </label>
+                                <input
+                                    type={"checkbox"}
+                                    id={"currentLoanAutopayInput"}
+                                    name={"autopay"}
+                                    checked={this.state.autopay || false}
+                                    onChange={this.handleInputChange}
+                                /> {/* Autopay */}
+                            </div>
                         </div>
                     </div>
                     <div className="modal-buttons-container">
@@ -136,6 +148,7 @@ class CurrentLoanFormContainer extends React.Component<IProps, ICurrentLoanState
             name: undefined,
             balance: undefined,
             interestRate: undefined,
+            autopay: undefined,
             minPmt: undefined,
             lastPaidOn: undefined,
         })

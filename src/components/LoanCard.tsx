@@ -21,6 +21,11 @@ class LoanCard extends React.Component<IProps> {
                     <br></br>
                     <span>${this.props.loan.balance.toFixed(2)} at {this.props.loan.interestRate}%</span>
                 </div>
+                {/* <div>
+                    <button className={"editCardButton"} onClick={this.handleEdit}>
+                        <i className={"fa fa-pen"} aria-hidden={"true"}></i>
+                    </button>
+                </div> */}
                 <div className={"deleteButtonWrapper"}>
                     <button className={"deleteCardButton"} onClick={this.handleDelete}>
                         <i className={"fa fa-trash"} aria-hidden={"true"}></i>
@@ -28,6 +33,11 @@ class LoanCard extends React.Component<IProps> {
                 </div>
             </div>
         )
+    }
+
+    // TODO
+    private handleEdit = () => {
+        console.log(this.props.loan)
     }
 
     private handleDelete = () => {

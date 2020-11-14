@@ -16,7 +16,7 @@ const initialState: IAppState = {
 }
 
 
-export const CalculatePayments = (loans: Array<Loan>, budgets: Array<Budget>): any => {
+const calculatePayments = (loans: Array<Loan>, budgets: Array<Budget>): any => {
     return loans.length && budgets.length ? [] : []
 }
 

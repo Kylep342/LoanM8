@@ -2,8 +2,10 @@ export interface ICurrentLoanState {
     name: string;
     balance: number;
     interestRate: number;
+    autopay: boolean;
     minPmt: number;
     lastPaidOn: Date;
+    id?: string;
 }
 
 export interface IFutureLoanState {
@@ -15,6 +17,7 @@ export interface IFutureLoanState {
     subsidized: boolean;
     graduationDate: Date;
     autopay: boolean;
+    id?: string;
 }
 
 export type FormStates = ICurrentLoanState | IFutureLoanState

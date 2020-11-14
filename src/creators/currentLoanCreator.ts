@@ -1,5 +1,5 @@
 import { Loan, LoanTypes } from "../Loan";
-import { ICurrentLoanState } from "../types/LoanTypes";
+import { ICurrentLoanState } from "../types/LoanStateTypes";
 import { RandomID } from "../utils/RandomID";
 
 /**
@@ -56,6 +56,7 @@ export const createCurrentLoan = (state: ICurrentLoanState): Loan => {
     const interestRate = parseFloat(state.interestRate)
     const minPmt = parseFloat(state.minPmt)
     const lastPaidOn = new Date(state.lastPaidOn)
+    const autopay = state.autopay;
 
     const principal = determinePrincipal(
         balance,
@@ -67,6 +68,7 @@ export const createCurrentLoan = (state: ICurrentLoanState): Loan => {
         name: name,
         balance: balance,
         interestRate: interestRate,
+        autopay: autopay,
         minPmt: minPmt,
         lastPaidOn: lastPaidOn,
         dueOn: lastPaidOn.getDate(),

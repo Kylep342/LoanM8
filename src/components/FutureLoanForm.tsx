@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import { IApplicationState } from "../store/Store";
 import { futureCreate, futureBack, futureExit } from "../store/actions/Actions";
-import { IFutureLoanState } from "../types/LoanTypes";
+import { IFutureLoanState } from "../types/LoanStateTypes";
 import { createFutureLoan } from "../creators/futureLoanCreator";
 
 import "./style.css";
