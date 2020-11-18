@@ -16,5 +16,5 @@ LoanM8 provides a minimalist interface. To get started, create a loan by clickin
 
 
 nested list
-    - one
-        - one.sub
+- one
+    - one.sub
