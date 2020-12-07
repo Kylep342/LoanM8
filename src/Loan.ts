@@ -20,7 +20,7 @@ export interface Loan {
     beginRepaymentDate: Date;
     lifetimePrincipalPaid: number;
     lifetimeInterestPaid: number;
-    // flag indicating 
+    // flag indicating the type of the loan (see LoanTypes above)
     type: LoanTypes;
     id: string;
     //TODO: Implement editing with this member

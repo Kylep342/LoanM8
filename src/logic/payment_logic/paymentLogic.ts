@@ -1,5 +1,58 @@
 import { Loan } from "../../Loan";
 
+import {
+    IDailyBalanceData,
+    ILoanState,
+    IPaymentResult
+} from "../../types/PaymentTypes";
+
+
+// payLoan computes the principal and interest of a loan after making a payment
+const payLoan = (
+    payment: number,
+    principal: number,
+    interest: number
+): IPaymentResult => {
+    if (payment <= interest) {
+        const newInterest = interest - payment;
+        return {
+            payment: payment,
+            principal: principal,
+            interest: newInterest,
+        }
+    } else {
+        const paymentToPrincipal = payment - interest;
+        const newPrincipal = principal - paymentToPrincipal;
+        if (paymentToPrincipal >= principal) {
+            const newPayment = interest + principal;
+            return {
+                payment: newPayment,
+                principal: 0,
+                interest: 0,
+            }
+        } else {
+            return {
+                payment: payment,
+                principal: newPrincipal,
+                interest: 0
+            }
+        }
+    }
+}
+
+
+// calculateInterest calculates interest for a principal
+const calculateInterest = (principal: number, interestRate: number): number => {
+    return parseFloat((principal * (interestRate / 36525)).toFixed(2))
+}
+
+
+
+
+// OLD PARADIGM
+
+
+
 /**
 *
 * Set of functions supporting paying and tracking the balance of a loan

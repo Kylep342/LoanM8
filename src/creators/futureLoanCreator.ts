@@ -66,7 +66,7 @@ export const createFutureLoan = (state: IFutureLoanState): Loan => {
         balance: balance,
         interest: principal - balance,
         //TODO: revisit these next two
-        minPmt: undefined,
+        minPmt: parseFloat((principal / 120).toFixed(2)),
         lastPaidOn: undefined,
         dueOn: beginRepaymentDate.getDate(),
         beginRepaymentDate: beginRepaymentDate,
