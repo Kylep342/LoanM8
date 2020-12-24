@@ -16,15 +16,21 @@ button {
 }
 
 .header {
-    text-align: center;
-    /* background-color: #7808FA; */
+    align-items: center;
+    display: flex;
     background-color: #386150;
-    height: 120px;
-    padding: 20px;
+    height: 55px;
     color: #FFFFFF;
     font-family: "Cairo", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+.header-content {
+    display: flex;
+    width: 50%;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .modal-wrapper {
@@ -180,16 +186,16 @@ button {
     transform: translateY(-50%);
 }
 
-.align-left {
-    float: left;
-}
-
 .fa-trash {
     color: #fff;
 }
 
+.align-left {
+    justify-content: flex-start;
+}
+
 .align-right {
-    float: right;
+    justify-content: flex-end;
 }
 
 .cardsPanelNotifier {
